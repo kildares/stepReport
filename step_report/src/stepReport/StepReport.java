@@ -5,6 +5,9 @@
  */
 package stepReport;
 
+import stepReport.view.FuncionarioView;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Kildare
@@ -17,7 +20,12 @@ public class StepReport {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
+        JFrame screen = new JFrame();
+        FuncionarioView view = new FuncionarioView();
+        screen.add(view);
+        screen.setBounds(0, 0, 800, 630);
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        screen.setVisible(true);
         
     }
     
