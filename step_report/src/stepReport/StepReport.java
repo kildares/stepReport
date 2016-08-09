@@ -7,6 +7,8 @@ package stepReport;
 
 import stepReport.view.FuncionarioView;
 import javax.swing.JFrame;
+import stepReport.control.loginControl;
+import stepReport.view.loginView;
 import stepReport.view.mainScreenView;
 
 /**
@@ -21,11 +23,16 @@ public class StepReport {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        mainScreenView screen = new mainScreenView();
+        loginControl control = new loginControl();
         
-        screen.setBounds(200, 100, 800, 650);
-        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        screen.setVisible(true);
+        
+        JFrame frame = new JFrame();
+        frame.add(control.getView());
+        frame.setVisible(true);
+        frame.setBounds(200, 100, 300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
         
     }
     
