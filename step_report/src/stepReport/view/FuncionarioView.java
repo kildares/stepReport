@@ -28,7 +28,6 @@ public class FuncionarioView extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         nomeLabel = new javax.swing.JLabel();
         numeroLabel = new javax.swing.JLabel();
         nacionalidadeLabel = new javax.swing.JLabel();
@@ -47,9 +46,8 @@ public class FuncionarioView extends javax.swing.JPanel {
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
+        confirmarButton = new javax.swing.JButton();
+        cancelarButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -111,11 +109,26 @@ public class FuncionarioView extends javax.swing.JPanel {
         nacionalidadeCombo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afeganistão                                   ", "África do Sul                                 ", "Albânia                                       ", "Alemanha                                      ", "Andorra                                       ", "Angola                                        ", "Anguilla                                      ", "Antilhas Holandesas                           ", "Antárctida                                    ", "Antígua e Barbuda                             ", "Argentina                                     ", "Argélia                                       ", "Armênia                                       ", "Aruba                                         ", "Arábia Saudita                                ", "Austrália                                     ", "Áustria                                       ", "Azerbaijão                                    ", "Bahamas                                       ", "Bahrein                                       ", "Bangladesh                                    ", "Barbados                                      ", "Belize                                        ", "Benim                                         ", "Bermudas                                      ", "Bielorrússia                                  ", "Bolívia                                       ", "Botswana                                      ", "Brunei                                        ", "Bulgária                                      ", "Burkina Faso                                  ", "Burundi                                       ", "Butão                                         ", "Bélgica                                       ", "Bósnia e Herzegovina                          ", "Cabo Verde                                    ", "Camarões                                      ", "Camboja                                       ", "Canadá                                        ", "Catar                                         ", "Cazaquistão                                   ", "Chade                                         ", "Chile                                         ", "China                                         ", "Chipre                                        ", "Colômbia                                      ", "Comores                                       ", "Coreia do Norte                               ", "Coreia do Sul                                 ", "Costa do Marfim                               ", "Costa Rica                                    ", "Croácia                                       ", "Cuba                                          ", "Dinamarca                                     ", "Djibouti                                      ", "Dominica                                      ", "Egito                                         ", "El Salvador                                   ", "Emirados Árabes Unidos                        ", "Equador                                       ", "Eritreia                                      ", "Escócia                                       ", "Eslováquia                                    ", "Eslovênia                                     ", "Espanha                                       ", "Estados Federados da Micronésia               ", "Estados Unidos                                ", "Estônia                                       ", "Etiópia                                       ", "Fiji                                          ", "Filipinas                                     ", "Finlândia                                     ", "França                                        ", "Gabão                                         ", "Gana                                          ", "Geórgia                                       ", "Gibraltar                                     ", "Granada                                       ", "Gronelândia                                   ", "Grécia                                        ", "Guadalupe                                     ", "Guam                                          ", "Guatemala                                     ", "Guernesei                                     ", "Guiana                                        ", "Guiana Francesa                               ", "Guiné                                         ", "Guiné Equatorial                              ", "Guiné-Bissau                                  ", "Gâmbia                                        ", "Haiti                                         ", "Honduras                                      ", "Hong Kong                                     ", "Hungria                                       ", "Ilha Bouvet                                   ", "Ilha de Man                                   ", "Ilha do Natal                                 ", "Ilha Heard e Ilhas McDonald                   ", "Ilha Norfolk                                  ", "Ilhas Cayman                                  ", "Ilhas Cocos (Keeling)                         ", "Ilhas Cook                                    ", "Ilhas Feroé                                   ", "Ilhas Geórgia do Sul e Sandwich do Sul        ", "Ilhas Malvinas                                ", "Ilhas Marshall                                ", "Ilhas Menores Distantes dos Estados Unidos    ", "Ilhas Salomão                                 ", "Ilhas Virgens Americanas                      ", "Ilhas Virgens Britânicas                      ", "Ilhas Åland                                   ", "Indonésia                                     ", "Inglaterra                                    ", "Índia                                         ", "Iraque                                        ", "Irlanda do Norte                              ", "Irlanda                                       ", "Irã                                           ", "Islândia                                      ", "Israel                                        ", "Itália                                        ", "Iêmen                                         ", "Jamaica                                       ", "Japão                                         ", "Jersey                                        ", "Jordânia                                      ", "Kiribati                                      ", "Kuwait                                        ", "Laos                                          ", "Lesoto                                        ", "Letônia                                       ", "Libéria                                       ", "Liechtenstein                                 ", "Lituânia                                      ", "Luxemburgo                                    ", "Líbano                                        ", "Líbia                                         ", "Macau                                         ", "Macedônia                                     ", "Madagáscar                                    ", "Malawi                                        ", "Maldivas                                      ", "Mali                                          ", "Malta                                         ", "Malásia                                       ", "Marianas Setentrionais                        ", "Marrocos                                      ", "Martinica                                     ", "Mauritânia                                    ", "Maurícia                                      ", "Mayotte                                       ", "Moldávia                                      ", "Mongólia                                      ", "Montenegro                                    ", "Montserrat                                    ", "Moçambique                                    ", "Myanmar                                       ", "México                                        ", "Mônaco                                        ", "Namíbia                                       ", "Nauru                                         ", "Nepal                                         ", "Nicarágua                                     ", "Nigéria                                       ", "Niue                                          ", "Noruega                                       ", "Nova Caledônia                                ", "Nova Zelândia                                 ", "Níger                                         ", "Omã                                           ", "Palau                                         ", "Palestina                                     ", "Panamá                                        ", "Papua-Nova Guiné                              ", "Paquistão                                     ", "Paraguai                                      ", "País de Gales                                 ", "Países Baixos                                 ", "Peru                                          ", "Pitcairn                                      ", "Polinésia Francesa                            ", "Polônia                                       ", "Porto Rico                                    ", "Portugal                                      ", "Quirguistão                                   ", "Quênia                                        ", "Reino Unido                                   ", "República Centro-Africana                     ", "República Checa                               ", "República Democrática do Congo                ", "República do Congo                            ", "República Dominicana                          ", "Reunião                                       ", "Romênia                                       ", "Ruanda                                        ", "Rússia                                        ", "Saara Ocidental                               ", "Saint Martin                                  ", "Saint-Barthélemy                              ", "Saint-Pierre e Miquelon                       ", "Samoa Americana                               ", "Samoa                                         ", "Santa Helena, Ascensão e Tristão da Cunha     ", "Santa Lúcia                                   ", "Senegal                                       ", "Serra Leoa                                    ", "Seychelles                                    ", "Singapura                                     ", "Somália                                       ", "Sri Lanka                                     ", "Suazilândia                                   ", "Sudão                                         ", "Suriname                                      ", "Suécia                                        ", "Suíça                                         ", "Svalbard e Jan Mayen                          ", "São Cristóvão e Nevis                         ", "São Marino                                    ", "São Tomé e Príncipe                           ", "São Vicente e Granadinas                      ", "Sérvia                                        ", "Síria                                         ", "Tadjiquistão                                  ", "Tailândia                                     ", "Taiwan                                        ", "Tanzânia                                      ", "Terras Austrais e Antárticas Francesas        ", "Território Britânico do Oceano Índico         ", "Timor-Leste                                   ", "Togo                                          ", "Tonga                                         ", "Toquelau                                      ", "Trinidad e Tobago                             ", "Tunísia                                       ", "Turcas e Caicos                               ", "Turquemenistão                                ", "Turquia                                       ", "Tuvalu                                        ", "Ucrânia                                       ", "Uganda                                        ", "Uruguai                                       ", "Uzbequistão                                   ", "Vanuatu                                       ", "Vaticano                                      ", "Venezuela                                     ", "Vietname                                      ", "Wallis e Futuna                               ", "Zimbabwe                                      ", "Zâmbia                                        " }));
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton1.setText("CONFIRMAR");
+        confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        confirmarButton.setText("CONFIRMAR");
+        confirmarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton2.setText("CANCELAR");
+        cancelarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        cancelarButton.setText("CANCELAR");
+        cancelarButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelarButtonMouseClicked(evt);
+            }
+        });
+        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -123,46 +136,38 @@ public class FuncionarioView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(263, 263, 263)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(263, 263, 263)
-                                .addComponent(jLabel1))
+                                .addComponent(cancelarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(confirmarButton))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(semanaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(navioLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(bspLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(profissaoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(nomeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(numeroLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(nacionalidadeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(taskNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(horasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField1)
-                                            .addComponent(jTextField2)
-                                            .addComponent(jTextField4)
-                                            .addComponent(jTextField5)
-                                            .addComponent(jTextField6)
-                                            .addComponent(jTextField7)
-                                            .addComponent(jTextField8)
-                                            .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                                            .addComponent(nacionalidadeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(semanaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(navioLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bspLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(profissaoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nomeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(numeroLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nacionalidadeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(taskNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(horasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField1)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jTextField4)
+                                    .addComponent(jTextField5)
+                                    .addComponent(jTextField6)
+                                    .addComponent(jTextField7)
+                                    .addComponent(jTextField8)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                                    .addComponent(nacionalidadeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,9 +175,7 @@ public class FuncionarioView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomeLabel)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -208,25 +211,36 @@ public class FuncionarioView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horasLabel)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarButtonMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelarButtonMouseClicked
+
+    private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_confirmarButtonActionPerformed
+
+    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelarButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bspLabel;
+    private javax.swing.JButton cancelarButton;
+    private javax.swing.JButton confirmarButton;
     private javax.swing.JLabel horasLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
