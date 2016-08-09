@@ -51,17 +51,17 @@ public final class loginView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
+        userLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
         passTextField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel1.setText("Senha:");
+        passwordLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        passwordLabel.setText("Senha:");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel2.setText("Usuário:");
+        userLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        userLabel.setText("Usuário:");
 
         userTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
@@ -82,8 +82,8 @@ public final class loginView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(userLabel)
+                    .addComponent(passwordLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(loginButton)
@@ -96,11 +96,11 @@ public final class loginView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(userLabel)
                     .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(passwordLabel)
                     .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton)
@@ -121,17 +121,38 @@ public final class loginView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(new JFrame(), "Campo Senha não pode ser vazio");
         }
         else{
-            this.getControl().validateLogin(user, password);
+            
+            this.setGroupVisible(false);
+            
+            javax.swing.JLabel tempLabel = new javax.swing.JLabel("Carregando");
+            this.add(tempLabel);
+            
+            this.setVisible(false);
+            if(this.getControl().validateLogin(user, password)){
+                JOptionPane.showMessageDialog(new JFrame(), "aaa");
+                this.setGroupVisible(true);
+            }
         }
         
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    public void setGroupVisible(boolean isVisible){
+        
+            this.passTextField.setVisible(isVisible);
+            this.passwordLabel.setVisible(isVisible);
+            this.userTextField.setVisible(isVisible);
+            this.userLabel.setVisible(isVisible);
+            this.loginButton.setVisible(isVisible);
+        
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField passTextField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
 }
