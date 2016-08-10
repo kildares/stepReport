@@ -6,21 +6,39 @@
 package stepReport.view;
 
 import javax.swing.JFrame;
+import stepReport.control.FuncionarioControl;
+import stepReport.control.loginControl;
 
 /**
  *
  * @author Kildare
  */
-public class mainScreenView extends javax.swing.JFrame {
+public final class mainScreen extends javax.swing.JFrame {
 
     /**
      * Creates new form mainScreenView
      */
-    public mainScreenView() {
+    private loginControl login;
+    private FuncionarioControl funcionario;
+
+   
+    
+    
+    public mainScreen() {
         initComponents();
-        this.funcionario = new FuncionarioView();
-        this.add(this.funcionario);
-        funcionario.setBounds(0, 0, 800, 600);
+        this.setLogin(new loginControl(this));
+        this.setFuncionario(new FuncionarioControl(this));
+        this.add(this.getLogin().getView());
+        this.add(this.getFuncionario().getView());
+        
+        this.getFuncionario().getView().setVisible(false);
+        this.getLogin().getView().setVisible(true);
+        
+        this.Toolbar.setVisible(false);
+        
+        
+        this.getLogin().getView().setBounds(0, 0, 300, 160);
+        
     }
 
     /**
@@ -32,7 +50,7 @@ public class mainScreenView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
+        Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -61,12 +79,12 @@ public class mainScreenView extends javax.swing.JFrame {
         jMenuItem1.setText("Sair");
         jMenu1.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        Toolbar.add(jMenu1);
 
         jMenu2.setText("Editar");
-        jMenuBar1.add(jMenu2);
+        Toolbar.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(Toolbar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,7 +107,8 @@ public class mainScreenView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -103,32 +122,65 @@ public class mainScreenView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new mainScreenView().setVisible(true);
+            public void run() 
+            {
+            
+                mainScreen ms = new mainScreen();
+                ms.setVisible(true);
+                ms.setBounds(300, 300, 300, 210);
+                
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar Toolbar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
-    private FuncionarioView funcionario;
+
+    
+    public void loadFuncionario()
+    {
+        this.Toolbar.setVisible(true);
+        this.getFuncionario().loadFuncionario();
+    }
+    
+
+    public loginControl getLogin() {
+        return login;
+    }
+
+    public void setLogin(loginControl login) {
+        this.login = login;
+    }
+   
+     public FuncionarioControl getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(FuncionarioControl funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    
+    
 }
