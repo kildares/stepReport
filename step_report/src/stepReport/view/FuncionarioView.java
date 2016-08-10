@@ -12,7 +12,7 @@ package stepReport.view;
 public class FuncionarioView extends javax.swing.JPanel {
 
     /**
-     * Creates new form Funcionario
+     * Creates new form FuncionarioView
      */
     public FuncionarioView() {
         initComponents();

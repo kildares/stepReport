@@ -55,8 +55,8 @@ public final class loginView extends javax.swing.JPanel {
         passwordLabel = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
-        passTextField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
+        passTextField = new javax.swing.JPasswordField();
 
         passwordLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         passwordLabel.setText("Senha:");
@@ -66,8 +66,6 @@ public final class loginView extends javax.swing.JPanel {
 
         userTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
-        passTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-
         loginButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         loginButton.setText("ENTRAR");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +73,8 @@ public final class loginView extends javax.swing.JPanel {
                 loginButtonActionPerformed(evt);
             }
         });
+
+        passTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,10 +86,10 @@ public final class loginView extends javax.swing.JPanel {
                     .addComponent(userLabel)
                     .addComponent(passwordLabel))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(loginButton)
-                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(passTextField))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,9 +103,9 @@ public final class loginView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
                     .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(loginButton)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -143,7 +143,7 @@ public final class loginView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginButton;
-    private javax.swing.JTextField passTextField;
+    private javax.swing.JPasswordField passTextField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;

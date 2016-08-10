@@ -29,15 +29,16 @@ public final class FuncionarioControl {
     public FuncionarioControl(mainScreen Screen){
        
         this.setScreen(Screen);
-        this.setView(new FuncionarioView());
         
     }
     
     
     public void loadFuncionario() 
     {
-        this.getScreen().setBounds(100, 50, 800, 600);
-        this.getView().setVisible(true);
+        this.setView(new FuncionarioView());
+        this.getScreen().setBounds(50, 50, 800, 600);
+        this.getScreen().add(this.getView());
+        
     }
     
     

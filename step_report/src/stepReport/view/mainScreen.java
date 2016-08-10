@@ -29,9 +29,7 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setLogin(new loginControl(this));
         this.setFuncionario(new FuncionarioControl(this));
         this.add(this.getLogin().getView());
-        this.add(this.getFuncionario().getView());
         
-        this.getFuncionario().getView().setVisible(false);
         this.getLogin().getView().setVisible(true);
         
         this.Toolbar.setVisible(false);

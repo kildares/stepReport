@@ -47,10 +47,10 @@ public final class loginControl {
         
         if(this.getModel().validateLogin(user,password))
         {
-            this.getView().setVisible(false);
+            this.getScreen().remove(this.getView());
+            
             this.getScreen().loadFuncionario();
         }
-       
         
         return true;
     }
