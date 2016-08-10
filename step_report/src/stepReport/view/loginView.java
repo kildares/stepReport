@@ -7,6 +7,7 @@ package stepReport.view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import stepReport.control.loginControl;
 
 /**
@@ -122,16 +123,8 @@ public final class loginView extends javax.swing.JPanel {
         }
         else{
             
-            this.setGroupVisible(false);
+            this.getControl().validateLogin(user, password);
             
-            javax.swing.JLabel tempLabel = new javax.swing.JLabel("Carregando");
-            this.add(tempLabel);
-            
-            this.setVisible(false);
-            if(this.getControl().validateLogin(user, password)){
-                JOptionPane.showMessageDialog(new JFrame(), "aaa");
-                this.setGroupVisible(true);
-            }
         }
         
     }//GEN-LAST:event_loginButtonActionPerformed
