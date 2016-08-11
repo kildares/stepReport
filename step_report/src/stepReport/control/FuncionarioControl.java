@@ -27,17 +27,20 @@ public final class FuncionarioControl {
     }
     
     public FuncionarioControl(mainScreen Screen){
-       
+        this.setModel(new FuncionarioModel());
         this.setScreen(Screen);
         this.setView(new FuncionarioView());
-        
+        this.getView().setVisible(false);
     }
     
     
-    public void loadFuncionario() 
+    public void initFuncionario() 
     {
-        this.getScreen().setBounds(100, 50, 800, 600);
-        this.getView().setVisible(true);
+        this.setView(new FuncionarioView());
+        this.getScreen().setBounds(50, 50, 800, 710);
+        this.getScreen().add(this.getView());
+        mainScreen.setActive(this.getView());
+        this.getView().loadSearchView();
     }
     
     

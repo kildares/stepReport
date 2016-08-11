@@ -6,7 +6,7 @@
 package stepReport.control;
 
 import javax.swing.JFrame;
-import stepReport.model.loginModel;
+import stepReport.model.AdminModel;
 import stepReport.view.loginView;
 import stepReport.view.mainScreen;
 
@@ -17,7 +17,7 @@ import stepReport.view.mainScreen;
 public final class loginControl {
     
     private loginView view;
-    private loginModel model;
+    private AdminModel model;
     private mainScreen screen;
 
     public mainScreen getScreen() {
@@ -30,7 +30,7 @@ public final class loginControl {
    
     public loginControl(mainScreen screen){
         this.view = new loginView(this);
-        this.model = new loginModel();
+        this.model = new AdminModel();
         this.setScreen(screen);
     }
     
@@ -47,10 +47,9 @@ public final class loginControl {
         
         if(this.getModel().validateLogin(user,password))
         {
-            this.getView().setVisible(false);
-            this.getScreen().loadFuncionario();
+            this.getScreen().remove(this.getView());
+            this.getScreen().showMain();
         }
-       
         
         return true;
     }
@@ -63,11 +62,11 @@ public final class loginControl {
         this.view = view;
     }
     
-     public loginModel getModel() {
+     public AdminModel getModel() {
         return model;
     }
 
-    public void setModel(loginModel model) {
+    public void setModel(AdminModel model) {
         this.model = model;
     }
     
