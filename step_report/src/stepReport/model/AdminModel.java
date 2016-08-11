@@ -9,7 +9,7 @@ package stepReport.model;
  *
  * @author Kildare
  */
-public class loginModel {
+public class AdminModel {
     
     
     /**

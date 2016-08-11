@@ -27,7 +27,7 @@ public class FuncionarioView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        funcionarioLabel = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
         numeroLabel = new javax.swing.JLabel();
         nacionalidadeLabel = new javax.swing.JLabel();
@@ -37,8 +37,8 @@ public class FuncionarioView extends javax.swing.JPanel {
         semanaLabel = new javax.swing.JLabel();
         navioLabel = new javax.swing.JLabel();
         horasLabel = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        nomeTextField = new javax.swing.JTextField();
+        numeroTextField = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
@@ -51,8 +51,8 @@ public class FuncionarioView extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jLabel1.setText("Cadastrar Funcionário");
+        funcionarioLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        funcionarioLabel.setText("Cadastrar Funcionário");
 
         nomeLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -90,9 +90,9 @@ public class FuncionarioView extends javax.swing.JPanel {
         horasLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         horasLabel.setText("Horas / Dias:");
 
-        jTextField1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
         jTextField4.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
@@ -138,7 +138,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(263, 263, 263)
-                        .addComponent(jLabel1))
+                        .addComponent(funcionarioLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -159,8 +159,8 @@ public class FuncionarioView extends javax.swing.JPanel {
                                     .addComponent(horasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
+                                    .addComponent(nomeTextField)
+                                    .addComponent(numeroTextField)
                                     .addComponent(jTextField4)
                                     .addComponent(jTextField5)
                                     .addComponent(jTextField6)
@@ -174,15 +174,15 @@ public class FuncionarioView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(funcionarioLabel)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomeLabel)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numeroLabel)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numeroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nacionalidadeLabel)
@@ -239,10 +239,8 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JLabel bspLabel;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
+    private javax.swing.JLabel funcionarioLabel;
     private javax.swing.JLabel horasLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
@@ -253,9 +251,20 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JLabel nacionalidadeLabel;
     private javax.swing.JLabel navioLabel;
     private javax.swing.JLabel nomeLabel;
+    private javax.swing.JTextField nomeTextField;
     private javax.swing.JLabel numeroLabel;
+    private javax.swing.JTextField numeroTextField;
     private javax.swing.JLabel profissaoLabel;
     private javax.swing.JLabel semanaLabel;
     private javax.swing.JLabel taskNumber;
     // End of variables declaration//GEN-END:variables
+
+    public void loadSearchView() {
+        
+        this.funcionarioLabel.setText("Buscar Funcionário");
+        this.nomeTextField.setText("");
+        
+        
+        
+    }
 }

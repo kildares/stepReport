@@ -6,6 +6,8 @@
 package stepReport.view;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import stepReport.control.AdminControl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.loginControl;
 
@@ -20,16 +22,21 @@ public final class mainScreen extends javax.swing.JFrame {
      */
     private loginControl login;
     private FuncionarioControl funcionario;
-
-   
-    
+    private AdminControl admin;
+    private static JPanel active;
     
     public mainScreen() {
         initComponents();
         this.setLogin(new loginControl(this));
         this.setFuncionario(new FuncionarioControl(this));
-        this.add(this.getLogin().getView());
+        this.setAdmin(new AdminControl(this));
         
+        this.add(this.getLogin().getView());
+        this.add(this.getFuncionario().getView());
+        this.add(this.getAdmin().getView());
+        
+        
+        mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
         
         this.Toolbar.setVisible(false);
@@ -50,23 +57,16 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        userMenu = new javax.swing.JMenu();
+        userMenuItem = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Arquivo");
-
-        jMenuItem4.setText("Login");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
 
         jMenuItem3.setText("Salvar");
         jMenu1.add(jMenuItem3);
@@ -79,28 +79,32 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar.add(jMenu1);
 
-        jMenu2.setText("Editar");
-        Toolbar.add(jMenu2);
+        userMenu.setText("Usuário");
+
+        userMenuItem.setText("Editar Usuário");
+        userMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userMenuItemActionPerformed(evt);
+            }
+        });
+        userMenu.add(userMenuItem);
+
+        Toolbar.add(userMenu);
+
+        jMenu3.setText("Relatório");
+        Toolbar.add(jMenu3);
 
         setJMenuBar(Toolbar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void userMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        
+        mainScreen.active.setVisible(false);
+        this.getAdmin().initView();
+    }//GEN-LAST:event_userMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,7 +144,7 @@ public final class mainScreen extends javax.swing.JFrame {
                 ms.setVisible(true);
                 ms.setBounds(300, 300, 300, 210);
                 
-                
+              
             }
         });
     }
@@ -148,18 +152,21 @@ public final class mainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar Toolbar;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenu userMenu;
+    private javax.swing.JMenuItem userMenuItem;
     // End of variables declaration//GEN-END:variables
 
     
-    public void loadFuncionario()
+    public void showMain()
     {
         this.Toolbar.setVisible(true);
-        this.getFuncionario().loadFuncionario();
+        
+        
+        this.getFuncionario().initFuncionario();
     }
     
 
@@ -179,6 +186,16 @@ public final class mainScreen extends javax.swing.JFrame {
         this.funcionario = funcionario;
     }
 
+    public AdminControl getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(AdminControl admin) {
+        this.admin = admin;
+    }    
     
+    public static void setActive(JPanel panel){
+        mainScreen.active = panel;
+    }
     
 }
