@@ -5,6 +5,8 @@
  */
 package stepReport.view;
 
+import stepReport.control.FuncionarioControl;
+
 /**
  *
  * @author Kildare
@@ -14,8 +16,20 @@ public class FuncionarioView extends javax.swing.JPanel {
     /**
      * Creates new form FuncionarioView
      */
-    public FuncionarioView() {
+    
+    private FuncionarioControl Control;
+    
+    private static int state;
+    
+    private static final int CADASTRO = 1;        
+    private static final int BUSCA = 2;
+    private static final int EDIT = 3;
+    private static final int REMOVE = 4; 
+            
+    public FuncionarioView(FuncionarioControl Control) {
         initComponents();
+        this.Control = Control;
+        FuncionarioView.state = FuncionarioView.BUSCA;
     }
 
     /**
@@ -33,81 +47,101 @@ public class FuncionarioView extends javax.swing.JPanel {
         nacionalidadeLabel = new javax.swing.JLabel();
         bspLabel = new javax.swing.JLabel();
         profissaoLabel = new javax.swing.JLabel();
-        taskNumber = new javax.swing.JLabel();
-        semanaLabel = new javax.swing.JLabel();
+        taskLabel = new javax.swing.JLabel();
+        dataLabel = new javax.swing.JLabel();
         navioLabel = new javax.swing.JLabel();
-        horasLabel = new javax.swing.JLabel();
+        horaLabel = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
         numeroTextField = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        profissaoTextField = new javax.swing.JTextField();
+        bspTextField = new javax.swing.JTextField();
+        taskTextField = new javax.swing.JTextField();
+        navioTextField = new javax.swing.JTextField();
+        dataTextField = new javax.swing.JTextField();
+        horaTextField = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
         confirmarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         funcionarioLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         funcionarioLabel.setText("Cadastrar Funcionário");
+        add(funcionarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
 
         nomeLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nomeLabel.setText("Nome do trabalhador:");
+        add(nomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 78, 219, -1));
 
         numeroLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         numeroLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         numeroLabel.setText("Número do trabalhador:");
+        add(numeroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 128, -1, -1));
 
         nacionalidadeLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nacionalidadeLabel.setText("Nacionalidade:");
+        add(nacionalidadeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 175, 219, -1));
 
         bspLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         bspLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         bspLabel.setText("BSP:");
+        add(bspLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 269, 219, -1));
 
         profissaoLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         profissaoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         profissaoLabel.setText("Profissão:");
+        add(profissaoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 222, 219, -1));
 
-        taskNumber.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        taskNumber.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        taskNumber.setText("Task Number:");
+        taskLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        taskLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        taskLabel.setText("Task Number:");
+        add(taskLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 316, 219, -1));
 
-        semanaLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        semanaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        semanaLabel.setText("Data de Semana:");
+        dataLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        dataLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        dataLabel.setText("Data de Semana:");
+        add(dataLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 410, 219, -1));
 
         navioLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         navioLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         navioLabel.setText("Navio / Unidade:");
+        add(navioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 363, 219, -1));
 
-        horasLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        horasLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        horasLabel.setText("Horas / Dias:");
+        horaLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        horaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        horaLabel.setText("Horas / Dias:");
+        add(horaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 457, 219, -1));
 
         nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 78, 500, -1));
 
         numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(numeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 125, 500, -1));
 
-        jTextField4.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        profissaoTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(profissaoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 219, 500, -1));
 
-        jTextField5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        bspTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(bspTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 266, 500, -1));
 
-        jTextField6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        taskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(taskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 313, 500, -1));
 
-        jTextField7.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        navioTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(navioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 360, 500, -1));
 
-        jTextField8.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        dataTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(dataTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 407, 500, -1));
 
-        jTextField9.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        horaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(horaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 454, 500, -1));
 
         nacionalidadeCombo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afeganistão                                   ", "África do Sul                                 ", "Albânia                                       ", "Alemanha                                      ", "Andorra                                       ", "Angola                                        ", "Anguilla                                      ", "Antilhas Holandesas                           ", "Antárctida                                    ", "Antígua e Barbuda                             ", "Argentina                                     ", "Argélia                                       ", "Armênia                                       ", "Aruba                                         ", "Arábia Saudita                                ", "Austrália                                     ", "Áustria                                       ", "Azerbaijão                                    ", "Bahamas                                       ", "Bahrein                                       ", "Bangladesh                                    ", "Barbados                                      ", "Belize                                        ", "Benim                                         ", "Bermudas                                      ", "Bielorrússia                                  ", "Bolívia                                       ", "Botswana                                      ", "Brunei                                        ", "Bulgária                                      ", "Burkina Faso                                  ", "Burundi                                       ", "Butão                                         ", "Bélgica                                       ", "Bósnia e Herzegovina                          ", "Cabo Verde                                    ", "Camarões                                      ", "Camboja                                       ", "Canadá                                        ", "Catar                                         ", "Cazaquistão                                   ", "Chade                                         ", "Chile                                         ", "China                                         ", "Chipre                                        ", "Colômbia                                      ", "Comores                                       ", "Coreia do Norte                               ", "Coreia do Sul                                 ", "Costa do Marfim                               ", "Costa Rica                                    ", "Croácia                                       ", "Cuba                                          ", "Dinamarca                                     ", "Djibouti                                      ", "Dominica                                      ", "Egito                                         ", "El Salvador                                   ", "Emirados Árabes Unidos                        ", "Equador                                       ", "Eritreia                                      ", "Escócia                                       ", "Eslováquia                                    ", "Eslovênia                                     ", "Espanha                                       ", "Estados Federados da Micronésia               ", "Estados Unidos                                ", "Estônia                                       ", "Etiópia                                       ", "Fiji                                          ", "Filipinas                                     ", "Finlândia                                     ", "França                                        ", "Gabão                                         ", "Gana                                          ", "Geórgia                                       ", "Gibraltar                                     ", "Granada                                       ", "Gronelândia                                   ", "Grécia                                        ", "Guadalupe                                     ", "Guam                                          ", "Guatemala                                     ", "Guernesei                                     ", "Guiana                                        ", "Guiana Francesa                               ", "Guiné                                         ", "Guiné Equatorial                              ", "Guiné-Bissau                                  ", "Gâmbia                                        ", "Haiti                                         ", "Honduras                                      ", "Hong Kong                                     ", "Hungria                                       ", "Ilha Bouvet                                   ", "Ilha de Man                                   ", "Ilha do Natal                                 ", "Ilha Heard e Ilhas McDonald                   ", "Ilha Norfolk                                  ", "Ilhas Cayman                                  ", "Ilhas Cocos (Keeling)                         ", "Ilhas Cook                                    ", "Ilhas Feroé                                   ", "Ilhas Geórgia do Sul e Sandwich do Sul        ", "Ilhas Malvinas                                ", "Ilhas Marshall                                ", "Ilhas Menores Distantes dos Estados Unidos    ", "Ilhas Salomão                                 ", "Ilhas Virgens Americanas                      ", "Ilhas Virgens Britânicas                      ", "Ilhas Åland                                   ", "Indonésia                                     ", "Inglaterra                                    ", "Índia                                         ", "Iraque                                        ", "Irlanda do Norte                              ", "Irlanda                                       ", "Irã                                           ", "Islândia                                      ", "Israel                                        ", "Itália                                        ", "Iêmen                                         ", "Jamaica                                       ", "Japão                                         ", "Jersey                                        ", "Jordânia                                      ", "Kiribati                                      ", "Kuwait                                        ", "Laos                                          ", "Lesoto                                        ", "Letônia                                       ", "Libéria                                       ", "Liechtenstein                                 ", "Lituânia                                      ", "Luxemburgo                                    ", "Líbano                                        ", "Líbia                                         ", "Macau                                         ", "Macedônia                                     ", "Madagáscar                                    ", "Malawi                                        ", "Maldivas                                      ", "Mali                                          ", "Malta                                         ", "Malásia                                       ", "Marianas Setentrionais                        ", "Marrocos                                      ", "Martinica                                     ", "Mauritânia                                    ", "Maurícia                                      ", "Mayotte                                       ", "Moldávia                                      ", "Mongólia                                      ", "Montenegro                                    ", "Montserrat                                    ", "Moçambique                                    ", "Myanmar                                       ", "México                                        ", "Mônaco                                        ", "Namíbia                                       ", "Nauru                                         ", "Nepal                                         ", "Nicarágua                                     ", "Nigéria                                       ", "Niue                                          ", "Noruega                                       ", "Nova Caledônia                                ", "Nova Zelândia                                 ", "Níger                                         ", "Omã                                           ", "Palau                                         ", "Palestina                                     ", "Panamá                                        ", "Papua-Nova Guiné                              ", "Paquistão                                     ", "Paraguai                                      ", "País de Gales                                 ", "Países Baixos                                 ", "Peru                                          ", "Pitcairn                                      ", "Polinésia Francesa                            ", "Polônia                                       ", "Porto Rico                                    ", "Portugal                                      ", "Quirguistão                                   ", "Quênia                                        ", "Reino Unido                                   ", "República Centro-Africana                     ", "República Checa                               ", "República Democrática do Congo                ", "República do Congo                            ", "República Dominicana                          ", "Reunião                                       ", "Romênia                                       ", "Ruanda                                        ", "Rússia                                        ", "Saara Ocidental                               ", "Saint Martin                                  ", "Saint-Barthélemy                              ", "Saint-Pierre e Miquelon                       ", "Samoa Americana                               ", "Samoa                                         ", "Santa Helena, Ascensão e Tristão da Cunha     ", "Santa Lúcia                                   ", "Senegal                                       ", "Serra Leoa                                    ", "Seychelles                                    ", "Singapura                                     ", "Somália                                       ", "Sri Lanka                                     ", "Suazilândia                                   ", "Sudão                                         ", "Suriname                                      ", "Suécia                                        ", "Suíça                                         ", "Svalbard e Jan Mayen                          ", "São Cristóvão e Nevis                         ", "São Marino                                    ", "São Tomé e Príncipe                           ", "São Vicente e Granadinas                      ", "Sérvia                                        ", "Síria                                         ", "Tadjiquistão                                  ", "Tailândia                                     ", "Taiwan                                        ", "Tanzânia                                      ", "Terras Austrais e Antárticas Francesas        ", "Território Britânico do Oceano Índico         ", "Timor-Leste                                   ", "Togo                                          ", "Tonga                                         ", "Toquelau                                      ", "Trinidad e Tobago                             ", "Tunísia                                       ", "Turcas e Caicos                               ", "Turquemenistão                                ", "Turquia                                       ", "Tuvalu                                        ", "Ucrânia                                       ", "Uganda                                        ", "Uruguai                                       ", "Uzbequistão                                   ", "Vanuatu                                       ", "Vaticano                                      ", "Venezuela                                     ", "Vietname                                      ", "Wallis e Futuna                               ", "Zimbabwe                                      ", "Zâmbia                                        " }));
+        add(nacionalidadeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 172, 393, -1));
 
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         confirmarButton.setText("CONFIRMAR");
@@ -116,155 +150,104 @@ public class FuncionarioView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 520, -1, 45));
 
         cancelarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        cancelarButton.setText("CANCELAR");
-        cancelarButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelarButtonMouseClicked(evt);
-            }
-        });
+        cancelarButton.setText("CONFIRMAR");
         cancelarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(funcionarioLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cancelarButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(confirmarButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(semanaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(navioLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bspLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(profissaoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nomeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(numeroLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nacionalidadeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(taskNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(horasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nomeTextField)
-                                    .addComponent(numeroTextField)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField5)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField7)
-                                    .addComponent(jTextField8)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                                    .addComponent(nacionalidadeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(funcionarioLabel)
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomeLabel)
-                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numeroLabel)
-                    .addComponent(numeroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nacionalidadeLabel)
-                    .addComponent(nacionalidadeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profissaoLabel)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bspLabel)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(taskNumber)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(navioLabel)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(semanaLabel)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(horasLabel)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
+        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, -1, 45));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cancelarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarButtonMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-    }//GEN-LAST:event_cancelarButtonMouseClicked
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+       /* this.setVisible(false);*/
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        
+        this.loadRegisterView();
+        
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bspLabel;
+    private javax.swing.JTextField bspTextField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
+    private javax.swing.JLabel dataLabel;
+    private javax.swing.JTextField dataTextField;
     private javax.swing.JLabel funcionarioLabel;
-    private javax.swing.JLabel horasLabel;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel horaLabel;
+    private javax.swing.JTextField horaTextField;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
     private javax.swing.JLabel navioLabel;
+    private javax.swing.JTextField navioTextField;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JLabel numeroLabel;
     private javax.swing.JTextField numeroTextField;
     private javax.swing.JLabel profissaoLabel;
-    private javax.swing.JLabel semanaLabel;
-    private javax.swing.JLabel taskNumber;
+    private javax.swing.JTextField profissaoTextField;
+    private javax.swing.JLabel taskLabel;
+    private javax.swing.JTextField taskTextField;
     // End of variables declaration//GEN-END:variables
 
     public void loadSearchView() {
         
         this.funcionarioLabel.setText("Buscar Funcionário");
+        //this.confirmarButton.setText("Buscar");
+      //  this.cancelarButton.setText("Cadastrar");
         this.nomeTextField.setText("");
-        
-        
-        
+        this.nomeTextField.setEditable(false);
+        this.numeroLabel.setVisible(true);
+        this.numeroTextField.setText("");
+        this.nacionalidadeCombo.setVisible(false);
+        this.profissaoTextField.setText("");
+        this.profissaoTextField.setEditable(false);
+        this.bspTextField.setText("");
+        this.bspTextField.setEditable(false);
+        this.taskTextField.setText("");
+        this.taskTextField.setEditable(false);
+        this.navioTextField.setText("");
+        this.navioTextField.setEditable(false);
+        this.dataTextField.setText("");
+        this.dataTextField.setEditable(false);
+        this.horaTextField.setText("");
+        this.horaTextField.setEditable(false);
+        FuncionarioView.state = FuncionarioView.BUSCA;
     }
+    
+    public void loadRegisterView(){
+        this.funcionarioLabel.setText("Cadastrar Funcionário");
+        this.confirmarButton.setText("Confirmar");
+        this.cancelarButton.setText("Cancelar");
+        this.nomeTextField.setText("");
+        this.nomeTextField.setEditable(true);
+        this.numeroLabel.setText("");
+        this.numeroLabel.setVisible(true);
+        this.numeroTextField.setText("");
+        this.nacionalidadeCombo.setVisible(true);
+        this.profissaoTextField.setText("");
+        this.profissaoTextField.setEditable(true);
+        this.bspTextField.setText("");
+        this.bspTextField.setEditable(true);
+        this.taskTextField.setText("");
+        this.taskTextField.setEditable(true);
+        this.navioTextField.setText("");
+        this.navioTextField.setEditable(true);
+        this.dataTextField.setText("");
+        this.dataTextField.setEditable(true);
+        this.horaTextField.setText("");
+        this.horaTextField.setEditable(true);
+        FuncionarioView.state = FuncionarioView.CADASTRO;
+            
+    }
+    
 }
