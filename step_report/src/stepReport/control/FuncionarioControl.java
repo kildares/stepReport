@@ -29,14 +29,14 @@ public final class FuncionarioControl {
     public FuncionarioControl(mainScreen Screen){
         this.setModel(new FuncionarioModel());
         this.setScreen(Screen);
-        this.setView(new FuncionarioView());
+        this.setView(new FuncionarioView(this));
         this.getView().setVisible(false);
     }
     
     
     public void initFuncionario() 
     {
-        this.setView(new FuncionarioView());
+        this.setView(new FuncionarioView(this));
         this.getScreen().setBounds(50, 50, 800, 710);
         this.getScreen().add(this.getView());
         mainScreen.setActive(this.getView());

@@ -58,13 +58,18 @@ public final class loginView extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         passTextField = new javax.swing.JPasswordField();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         passwordLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         passwordLabel.setText("Senha:");
+        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 62, -1, -1));
 
         userLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         userLabel.setText("Usuário:");
+        add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
         userTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(userTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 13, 150, -1));
 
         loginButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         loginButton.setText("ENTRAR");
@@ -73,40 +78,10 @@ public final class loginView extends javax.swing.JPanel {
                 loginButtonActionPerformed(evt);
             }
         });
+        add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 108, -1, -1));
 
         passTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(userLabel)
-                    .addComponent(passwordLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(loginButton)
-                    .addComponent(userTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(passTextField))
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLabel)
-                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordLabel)
-                    .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(loginButton)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+        add(passTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 60, 150, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
