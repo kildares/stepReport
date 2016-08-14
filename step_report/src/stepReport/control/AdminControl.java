@@ -66,5 +66,9 @@ public final class AdminControl {
         this.getView().setBounds(0, 0, 800, 500);
         this.getView().setVisible(true);
     }
+
+    public void registerUser(String user, String pass) {
+        this.getModel().registerUser();
+    }
     
 }

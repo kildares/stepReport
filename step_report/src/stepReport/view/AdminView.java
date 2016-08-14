@@ -5,6 +5,7 @@
  */
 package stepReport.view;
 
+import java.util.Arrays;
 import stepReport.control.AdminControl;
 
 /**
@@ -14,7 +15,15 @@ import stepReport.control.AdminControl;
 public class AdminView extends javax.swing.JPanel {
 
     
-    private final AdminControl Control;
+    private AdminControl Control;
+
+    private static int state;
+    
+    private static final int CADASTRO = 1;        
+    private static final int BUSCA = 2;
+    private static final int EDIT = 3;
+    private static final int REMOVE = 4;
+    
     
     /**
      * Creates new form AdminView
@@ -44,7 +53,7 @@ public class AdminView extends javax.swing.JPanel {
         confirmLabel = new javax.swing.JLabel();
         confirmTextField = new javax.swing.JPasswordField();
         confirmButton = new javax.swing.JToggleButton();
-        newUserButton = new javax.swing.JToggleButton();
+        cancelButton = new javax.swing.JToggleButton();
         confirmLabel2 = new javax.swing.JLabel();
         confirmTextField2 = new javax.swing.JPasswordField();
 
@@ -78,13 +87,18 @@ public class AdminView extends javax.swing.JPanel {
         confirmButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         confirmButton.setText("Confirmar");
         confirmButton.setPreferredSize(new java.awt.Dimension(143, 31));
-
-        newUserButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        newUserButton.setText("Novo Usuário");
-        newUserButton.setPreferredSize(new java.awt.Dimension(143, 31));
-        newUserButton.addActionListener(new java.awt.event.ActionListener() {
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newUserButtonActionPerformed(evt);
+                confirmButtonActionPerformed(evt);
+            }
+        });
+
+        cancelButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        cancelButton.setText("Novo Usuário");
+        cancelButton.setPreferredSize(new java.awt.Dimension(143, 31));
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -108,7 +122,7 @@ public class AdminView extends javax.swing.JPanel {
                 .addGap(0, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -150,32 +164,44 @@ public class AdminView extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(276, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserButtonActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
-        this.titleLabel.setText("Cadastrar Usuário");
-        this.confirmButton.setText("Cadastrar");
-        this.newUserButton.setVisible(false);
-        this.confirmLabel.setVisible(true);
-        this.confirmTextField.setVisible(true);
-        this.passwordLabel.setVisible(true);
-        this.passwordTextField.setVisible(true);
+        if(AdminView.state == AdminView.CADASTRO){
+            this.loadSearchView();
+        }
+        else if(AdminView.state == AdminView.BUSCA){
+            this.loadNewView();
+        }
         
         
-    }//GEN-LAST:event_newUserButtonActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+        if(AdminView.state == AdminView.CADASTRO){
+            String user = this.userTextField.getText();
+            String pass1 = new String(this.passwordTextField.getPassword());
+            String pass2 = new String(this.confirmTextField.getPassword());
+            if((user.length()>3) && (!pass1.isEmpty()) && (pass1.equals(pass2))){
+                this.getControl().registerUser(user,pass1);
+            }
+            
+        }
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton cancelButton;
     private javax.swing.JToggleButton confirmButton;
     private javax.swing.JLabel confirmLabel;
     private javax.swing.JLabel confirmLabel2;
     private javax.swing.JPasswordField confirmTextField;
     private javax.swing.JPasswordField confirmTextField2;
-    private javax.swing.JToggleButton newUserButton;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordTextField;
     private javax.swing.JLabel titleLabel;
@@ -186,6 +212,7 @@ public class AdminView extends javax.swing.JPanel {
     public void loadSearchView() {
         
         this.titleLabel.setText("Buscar Usuário");
+        this.cancelButton.setText("Novo usuário");
         this.passwordLabel.setVisible(false);
         this.passwordTextField.setVisible(false);
         this.confirmButton.setText("Buscar");
@@ -193,10 +220,12 @@ public class AdminView extends javax.swing.JPanel {
         this.confirmTextField.setVisible(false);
         this.confirmLabel2.setVisible(false);
         this.confirmTextField2.setVisible(false);
+        AdminView.state = AdminView.BUSCA;
     }
 
     public void loadNewView() {
         this.titleLabel.setText("Cadastrar Usuário");
+        this.cancelButton.setText("Cancelar");
         this.passwordLabel.setVisible(true);
         this.passwordTextField.setVisible(true);
         this.confirmButton.setText("Confirmar");
@@ -204,5 +233,17 @@ public class AdminView extends javax.swing.JPanel {
         this.confirmTextField.setVisible(true);
         this.confirmLabel2.setVisible(false);
         this.confirmTextField2.setVisible(false);
+        
+        AdminView.state = AdminView.CADASTRO;
     }
+    
+    public AdminControl getControl() {
+        return Control;
+    }
+
+    public void setControl(AdminControl Control) {
+        this.Control = Control;
+    }
+    
+    
 }

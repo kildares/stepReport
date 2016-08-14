@@ -22,8 +22,6 @@ public class FuncionarioView extends javax.swing.JPanel {
     
     private FuncionarioControl Control;
 
-    
-    
     private static int state;
     
     private static final int CADASTRO = 1;        
