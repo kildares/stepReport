@@ -5,9 +5,7 @@
  */
 package stepReport.view;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import stepReport.control.FuncionarioControl;
@@ -211,7 +209,10 @@ public class FuncionarioView extends javax.swing.JPanel {
             funcInfo.add(this.bspTextField.getText());
             funcInfo.add(this.navioTextField.getText());
             
-            this.getControl().registerFuncionario(funcInfo);
+            if(this.getControl().registerFuncionario(funcInfo)){
+                JOptionPane.showMessageDialog(new JFrame(), "Funcionario Registrado");
+                this.loadSearchView();
+            }
         }
         
         
@@ -297,21 +298,4 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.Control = Control;
     }
 
-    /*public void loadNewView() {
-        this.titleLabel.setText("Cadastrar Funcionário");
-        this.nomeTextField.setText("");
-        this.nomeTextField.setEditable(true);
-        this.numeroFormattedField.setText("");
-        this.numeroFormattedField.setEditable(true);
-        this.nacionalidadeCombo.setVisible(true);
-        this.profissaoTextField.setText("");
-        this.profissaoTextField.setEditable(true);
-        this.bspTextField.setText("");
-        this.bspTextField.setEditable(true);
-        this.taskTextField.setText("");
-        this.taskTextField.setEditable(true);
-        this.navioTextField.setText("");
-        this.navioTextField.setEditable(true);
-    }*/
-    
 }

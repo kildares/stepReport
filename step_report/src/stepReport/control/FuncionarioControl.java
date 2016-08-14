@@ -90,8 +90,10 @@ public final class FuncionarioControl {
         return this.getModel().updateFuncionario(funcInfo);
     }
 
-    public void registerFuncionario(ArrayList<String> funcInfo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean registerFuncionario(ArrayList<String> funcInfo) {
+        
+        return this.getModel().registerFuncionaro(funcInfo);
+        
     }
     
 }

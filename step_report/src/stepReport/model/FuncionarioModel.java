@@ -34,8 +34,6 @@ public class FuncionarioModel {
      *
      * Retorna verdadeiro se houve sucesso na atualizacao do funcionario
      * 
-     * 
-     * 
      * @param funcInfo:
      * id 0: Nome
      * id 1: Numero
@@ -47,6 +45,15 @@ public class FuncionarioModel {
      * @return true
      */
     public boolean updateFuncionario(ArrayList<String> funcInfo) {
+        return true;
+    }
+
+    /**
+     * Registra um novo funcionario com as informacoes listadas.
+     * @param funcInfo
+     * @return
+     */
+    public boolean registerFuncionaro(ArrayList<String> funcInfo) {
         return true;
     }
     
