@@ -66,6 +66,7 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         RegistroMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
@@ -103,6 +104,14 @@ public final class mainScreen extends javax.swing.JFrame {
         Toolbar.add(jMenu2);
 
         userMenu.setText("Usuário");
+
+        jMenuItem4.setText("Cadastrar Usuário");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        userMenu.add(jMenuItem4);
 
         userMenuItem.setText("Editar Usuário");
         userMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +154,12 @@ public final class mainScreen extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getAdmin().initNewView();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +213,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu userMenu;
     private javax.swing.JMenuItem userMenuItem;
     // End of variables declaration//GEN-END:variables

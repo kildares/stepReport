@@ -155,6 +155,9 @@ public class FuncionarioView extends javax.swing.JPanel {
                 
                 ArrayList<String> funcInfo;
                 funcInfo = this.getControl().searchFuncionario(numero);
+                
+                
+                
             }
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
