@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.FuncionarioControl;
+import stepReport.control.PeriodoControl;
 import stepReport.control.loginControl;
 
 /**
@@ -23,6 +24,8 @@ public final class mainScreen extends javax.swing.JFrame {
     private loginControl login;
     private FuncionarioControl funcionario;
     private AdminControl admin;
+    private PeriodoControl periodo;
+    
     private static JPanel active;
     
     public mainScreen() {
@@ -30,11 +33,11 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setLogin(new loginControl(this));
         this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
-        
+        this.setPeriodo(new PeriodoControl(this));
         this.add(this.getLogin().getView());
         this.add(this.getFuncionario().getView());
         this.add(this.getAdmin().getView());
-        
+        this.add(this.getPeriodo().getView());
         
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
@@ -60,6 +63,8 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        RegistroMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         userMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -79,6 +84,23 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         Toolbar.add(jMenu1);
+
+        jMenu2.setText("Registro");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+
+        RegistroMenuItem.setText("Registro de horas");
+        RegistroMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(RegistroMenuItem);
+
+        Toolbar.add(jMenu2);
 
         userMenu.setText("Usuário");
 
@@ -106,6 +128,23 @@ public final class mainScreen extends javax.swing.JFrame {
         mainScreen.active.setVisible(false);
         this.getAdmin().initView();
     }//GEN-LAST:event_userMenuItemActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        
+        mainScreen.active.setVisible(false);
+        this.getPeriodo().initView();
+        
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void RegistroMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroMenuItemActionPerformed
+        // TODO add your handling code here:
+          
+        mainScreen.active.setVisible(false);
+        this.getPeriodo().initView();
+        
+        
+    }//GEN-LAST:event_RegistroMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,8 +190,10 @@ public final class mainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem RegistroMenuItem;
     private javax.swing.JMenuBar Toolbar;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -197,6 +238,14 @@ public final class mainScreen extends javax.swing.JFrame {
     
     public static void setActive(JPanel panel){
         mainScreen.active = panel;
+    }
+    
+    public void setPeriodo(PeriodoControl control){
+        this.periodo = control;
+        
+    }
+    public PeriodoControl getPeriodo(){
+        return this.periodo;
     }
     
 }
