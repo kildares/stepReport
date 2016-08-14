@@ -5,8 +5,11 @@
  */
 package stepReport.control;
 
+import java.awt.List;
+import java.util.ArrayList;
 import stepReport.view.FuncionarioView;
 import stepReport.view.mainScreen;
+import stepReport.model.FuncionarioModel;
 
 /**
  *
@@ -58,6 +61,15 @@ public final class FuncionarioControl {
 
     public void setView(FuncionarioView view) {
         this.View = view;
+    }
+
+    /**
+     *
+     * @param numero
+     * @return
+     */
+    public ArrayList<String> searchFuncionario(String numero) {
+        return this.getModel().searchFuncionario(numero);
     }
     
 }

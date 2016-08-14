@@ -5,6 +5,8 @@
  */
 package stepReport.view;
 
+import java.awt.List;
+import java.util.ArrayList;
 import stepReport.control.FuncionarioControl;
 
 /**
@@ -18,6 +20,8 @@ public class FuncionarioView extends javax.swing.JPanel {
      */
     
     private FuncionarioControl Control;
+
+    
     
     private static int state;
     
@@ -50,7 +54,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         taskLabel = new javax.swing.JLabel();
         navioLabel = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
-        numeroTextField = new javax.swing.JTextField();
         profissaoTextField = new javax.swing.JTextField();
         bspTextField = new javax.swing.JTextField();
         taskTextField = new javax.swing.JTextField();
@@ -58,6 +61,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         nacionalidadeCombo = new javax.swing.JComboBox<>();
         confirmarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
+        numeroFormattedField = new javax.swing.JFormattedTextField();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,9 +108,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 78, 500, -1));
 
-        numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(numeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 125, 500, -1));
-
         profissaoTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(profissaoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 219, 500, -1));
 
@@ -140,17 +141,30 @@ public class FuncionarioView extends javax.swing.JPanel {
             }
         });
         add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 430, -1, 45));
+
+        numeroFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        numeroFormattedField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(numeroFormattedField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 125, 500, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
-       /* this.setVisible(false);*/
+        if(FuncionarioView.state == FuncionarioView.BUSCA){
+            String numero = this.numeroFormattedField.getText();
+            if(!numero.equals("")){
+                
+                ArrayList<String> funcInfo;
+                funcInfo = this.getControl().searchFuncionario(numero);
+            }
+        }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
         // TODO add your handling code here:
-        
-        this.loadRegisterView();
+        if(FuncionarioView.state == FuncionarioView.BUSCA)
+            this.loadRegisterView();
+        else if(FuncionarioView.state == FuncionarioView.CADASTRO)
+            this.loadSearchView();
         
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
@@ -167,8 +181,8 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JTextField navioTextField;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField nomeTextField;
+    private javax.swing.JFormattedTextField numeroFormattedField;
     private javax.swing.JLabel numeroLabel;
-    private javax.swing.JTextField numeroTextField;
     private javax.swing.JLabel profissaoLabel;
     private javax.swing.JTextField profissaoTextField;
     private javax.swing.JLabel taskLabel;
@@ -178,12 +192,12 @@ public class FuncionarioView extends javax.swing.JPanel {
     public void loadSearchView() {
         
         this.funcionarioLabel.setText("Buscar Funcionário");
-        //this.confirmarButton.setText("Buscar");
-      //  this.cancelarButton.setText("Cadastrar");
+        this.confirmarButton.setText("Buscar");
+        this.cancelarButton.setText("Cadastrar");
         this.nomeTextField.setText("");
         this.nomeTextField.setEditable(false);
         this.numeroLabel.setVisible(true);
-        this.numeroTextField.setText("");
+        this.numeroFormattedField.setText("");
         this.nacionalidadeCombo.setVisible(false);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(false);
@@ -193,10 +207,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.taskTextField.setEditable(false);
         this.navioTextField.setText("");
         this.navioTextField.setEditable(false);
-      //  this.dataTextField.setText("");
-      //  this.dataTextField.setEditable(false);
-      //  this.horaTextField.setText("");
-      //  this.horaTextField.setEditable(false);
         FuncionarioView.state = FuncionarioView.BUSCA;
     }
     
@@ -206,9 +216,8 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.cancelarButton.setText("Cancelar");
         this.nomeTextField.setText("");
         this.nomeTextField.setEditable(true);
-        this.numeroLabel.setText("");
         this.numeroLabel.setVisible(true);
-        this.numeroTextField.setText("");
+        this.numeroFormattedField.setText("");
         this.nacionalidadeCombo.setVisible(true);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(true);
@@ -218,12 +227,16 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.taskTextField.setEditable(true);
         this.navioTextField.setText("");
         this.navioTextField.setEditable(true);
-     //   this.dataTextField.setText("");
-     //   this.dataTextField.setEditable(true);
-     //   this.horaTextField.setText("");
-     //   this.horaTextField.setEditable(true);
         FuncionarioView.state = FuncionarioView.CADASTRO;
             
+    }
+    
+    public FuncionarioControl getControl() {
+        return Control;
+    }
+
+    public void setControl(FuncionarioControl Control) {
+        this.Control = Control;
     }
     
 }
