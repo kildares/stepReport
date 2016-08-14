@@ -65,6 +65,9 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         RegistroMenuItem = new javax.swing.JMenuItem();
+        funcMenu = new javax.swing.JMenu();
+        buscarFuncMenuItem = new javax.swing.JMenuItem();
+        CadastroFuncMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
@@ -103,6 +106,26 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar.add(jMenu2);
 
+        funcMenu.setText("Funcionário");
+
+        buscarFuncMenuItem.setText("Buscar");
+        buscarFuncMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarFuncMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(buscarFuncMenuItem);
+
+        CadastroFuncMenuItem.setText("Cadastrar");
+        CadastroFuncMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastroFuncMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(CadastroFuncMenuItem);
+
+        Toolbar.add(funcMenu);
+
         userMenu.setText("Usuário");
 
         jMenuItem4.setText("Cadastrar Usuário");
@@ -113,7 +136,7 @@ public final class mainScreen extends javax.swing.JFrame {
         });
         userMenu.add(jMenuItem4);
 
-        userMenuItem.setText("Editar Usuário");
+        userMenuItem.setText("Mudar senha");
         userMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userMenuItemActionPerformed(evt);
@@ -161,6 +184,18 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getAdmin().initNewView();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void buscarFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarFuncMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getFuncionario().initSearchView();
+    }//GEN-LAST:event_buscarFuncMenuItemActionPerformed
+
+    private void CadastroFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroFuncMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getFuncionario().initNewView();
+    }//GEN-LAST:event_CadastroFuncMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -205,8 +240,11 @@ public final class mainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CadastroFuncMenuItem;
     private javax.swing.JMenuItem RegistroMenuItem;
     private javax.swing.JMenuBar Toolbar;
+    private javax.swing.JMenuItem buscarFuncMenuItem;
+    private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
