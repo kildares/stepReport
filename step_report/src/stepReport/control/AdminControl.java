@@ -59,5 +59,12 @@ public final class AdminControl {
         this.getView().setBounds(0, 0, 800, 500);
         this.getView().setVisible(true);
     }
+
+    public void initNewView() {
+        this.getView().loadNewView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);
+    }
     
 }

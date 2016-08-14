@@ -45,6 +45,8 @@ public class AdminView extends javax.swing.JPanel {
         confirmTextField = new javax.swing.JPasswordField();
         confirmButton = new javax.swing.JToggleButton();
         newUserButton = new javax.swing.JToggleButton();
+        confirmLabel2 = new javax.swing.JLabel();
+        confirmTextField2 = new javax.swing.JPasswordField();
 
         titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         titleLabel.setText("Cadastrar Usuário");
@@ -86,6 +88,14 @@ public class AdminView extends javax.swing.JPanel {
             }
         });
 
+        confirmLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        confirmLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        confirmLabel2.setText("Confirmar Senha:");
+        confirmLabel2.setMaximumSize(new java.awt.Dimension(200, 23));
+        confirmLabel2.setMinimumSize(new java.awt.Dimension(200, 23));
+
+        confirmTextField2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,11 +115,13 @@ public class AdminView extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(confirmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(confirmTextField2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                                 .addComponent(confirmTextField, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addGap(148, 148, 148))
@@ -131,11 +143,15 @@ public class AdminView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(79, 79, 79)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,7 +172,9 @@ public class AdminView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton confirmButton;
     private javax.swing.JLabel confirmLabel;
+    private javax.swing.JLabel confirmLabel2;
     private javax.swing.JPasswordField confirmTextField;
+    private javax.swing.JPasswordField confirmTextField2;
     private javax.swing.JToggleButton newUserButton;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordTextField;
@@ -173,5 +191,18 @@ public class AdminView extends javax.swing.JPanel {
         this.confirmButton.setText("Buscar");
         this.confirmLabel.setVisible(false);
         this.confirmTextField.setVisible(false);
+        this.confirmLabel2.setVisible(false);
+        this.confirmTextField2.setVisible(false);
+    }
+
+    public void loadNewView() {
+        this.titleLabel.setText("Cadastrar Usuário");
+        this.passwordLabel.setVisible(true);
+        this.passwordTextField.setVisible(true);
+        this.confirmButton.setText("Confirmar");
+        this.confirmLabel.setVisible(true);
+        this.confirmTextField.setVisible(true);
+        this.confirmLabel2.setVisible(false);
+        this.confirmTextField2.setVisible(false);
     }
 }

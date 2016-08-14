@@ -21,6 +21,7 @@ public class PeriodoView extends javax.swing.JPanel {
     public PeriodoView(PeriodoControl control) {
         initComponents();
         this.Control = control;
+        
     }
 
     /**
@@ -34,14 +35,14 @@ public class PeriodoView extends javax.swing.JPanel {
 
         funcionarioLabel = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
-        nomeTextField = new javax.swing.JTextField();
         numeroLabel = new javax.swing.JLabel();
-        nomeTextField1 = new javax.swing.JTextField();
+        numeroTextField = new javax.swing.JTextField();
         numeroLabel1 = new javax.swing.JLabel();
         numeroLabel2 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        horasFormattedField = new javax.swing.JFormattedTextField();
+        dataIniFormattedValue = new javax.swing.JFormattedTextField();
+        confirmarButton = new javax.swing.JButton();
+        dataFimFormattedValue1 = new javax.swing.JFormattedTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -52,53 +53,54 @@ public class PeriodoView extends javax.swing.JPanel {
         nomeLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nomeLabel.setText("Número do trabalhador:");
-        add(nomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 80, 219, -1));
-
-        nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 480, -1));
+        add(nomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 219, -1));
 
         numeroLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         numeroLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         numeroLabel.setText("Horas trabalhadas:");
-        add(numeroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 230, 210, -1));
+        add(numeroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 210, -1));
 
-        nomeTextField1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(nomeTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 78, 480, -1));
+        numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(numeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 78, 500, -1));
 
         numeroLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         numeroLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        numeroLabel1.setText("Data de início de período:");
-        add(numeroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        numeroLabel1.setText("Data de início de período (dd/mm/yyyy):");
+        add(numeroLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         numeroLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         numeroLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        numeroLabel2.setText("Data de fim de período:");
-        add(numeroLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 180, -1, -1));
+        numeroLabel2.setText("Data de fim de período (dd/mm/yyyy):");
+        add(numeroLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 180, -1, -1));
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yy"))));
-        jFormattedTextField1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 480, -1));
+        horasFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        horasFormattedField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(horasFormattedField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 500, -1));
 
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yy"))));
-        jFormattedTextField2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(jFormattedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 480, -1));
+        dataIniFormattedValue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        dataIniFormattedValue.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(dataIniFormattedValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 350, -1));
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton1.setText("Registrar");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, -1, 40));
+        confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        confirmarButton.setText("Registrar");
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, -1, 40));
+
+        dataFimFormattedValue1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        dataFimFormattedValue1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(dataFimFormattedValue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 350, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmarButton;
+    private javax.swing.JFormattedTextField dataFimFormattedValue1;
+    private javax.swing.JFormattedTextField dataIniFormattedValue;
     private javax.swing.JLabel funcionarioLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField horasFormattedField;
     private javax.swing.JLabel nomeLabel;
-    private javax.swing.JTextField nomeTextField;
-    private javax.swing.JTextField nomeTextField1;
     private javax.swing.JLabel numeroLabel;
     private javax.swing.JLabel numeroLabel1;
     private javax.swing.JLabel numeroLabel2;
+    private javax.swing.JTextField numeroTextField;
     // End of variables declaration//GEN-END:variables
 }
