@@ -71,5 +71,19 @@ public final class FuncionarioControl {
     public ArrayList<String> searchFuncionario(String numero) {
         return this.getModel().searchFuncionario(numero);
     }
+
+    public void initNewView() {
+        this.getView().loadNewView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);
+    }
+
+    public void initSearchView() {
+        this.getView().loadSearchView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);
+    }
     
 }

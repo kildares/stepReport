@@ -45,7 +45,7 @@ public class FuncionarioView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        funcionarioLabel = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
         numeroLabel = new javax.swing.JLabel();
         nacionalidadeLabel = new javax.swing.JLabel();
@@ -66,9 +66,9 @@ public class FuncionarioView extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        funcionarioLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        funcionarioLabel.setText("Cadastrar Funcionário");
-        add(funcionarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
+        titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        titleLabel.setText("Cadastrar Funcionário");
+        add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
 
         nomeLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -165,7 +165,7 @@ public class FuncionarioView extends javax.swing.JPanel {
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
         // TODO add your handling code here:
         if(FuncionarioView.state == FuncionarioView.BUSCA)
-            this.loadRegisterView();
+            this.loadNewView();
         else if(FuncionarioView.state == FuncionarioView.CADASTRO)
             this.loadSearchView();
         
@@ -177,7 +177,6 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JTextField bspTextField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
-    private javax.swing.JLabel funcionarioLabel;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
     private javax.swing.JLabel navioLabel;
@@ -190,11 +189,12 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JTextField profissaoTextField;
     private javax.swing.JLabel taskLabel;
     private javax.swing.JTextField taskTextField;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
     public void loadSearchView() {
         
-        this.funcionarioLabel.setText("Buscar Funcionário");
+        this.titleLabel.setText("Buscar Funcionário");
         this.confirmarButton.setText("Buscar");
         this.cancelarButton.setText("Cadastrar");
         this.nomeTextField.setText("");
@@ -213,8 +213,8 @@ public class FuncionarioView extends javax.swing.JPanel {
         FuncionarioView.state = FuncionarioView.BUSCA;
     }
     
-    public void loadRegisterView(){
-        this.funcionarioLabel.setText("Cadastrar Funcionário");
+    public void loadNewView(){
+        this.titleLabel.setText("Cadastrar Funcionário");
         this.confirmarButton.setText("Confirmar");
         this.cancelarButton.setText("Cancelar");
         this.nomeTextField.setText("");
@@ -241,5 +241,22 @@ public class FuncionarioView extends javax.swing.JPanel {
     public void setControl(FuncionarioControl Control) {
         this.Control = Control;
     }
+
+    /*public void loadNewView() {
+        this.titleLabel.setText("Cadastrar Funcionário");
+        this.nomeTextField.setText("");
+        this.nomeTextField.setEditable(true);
+        this.numeroFormattedField.setText("");
+        this.numeroFormattedField.setEditable(true);
+        this.nacionalidadeCombo.setVisible(true);
+        this.profissaoTextField.setText("");
+        this.profissaoTextField.setEditable(true);
+        this.bspTextField.setText("");
+        this.bspTextField.setEditable(true);
+        this.taskTextField.setText("");
+        this.taskTextField.setEditable(true);
+        this.navioTextField.setText("");
+        this.navioTextField.setEditable(true);
+    }*/
     
 }
