@@ -48,17 +48,13 @@ public class FuncionarioView extends javax.swing.JPanel {
         bspLabel = new javax.swing.JLabel();
         profissaoLabel = new javax.swing.JLabel();
         taskLabel = new javax.swing.JLabel();
-        dataLabel = new javax.swing.JLabel();
         navioLabel = new javax.swing.JLabel();
-        horaLabel = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
         numeroTextField = new javax.swing.JTextField();
         profissaoTextField = new javax.swing.JTextField();
         bspTextField = new javax.swing.JTextField();
         taskTextField = new javax.swing.JTextField();
         navioTextField = new javax.swing.JTextField();
-        dataTextField = new javax.swing.JTextField();
-        horaTextField = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
         confirmarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
@@ -100,20 +96,10 @@ public class FuncionarioView extends javax.swing.JPanel {
         taskLabel.setText("Task Number:");
         add(taskLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 316, 219, -1));
 
-        dataLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        dataLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dataLabel.setText("Data de Semana:");
-        add(dataLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 410, 219, -1));
-
         navioLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         navioLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         navioLabel.setText("Navio / Unidade:");
         add(navioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 363, 219, -1));
-
-        horaLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        horaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        horaLabel.setText("Horas / Dias:");
-        add(horaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 457, 219, -1));
 
         nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 78, 500, -1));
@@ -133,12 +119,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         navioTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(navioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 360, 500, -1));
 
-        dataTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(dataTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 407, 500, -1));
-
-        horaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(horaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 454, 500, -1));
-
         nacionalidadeCombo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afeganistão                                   ", "África do Sul                                 ", "Albânia                                       ", "Alemanha                                      ", "Andorra                                       ", "Angola                                        ", "Anguilla                                      ", "Antilhas Holandesas                           ", "Antárctida                                    ", "Antígua e Barbuda                             ", "Argentina                                     ", "Argélia                                       ", "Armênia                                       ", "Aruba                                         ", "Arábia Saudita                                ", "Austrália                                     ", "Áustria                                       ", "Azerbaijão                                    ", "Bahamas                                       ", "Bahrein                                       ", "Bangladesh                                    ", "Barbados                                      ", "Belize                                        ", "Benim                                         ", "Bermudas                                      ", "Bielorrússia                                  ", "Bolívia                                       ", "Botswana                                      ", "Brunei                                        ", "Bulgária                                      ", "Burkina Faso                                  ", "Burundi                                       ", "Butão                                         ", "Bélgica                                       ", "Bósnia e Herzegovina                          ", "Cabo Verde                                    ", "Camarões                                      ", "Camboja                                       ", "Canadá                                        ", "Catar                                         ", "Cazaquistão                                   ", "Chade                                         ", "Chile                                         ", "China                                         ", "Chipre                                        ", "Colômbia                                      ", "Comores                                       ", "Coreia do Norte                               ", "Coreia do Sul                                 ", "Costa do Marfim                               ", "Costa Rica                                    ", "Croácia                                       ", "Cuba                                          ", "Dinamarca                                     ", "Djibouti                                      ", "Dominica                                      ", "Egito                                         ", "El Salvador                                   ", "Emirados Árabes Unidos                        ", "Equador                                       ", "Eritreia                                      ", "Escócia                                       ", "Eslováquia                                    ", "Eslovênia                                     ", "Espanha                                       ", "Estados Federados da Micronésia               ", "Estados Unidos                                ", "Estônia                                       ", "Etiópia                                       ", "Fiji                                          ", "Filipinas                                     ", "Finlândia                                     ", "França                                        ", "Gabão                                         ", "Gana                                          ", "Geórgia                                       ", "Gibraltar                                     ", "Granada                                       ", "Gronelândia                                   ", "Grécia                                        ", "Guadalupe                                     ", "Guam                                          ", "Guatemala                                     ", "Guernesei                                     ", "Guiana                                        ", "Guiana Francesa                               ", "Guiné                                         ", "Guiné Equatorial                              ", "Guiné-Bissau                                  ", "Gâmbia                                        ", "Haiti                                         ", "Honduras                                      ", "Hong Kong                                     ", "Hungria                                       ", "Ilha Bouvet                                   ", "Ilha de Man                                   ", "Ilha do Natal                                 ", "Ilha Heard e Ilhas McDonald                   ", "Ilha Norfolk                                  ", "Ilhas Cayman                                  ", "Ilhas Cocos (Keeling)                         ", "Ilhas Cook                                    ", "Ilhas Feroé                                   ", "Ilhas Geórgia do Sul e Sandwich do Sul        ", "Ilhas Malvinas                                ", "Ilhas Marshall                                ", "Ilhas Menores Distantes dos Estados Unidos    ", "Ilhas Salomão                                 ", "Ilhas Virgens Americanas                      ", "Ilhas Virgens Britânicas                      ", "Ilhas Åland                                   ", "Indonésia                                     ", "Inglaterra                                    ", "Índia                                         ", "Iraque                                        ", "Irlanda do Norte                              ", "Irlanda                                       ", "Irã                                           ", "Islândia                                      ", "Israel                                        ", "Itália                                        ", "Iêmen                                         ", "Jamaica                                       ", "Japão                                         ", "Jersey                                        ", "Jordânia                                      ", "Kiribati                                      ", "Kuwait                                        ", "Laos                                          ", "Lesoto                                        ", "Letônia                                       ", "Libéria                                       ", "Liechtenstein                                 ", "Lituânia                                      ", "Luxemburgo                                    ", "Líbano                                        ", "Líbia                                         ", "Macau                                         ", "Macedônia                                     ", "Madagáscar                                    ", "Malawi                                        ", "Maldivas                                      ", "Mali                                          ", "Malta                                         ", "Malásia                                       ", "Marianas Setentrionais                        ", "Marrocos                                      ", "Martinica                                     ", "Mauritânia                                    ", "Maurícia                                      ", "Mayotte                                       ", "Moldávia                                      ", "Mongólia                                      ", "Montenegro                                    ", "Montserrat                                    ", "Moçambique                                    ", "Myanmar                                       ", "México                                        ", "Mônaco                                        ", "Namíbia                                       ", "Nauru                                         ", "Nepal                                         ", "Nicarágua                                     ", "Nigéria                                       ", "Niue                                          ", "Noruega                                       ", "Nova Caledônia                                ", "Nova Zelândia                                 ", "Níger                                         ", "Omã                                           ", "Palau                                         ", "Palestina                                     ", "Panamá                                        ", "Papua-Nova Guiné                              ", "Paquistão                                     ", "Paraguai                                      ", "País de Gales                                 ", "Países Baixos                                 ", "Peru                                          ", "Pitcairn                                      ", "Polinésia Francesa                            ", "Polônia                                       ", "Porto Rico                                    ", "Portugal                                      ", "Quirguistão                                   ", "Quênia                                        ", "Reino Unido                                   ", "República Centro-Africana                     ", "República Checa                               ", "República Democrática do Congo                ", "República do Congo                            ", "República Dominicana                          ", "Reunião                                       ", "Romênia                                       ", "Ruanda                                        ", "Rússia                                        ", "Saara Ocidental                               ", "Saint Martin                                  ", "Saint-Barthélemy                              ", "Saint-Pierre e Miquelon                       ", "Samoa Americana                               ", "Samoa                                         ", "Santa Helena, Ascensão e Tristão da Cunha     ", "Santa Lúcia                                   ", "Senegal                                       ", "Serra Leoa                                    ", "Seychelles                                    ", "Singapura                                     ", "Somália                                       ", "Sri Lanka                                     ", "Suazilândia                                   ", "Sudão                                         ", "Suriname                                      ", "Suécia                                        ", "Suíça                                         ", "Svalbard e Jan Mayen                          ", "São Cristóvão e Nevis                         ", "São Marino                                    ", "São Tomé e Príncipe                           ", "São Vicente e Granadinas                      ", "Sérvia                                        ", "Síria                                         ", "Tadjiquistão                                  ", "Tailândia                                     ", "Taiwan                                        ", "Tanzânia                                      ", "Terras Austrais e Antárticas Francesas        ", "Território Britânico do Oceano Índico         ", "Timor-Leste                                   ", "Togo                                          ", "Tonga                                         ", "Toquelau                                      ", "Trinidad e Tobago                             ", "Tunísia                                       ", "Turcas e Caicos                               ", "Turquemenistão                                ", "Turquia                                       ", "Tuvalu                                        ", "Ucrânia                                       ", "Uganda                                        ", "Uruguai                                       ", "Uzbequistão                                   ", "Vanuatu                                       ", "Vaticano                                      ", "Venezuela                                     ", "Vietname                                      ", "Wallis e Futuna                               ", "Zimbabwe                                      ", "Zâmbia                                        " }));
         add(nacionalidadeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 172, 393, -1));
@@ -150,7 +130,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 520, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, -1, 45));
 
         cancelarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         cancelarButton.setText("CONFIRMAR");
@@ -159,7 +139,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 cancelarButtonActionPerformed(evt);
             }
         });
-        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, -1, 45));
+        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 430, -1, 45));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
@@ -180,11 +160,7 @@ public class FuncionarioView extends javax.swing.JPanel {
     private javax.swing.JTextField bspTextField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
-    private javax.swing.JLabel dataLabel;
-    private javax.swing.JTextField dataTextField;
     private javax.swing.JLabel funcionarioLabel;
-    private javax.swing.JLabel horaLabel;
-    private javax.swing.JTextField horaTextField;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
     private javax.swing.JLabel navioLabel;
@@ -217,10 +193,10 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.taskTextField.setEditable(false);
         this.navioTextField.setText("");
         this.navioTextField.setEditable(false);
-        this.dataTextField.setText("");
-        this.dataTextField.setEditable(false);
-        this.horaTextField.setText("");
-        this.horaTextField.setEditable(false);
+      //  this.dataTextField.setText("");
+      //  this.dataTextField.setEditable(false);
+      //  this.horaTextField.setText("");
+      //  this.horaTextField.setEditable(false);
         FuncionarioView.state = FuncionarioView.BUSCA;
     }
     
@@ -242,10 +218,10 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.taskTextField.setEditable(true);
         this.navioTextField.setText("");
         this.navioTextField.setEditable(true);
-        this.dataTextField.setText("");
-        this.dataTextField.setEditable(true);
-        this.horaTextField.setText("");
-        this.horaTextField.setEditable(true);
+     //   this.dataTextField.setText("");
+     //   this.dataTextField.setEditable(true);
+     //   this.horaTextField.setText("");
+     //   this.horaTextField.setEditable(true);
         FuncionarioView.state = FuncionarioView.CADASTRO;
             
     }
