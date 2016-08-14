@@ -14,6 +14,7 @@
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>Nacionalidade</word>
             <word>Navio</word>
+            <word>Numero</word>
             <word>Profissao</word>
         </spellchecker-wordlist>
     </configuration>
