@@ -48,15 +48,9 @@ public class FuncionarioView extends javax.swing.JPanel {
         nomeLabel = new javax.swing.JLabel();
         numeroLabel = new javax.swing.JLabel();
         nacionalidadeLabel = new javax.swing.JLabel();
-        bspLabel = new javax.swing.JLabel();
         profissaoLabel = new javax.swing.JLabel();
-        taskLabel = new javax.swing.JLabel();
-        navioLabel = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
         profissaoTextField = new javax.swing.JTextField();
-        bspTextField = new javax.swing.JTextField();
-        taskTextField = new javax.swing.JTextField();
-        navioTextField = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
         confirmarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
@@ -84,40 +78,16 @@ public class FuncionarioView extends javax.swing.JPanel {
         nacionalidadeLabel.setText("Nacionalidade:");
         add(nacionalidadeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 175, 219, -1));
 
-        bspLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        bspLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        bspLabel.setText("BSP:");
-        add(bspLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 269, 219, -1));
-
         profissaoLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         profissaoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         profissaoLabel.setText("Profissão:");
         add(profissaoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 222, 219, -1));
-
-        taskLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        taskLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        taskLabel.setText("Task Number:");
-        add(taskLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 316, 219, -1));
-
-        navioLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        navioLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        navioLabel.setText("Navio / Unidade:");
-        add(navioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 363, 219, -1));
 
         nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 78, 500, -1));
 
         profissaoTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(profissaoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 219, 500, -1));
-
-        bspTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(bspTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 266, 500, -1));
-
-        taskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(taskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 313, 500, -1));
-
-        navioTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(navioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 360, 500, -1));
 
         nacionalidadeCombo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afeganistão", "ÁfricadoSul", "Albânia", "Alemanha", "Andorra", "Angola", "Anguilla", "AntilhasHolandesas", "Antárctida", "AntíguaeBarbuda", "Argentina", "Argélia", "Armênia", "Aruba", "ArábiaSaudita", "Austrália", "Áustria", "Azerbaijão", "Bahamas", "Bahrein", "Bangladesh", "Barbados", "Belize", "Benim", "Bermudas", "Bielorrússia", "Bolívia", "Botswana", "Brasil", "Brunei", "Bulgária", "BurkinaFaso", "Burundi", "Butão", "Bélgica", "BósniaeHerzegovina", "CaboVerde", "Camarões", "Camboja", "Canadá", "Catar", "Cazaquistão", "Chade", "Chile", "China", "Chipre", "Colômbia", "Comores", "CoreiadoNorte", "CoreiadoSul", "CostadoMarfim", "CostaRica", "Croácia", "Cuba", "Dinamarca", "Djibouti", "Dominica", "Egito", "ElSalvador", "EmiradosÁrabesUnidos", "Equador", "Eritreia", "Escócia", "Eslováquia", "Eslovênia", "Espanha", "EstadosFederadosdaMicronésia", "EstadosUnidos", "Estônia", "Etiópia", "Fiji", "Filipinas", "Finlândia", "França", "Gabão", "Gana", "Geórgia", "Gibraltar", "Granada", "Gronelândia", "Grécia", "Guadalupe", "Guam", "Guatemala", "Guernesei", "Guiana", "GuianaFrancesa", "Guiné", "GuinéEquatorial", "Guiné-Bissau", "Gâmbia", "Haiti", "Honduras", "HongKong", "Hungria", "IlhaBouvet", "IlhadeMan", "IlhadoNatal", "IlhaHeardeIlhasMcDonald", "IlhaNorfolk", "IlhasCayman", "IlhasCocos(Keeling)", "IlhasCook", "IlhasFeroé", "IlhasGeórgiadoSuleSandwichdoSul", "IlhasMalvinas", "IlhasMarshall", "IlhasMenoresDistantesdosEstadosUnidos", "IlhasSalomão", "IlhasVirgensAmericanas", "IlhasVirgensBritânicas", "IlhasÅland", "Indonésia", "Inglaterra", "Índia", "Iraque", "IrlandadoNorte", "Irlanda", "Irã", "Islândia", "Israel", "Itália", "Iêmen", "Jamaica", "Japão", "Jersey", "Jordânia", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letônia", "Libéria", "Liechtenstein", "Lituânia", "Luxemburgo", "Líbano", "Líbia", "Macau", "Macedônia", "Madagáscar", "Malawi", "Maldivas", "Mali", "Malta", "Malásia", "MarianasSetentrionais", "Marrocos", "Martinica", "Mauritânia", "Maurícia", "Mayotte", "Moldávia", "Mongólia", "Montenegro", "Montserrat", "Moçambique", "Myanmar", "México", "Mônaco", "Namíbia", "Nauru", "Nepal", "Nicarágua", "Nigéria", "Niue", "Noruega", "NovaCaledônia", "NovaZelândia", "Níger", "Omã", "Palau", "Palestina", "Panamá", "Papua-NovaGuiné", "Paquistão", "Paraguai", "PaísdeGales", "PaísesBaixos", "Peru", "Pitcairn", "PolinésiaFrancesa", "Polônia", "PortoRico", "Portugal", "Quirguistão", "Quênia", "ReinoUnido", "RepúblicaCentro-Africana", "RepúblicaCheca", "RepúblicaDemocráticadoCongo", "RepúblicadoCongo", "RepúblicaDominicana", "Reunião", "Romênia", "Ruanda", "Rússia", "SaaraOcidental", "SaintMartin", "Saint-Barthélemy", "Saint-PierreeMiquelon", "SamoaAmericana", "Samoa", "SantaHelena,AscensãoeTristãodaCunha", "SantaLúcia", "Senegal", "SerraLeoa", "Seychelles", "Singapura", "Somália", "SriLanka", "Suazilândia", "Sudão", "Suriname", "Suécia", "Suíça", "SvalbardeJanMayen", "SãoCristóvãoeNevis", "SãoMarino", "SãoToméePríncipe", "SãoVicenteeGranadinas", "Sérvia", "Síria", "Tadjiquistão", "Tailândia", "Taiwan", "Tanzânia", "TerrasAustraiseAntárticasFrancesas", "TerritórioBritânicodoOceanoÍndico", "Timor-Leste", "Togo", "Tonga", "Toquelau", "TrinidadeTobago", "Tunísia", "TurcaseCaicos", "Turquemenistão", "Turquia", "Tuvalu", "Ucrânia", "Uganda", "Uruguai", "Uzbequistão", "Vanuatu", "Vaticano", "Venezuela", "Vietname", "WalliseFutuna", "Zimbabwe", "Zâmbia" }));
@@ -130,7 +100,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, 45));
 
         cancelarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         cancelarButton.setText("CONFIRMAR");
@@ -139,7 +109,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 cancelarButtonActionPerformed(evt);
             }
         });
-        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 430, -1, 45));
+        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, 45));
 
         numeroFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         numeroFormattedField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -156,9 +126,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                 funcInfo.add(this.numeroFormattedField.getText());
                 funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
                 funcInfo.add(this.profissaoTextField.getText());
-                funcInfo.add(this.bspTextField.getText());
-                funcInfo.add(this.navioTextField.getText());
-                
+
                 if(this.getControl().updateFuncionario(funcInfo)){
                     JOptionPane.showMessageDialog(new JFrame(), "Funcionário atualizado com sucesso");
                 }
@@ -182,9 +150,6 @@ public class FuncionarioView extends javax.swing.JPanel {
                     this.nomeTextField.setText(funcInfo.get(0));
                     this.nacionalidadeCombo.setSelectedItem(funcInfo.get(1));
                     this.profissaoTextField.setText(funcInfo.get(2));
-                    this.bspTextField.setText(funcInfo.get(3));
-                    this.taskTextField.setText(funcInfo.get(4));
-                    this.navioTextField.setText(funcInfo.get(5));
                     FuncionarioView.state = FuncionarioView.EDIT;
                     
                 }catch(java.lang.IndexOutOfBoundsException ex){
@@ -204,8 +169,7 @@ public class FuncionarioView extends javax.swing.JPanel {
             funcInfo.add(this.numeroFormattedField.getText());
             funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
             funcInfo.add(this.profissaoTextField.getText());
-            funcInfo.add(this.bspTextField.getText());
-            funcInfo.add(this.navioTextField.getText());
+
             
             if(this.getControl().registerFuncionario(funcInfo)){
                 JOptionPane.showMessageDialog(new JFrame(), "Funcionario Registrado");
@@ -227,22 +191,16 @@ public class FuncionarioView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bspLabel;
-    private javax.swing.JTextField bspTextField;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
-    private javax.swing.JLabel navioLabel;
-    private javax.swing.JTextField navioTextField;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JFormattedTextField numeroFormattedField;
     private javax.swing.JLabel numeroLabel;
     private javax.swing.JLabel profissaoLabel;
     private javax.swing.JTextField profissaoTextField;
-    private javax.swing.JLabel taskLabel;
-    private javax.swing.JTextField taskTextField;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -258,12 +216,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nacionalidadeCombo.setVisible(false);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(false);
-        this.bspTextField.setText("");
-        this.bspTextField.setEditable(false);
-        this.taskTextField.setText("");
-        this.taskTextField.setEditable(false);
-        this.navioTextField.setText("");
-        this.navioTextField.setEditable(false);
+
         FuncionarioView.state = FuncionarioView.BUSCA;
     }
     
@@ -278,12 +231,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nacionalidadeCombo.setVisible(true);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(true);
-        this.bspTextField.setText("");
-        this.bspTextField.setEditable(true);
-        this.taskTextField.setText("");
-        this.taskTextField.setEditable(true);
-        this.navioTextField.setText("");
-        this.navioTextField.setEditable(true);
+
         FuncionarioView.state = FuncionarioView.CADASTRO;
             
     }

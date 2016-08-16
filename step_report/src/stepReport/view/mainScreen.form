@@ -48,6 +48,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="funcMenuActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="buscarFuncMenuItem">
               <Properties>
@@ -63,6 +66,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadastroFuncMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="AtividadesMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Atividades"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtividadesMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -8,6 +8,7 @@ package stepReport.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
+import stepReport.control.TarefasControl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.PeriodoControl;
 import stepReport.control.loginControl;
@@ -25,6 +26,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private FuncionarioControl funcionario;
     private AdminControl admin;
     private PeriodoControl periodo;
+    private TarefasControl dadosFuncionario;
     
     private static JPanel active;
     
@@ -34,10 +36,13 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
         this.setPeriodo(new PeriodoControl(this));
+        this.setDadosFuncionario(new TarefasControl(this));
+        
         this.add(this.getLogin().getView());
         this.add(this.getFuncionario().getView());
         this.add(this.getAdmin().getView());
         this.add(this.getPeriodo().getView());
+        this.add(this.getDadosFuncionario().getView());
         
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
@@ -68,6 +73,7 @@ public final class mainScreen extends javax.swing.JFrame {
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
+        AtividadesMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
@@ -107,6 +113,11 @@ public final class mainScreen extends javax.swing.JFrame {
         Toolbar.add(jMenu2);
 
         funcMenu.setText("Funcionário");
+        funcMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                funcMenuActionPerformed(evt);
+            }
+        });
 
         buscarFuncMenuItem.setText("Buscar");
         buscarFuncMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +134,14 @@ public final class mainScreen extends javax.swing.JFrame {
             }
         });
         funcMenu.add(CadastroFuncMenuItem);
+
+        AtividadesMenuItem.setText("Atividades");
+        AtividadesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtividadesMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(AtividadesMenuItem);
 
         Toolbar.add(funcMenu);
 
@@ -196,6 +215,19 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getFuncionario().initNewView();
     }//GEN-LAST:event_CadastroFuncMenuItemActionPerformed
 
+    private void funcMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcMenuActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_funcMenuActionPerformed
+
+    private void AtividadesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtividadesMenuItemActionPerformed
+        // TODO add your handling code here:
+        
+        mainScreen.active.setVisible(false);
+        this.getDadosFuncionario().initSearchView();
+    }//GEN-LAST:event_AtividadesMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -240,6 +272,7 @@ public final class mainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AtividadesMenuItem;
     private javax.swing.JMenuItem CadastroFuncMenuItem;
     private javax.swing.JMenuItem RegistroMenuItem;
     private javax.swing.JMenuBar Toolbar;
@@ -300,6 +333,14 @@ public final class mainScreen extends javax.swing.JFrame {
     }
     public PeriodoControl getPeriodo(){
         return this.periodo;
+    }
+    
+     public TarefasControl getDadosFuncionario() {
+        return dadosFuncionario;
+    }
+
+    public void setDadosFuncionario(TarefasControl dadosFuncionario) {
+        this.dadosFuncionario = dadosFuncionario;
     }
     
 }
