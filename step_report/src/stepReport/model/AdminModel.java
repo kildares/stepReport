@@ -20,5 +20,9 @@ public class AdminModel {
     public boolean validateLogin(String user,String password){
         return true;
     }
+
+    public void registerUser() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -25,7 +25,7 @@
               <EmptySpace min="0" pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="newUserButton" min="-2" pref="187" max="-2" attributes="0"/>
+                      <Component id="cancelButton" min="-2" pref="187" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="confirmButton" min="-2" pref="187" max="-2" attributes="0"/>
                   </Group>
@@ -79,7 +79,7 @@
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="confirmButton" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="newUserButton" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="cancelButton" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="276" max="32767" attributes="0"/>
           </Group>
@@ -171,8 +171,11 @@
           <Dimension value="[143, 31]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="newUserButton">
+    <Component class="javax.swing.JToggleButton" name="cancelButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Verdana" size="18" style="0"/>
@@ -183,7 +186,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newUserButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="confirmLabel2">
