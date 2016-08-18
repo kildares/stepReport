@@ -5,7 +5,6 @@
  */
 package stepReport.control;
 
-import java.awt.List;
 import java.util.ArrayList;
 import stepReport.view.FuncionarioView;
 import stepReport.view.mainScreen;
@@ -30,7 +29,7 @@ public final class FuncionarioControl {
     }
     
     public FuncionarioControl(mainScreen Screen){
-        this.setModel(new FuncionarioModel());
+        this.setModel(FuncionarioModel.getInstance(this));
         this.setScreen(Screen);
         this.setView(new FuncionarioView(this));
         this.getView().setVisible(false);

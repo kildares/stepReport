@@ -5,14 +5,71 @@
  */
 package stepReport.model;
 
-import java.awt.List;
 import java.util.ArrayList;
+import stepReport.control.FuncionarioControl;
+import stepReport.control.TarefasControl;
 
 /**
- *
+ * Classe que trata o Funcionário de funcionario, implementa o padrão Singleton
+ * 
+ * 
  * @author Kildare
  */
 public class FuncionarioModel {
+
+    private static FuncionarioModel instance = null;
+    private TarefasControl tarefaControl;
+
+    private FuncionarioControl funcionarioControl;
+    
+    protected FuncionarioModel(){
+        
+    }
+    
+    public static FuncionarioModel getInstance(FuncionarioControl funcionarioControl){
+        if(FuncionarioModel.instance == null){
+            instance = new FuncionarioModel();
+        }
+        FuncionarioModel.instance.setFuncionarioControl(funcionarioControl);
+        
+        return FuncionarioModel.instance;
+    }
+    
+    
+    public static FuncionarioModel getInstance(TarefasControl control){
+        if(FuncionarioModel.instance == null){
+            instance = new FuncionarioModel();
+        }
+        FuncionarioModel.instance.setTarefaControl(control);
+        
+        return FuncionarioModel.instance;
+    }
+    
+    
+    public static FuncionarioModel getInstance() {
+        if(FuncionarioModel.instance == null){
+            instance = new FuncionarioModel();
+        }
+        return FuncionarioModel.instance;
+    }
+
+    public TarefasControl getTarefaControl() {
+        return tarefaControl;
+    }
+
+    public void setTarefaControl(TarefasControl tarefaControl) {
+        this.tarefaControl = tarefaControl;
+    }
+
+    public FuncionarioControl getFuncionarioControl() {
+        return funcionarioControl;
+    }
+
+    public void setFuncionarioControl(FuncionarioControl funcionarioControl) {
+        this.funcionarioControl = funcionarioControl;
+    }
+    
+    
     
     /**
      * 
@@ -54,6 +111,21 @@ public class FuncionarioModel {
      * @return
      */
     public boolean registerFuncionaro(ArrayList<String> funcInfo) {
+        return true;
+    }
+
+    
+    
+     public ArrayList<String> searchTarefas(String numero) {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("");
+        list.add("");
+        list.add("");
+        return list;
+        
+    }
+    
+    public boolean editTarefa(String bsp, String navio, String task) {
         return true;
     }
     
