@@ -10,12 +10,8 @@ import stepReport.model.FuncionarioModel;
  * @author gabriela
  */
 public interface FuncionarioDAO {
-    public FuncionarioModel create(String nome, String nacionalidade, String profissao);
-    //OBS: Não deve existir número do funcionário na view! O número é gerado automático, aparece no final do cadastro!
-    // O usuário deve anotar o número gerado e usar para atualizar as informações do funcionário e cadastrar horas para o 
-    //funcionario 
-    
-    public FuncionarioModel updateProfissao(int id, String profissao);
+    public FuncionarioModel create(String nome, String nacionalidade, String profissao);    
+    public FuncionarioModel update(int id, String nome, String nacionalidade, String profissao);
     //Atualiza a prof do funcionario cujo número é igual a id
     
     public FuncionarioModel remove(int id);

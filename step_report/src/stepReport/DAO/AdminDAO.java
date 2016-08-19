@@ -10,8 +10,8 @@ import stepReport.model.AdminModel;
  * @author gabriela
  */
 public interface AdminDAO {
-    public AdminModel create(String user, String password);
-    public AdminModel update(String user, String password);
+    public void create(String user, String password);
+    public void updatePassword(String user, String password);
     public AdminModel findByUser(String user);
-    
+    public void remove(String user);
 }
