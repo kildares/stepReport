@@ -11,6 +11,6 @@ import stepReport.model.PeriodoModel;
  * @author gabriela
  */
 public interface cadastraHorasDAO {
-    public PeriodoModel create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab,int idFunc, int idTarefa);
+    public void create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab,int idFunc, int idTarefa);
     
 }
