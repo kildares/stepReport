@@ -18,9 +18,8 @@ import stepReport.control.TarefasControl;
 public class FuncionarioModel {
 
     private static FuncionarioModel instance = null;
-    private TarefasControl tarefaControl;
 
-    private FuncionarioControl funcionarioControl;
+    private FuncionarioControl Control;
     
     protected FuncionarioModel(){
         
@@ -30,17 +29,7 @@ public class FuncionarioModel {
         if(FuncionarioModel.instance == null){
             instance = new FuncionarioModel();
         }
-        FuncionarioModel.instance.setFuncionarioControl(funcionarioControl);
-        
-        return FuncionarioModel.instance;
-    }
-    
-    
-    public static FuncionarioModel getInstance(TarefasControl control){
-        if(FuncionarioModel.instance == null){
-            instance = new FuncionarioModel();
-        }
-        FuncionarioModel.instance.setTarefaControl(control);
+        FuncionarioModel.instance.setControl(funcionarioControl);
         
         return FuncionarioModel.instance;
     }
@@ -53,20 +42,12 @@ public class FuncionarioModel {
         return FuncionarioModel.instance;
     }
 
-    public TarefasControl getTarefaControl() {
-        return tarefaControl;
+    public FuncionarioControl getControl() {
+        return Control;
     }
 
-    public void setTarefaControl(TarefasControl tarefaControl) {
-        this.tarefaControl = tarefaControl;
-    }
-
-    public FuncionarioControl getFuncionarioControl() {
-        return funcionarioControl;
-    }
-
-    public void setFuncionarioControl(FuncionarioControl funcionarioControl) {
-        this.funcionarioControl = funcionarioControl;
+    public void setControl(FuncionarioControl funcionarioControl) {
+        this.Control = funcionarioControl;
     }
     
     
@@ -115,18 +96,5 @@ public class FuncionarioModel {
     }
 
     
-    
-     public ArrayList<String> searchTarefas(String numero) {
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("");
-        list.add("");
-        list.add("");
-        return list;
-        
-    }
-    
-    public boolean editTarefa(String bsp, String navio, String task) {
-        return true;
-    }
     
 }

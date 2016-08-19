@@ -73,6 +73,7 @@ public final class mainScreen extends javax.swing.JFrame {
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
         searchTarefaMenuItem = new javax.swing.JMenuItem();
         tarefasMenuItem = new javax.swing.JMenuItem();
+        searchHorasMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         userMenu = new javax.swing.JMenu();
@@ -139,6 +140,14 @@ public final class mainScreen extends javax.swing.JFrame {
         });
         funcMenu.add(tarefasMenuItem);
 
+        searchHorasMenuItem.setText("Visualizar Horas");
+        searchHorasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchHorasMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(searchHorasMenuItem);
+
         RegistroMenuItem.setText("Registro de horas");
         RegistroMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +197,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
           
         mainScreen.active.setVisible(false);
-        this.getPeriodo().initView();
+        this.getPeriodo().initSearchView();
         
         
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
@@ -236,6 +245,14 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void searchHorasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHorasMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getPeriodo().initSearchView();
+        
+
+    }//GEN-LAST:event_searchHorasMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +309,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem searchHorasMenuItem;
     private javax.swing.JMenuItem searchTarefaMenuItem;
     private javax.swing.JMenuItem tarefasMenuItem;
     private javax.swing.JMenu userMenu;

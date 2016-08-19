@@ -5,6 +5,7 @@
  */
 package stepReport.control;
 
+import java.util.ArrayList;
 import stepReport.model.PeriodoModel;
 import stepReport.view.PeriodoView;
 import stepReport.view.mainScreen;
@@ -26,13 +27,18 @@ public final class PeriodoControl {
         this.Screen = screen;
         this.View = new PeriodoView(this);
         this.Model = new PeriodoModel();
+        
+        this.getView().insertDatePicker();
+        
         this.getView().setVisible(false);
     }
 
-    public void initView() {
+    public void initSearchView() {
         
-        this.View.setVisible(true);
+        this.getView().initSearchView();
         mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);
     }
     
      public mainScreen getScreen() {
@@ -57,6 +63,11 @@ public final class PeriodoControl {
 
     public void setModel(PeriodoModel Model) {
         this.Model = Model;
+    }
+
+    public ArrayList<String> searchTarefa(String numeroFunc, String replace) {
+        return this.getModel().searchTarefa(numeroFunc,replace);
+        
     }
     
 }

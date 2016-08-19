@@ -5,10 +5,28 @@
  */
 package stepReport.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Kildare
  */
 public class PeriodoModel {
+
+    public ArrayList<String> searchTarefa(String numeroFunc, String replace) {
+        
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        
+        
+        return list;
+        
+    }
     
 }
