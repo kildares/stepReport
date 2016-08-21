@@ -52,7 +52,7 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getLogin().getView().setVisible(true);
         
         this.Toolbar.setVisible(false);
-        
+        this.isPrintable(false);
         
         this.getLogin().getView().setBounds(0, 0, 300, 160);
         
@@ -70,7 +70,7 @@ public final class mainScreen extends javax.swing.JFrame {
         Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        printMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
@@ -93,8 +93,8 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenuItem3.setText("Salvar");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem2.setText("Imprimir");
-        jMenu1.add(jMenuItem2);
+        printMenuItem.setText("Imprimir");
+        jMenu1.add(printMenuItem);
 
         jMenuItem1.setText("Sair");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -325,9 +325,9 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem printMenuItem;
     private javax.swing.JMenu relatorioMenu;
     private javax.swing.JMenuItem relatorioMenuItem;
     private javax.swing.JMenuItem searchHorasMenuItem;
@@ -397,6 +397,10 @@ public final class mainScreen extends javax.swing.JFrame {
 
     public void setTarefasFuncionario(TarefasControl dadosFuncionario) {
         this.tarefasFuncionario = dadosFuncionario;
+    }
+
+    public void isPrintable(boolean Printable) {
+        this.printMenuItem.setVisible(Printable);
     }
     
 }

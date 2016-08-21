@@ -61,6 +61,13 @@ public final class ReportControl {
     }
 
     public HashMap<String,String> getHorasNation(String text, String ano) {
+        boolean isFound=true;
+        
+        //TODO codigo pra impressao do relatorio
+        
+        if(isFound){
+            this.getScreen().isPrintable(true);
+        }
         
         return new HashMap<String,String>();
         

@@ -6,6 +6,7 @@
 package stepReport.reports.view;
 
 import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -301,9 +302,13 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
 
     private void loadTable(HashMap<String, String> horas) {
         
+        DefaultTableModel model = new DefaultTableModel(horas.keySet().size(),2);
+        this.reportTable.setModel(model);
+        int cont=0;
         for(String func : horas.keySet()){
-            this.reportTable.setValueAt(func, 0, 0);
-            this.reportTable.setValueAt(horas.get(func), 0, 1);
+            this.reportTable.setValueAt(func, cont, 0);
+            this.reportTable.setValueAt(horas.get(func), cont, 1);
+            cont++;
         }
     }
 }
