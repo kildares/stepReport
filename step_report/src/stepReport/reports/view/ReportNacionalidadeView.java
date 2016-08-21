@@ -5,6 +5,7 @@
  */
 package stepReport.reports.view;
 
+import java.util.HashMap;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -22,6 +23,9 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private JDatePickerImpl FimDatePicker;
     
     private static int state;
+    
+    private static final int BUSCA = 1;        
+    
     
     /**
      * Creates new form reportHora
@@ -60,6 +64,8 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         periodo2TextField = new javax.swing.JFormattedTextField();
         periodo1Label = new javax.swing.JLabel();
         periodo1TextField = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        reportTable = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -137,12 +143,57 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         periodo1TextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         periodoPanel.add(periodo1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 15, 140, -1));
 
-        add(periodoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 540, 110));
+        add(periodoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 520, 110));
+
+        reportTable.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        reportTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Funcionário", "Total de Horas"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(reportTable);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 670, 110));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
-        
+        if(ReportNacionalidadeView.state == ReportNacionalidadeView.BUSCA){
+            if(this.anualRadioButton.isSelected())
+            {
+                String ano = this.periodo1TextField.getText();
+                if(!ano.equals("") && Integer.parseInt(ano) > 1900){
+                    HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
+                    this.loadTable(horas);
+                }
+            }
+            else if(this.mensalRadionButton.isSelected())
+            {
+                
+            }
+            else if(this.personRadionButton.isSelected())
+            {
+                
+            }
+            
+            
+        }
         
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
@@ -193,6 +244,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JRadioButton anualRadioButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton confirmarButton;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton mensalRadionButton;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
@@ -203,6 +255,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField periodo2TextField;
     private javax.swing.JPanel periodoPanel;
     private javax.swing.JRadioButton personRadionButton;
+    private javax.swing.JTable reportTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
     
@@ -243,5 +296,14 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         this.FimDatePicker.setVisible(false);
         this.periodoPanel.setVisible(false);
         
+        ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
+    }
+
+    private void loadTable(HashMap<String, String> horas) {
+        
+        for(String func : horas.keySet()){
+            this.reportTable.setValueAt(func, 0, 0);
+            this.reportTable.setValueAt(horas.get(func), 0, 1);
+        }
     }
 }

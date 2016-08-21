@@ -5,6 +5,7 @@
  */
 package stepReport.control;
 
+import java.util.HashMap;
 import stepReport.reports.view.ReportBSPView;
 import stepReport.reports.view.ReportNacionalidadeView;
 import stepReport.view.mainScreen;
@@ -18,7 +19,7 @@ public final class ReportControl {
     private ReportNacionalidadeView reportNacionalidadeView;
     private ReportBSPView reportBSPView;
     private mainScreen screen;
-
+    
     public ReportControl(mainScreen screen){
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
@@ -57,6 +58,12 @@ public final class ReportControl {
         mainScreen.setActive(this.getReportNacionalidadeView());
         this.getReportNacionalidadeView().setBounds(0, 0, 800, 500);
         this.getReportNacionalidadeView().setVisible(true);
+    }
+
+    public HashMap<String,String> getHorasNation(String text, String ano) {
+        
+        return new HashMap<String,String>();
+        
     }
 
     
