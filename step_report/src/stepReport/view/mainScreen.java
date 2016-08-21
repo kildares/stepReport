@@ -5,7 +5,6 @@
  */
 package stepReport.view;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.TarefasControl;
@@ -75,7 +74,8 @@ public final class mainScreen extends javax.swing.JFrame {
         tarefasMenuItem = new javax.swing.JMenuItem();
         searchHorasMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        relatorioMenu = new javax.swing.JMenu();
+        relatorioMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
@@ -158,8 +158,17 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar.add(funcMenu);
 
-        jMenu3.setText("Relatório");
-        Toolbar.add(jMenu3);
+        relatorioMenu.setText("Relatório");
+
+        relatorioMenuItem.setText("Gerar Relatório");
+        relatorioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioMenuItemActionPerformed(evt);
+            }
+        });
+        relatorioMenu.add(relatorioMenuItem);
+
+        Toolbar.add(relatorioMenu);
 
         userMenu.setText("Usuário");
 
@@ -254,6 +263,12 @@ public final class mainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_searchHorasMenuItemActionPerformed
 
+    private void relatorioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        
+    }//GEN-LAST:event_relatorioMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -304,11 +319,12 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem buscarFuncMenuItem;
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenu relatorioMenu;
+    private javax.swing.JMenuItem relatorioMenuItem;
     private javax.swing.JMenuItem searchHorasMenuItem;
     private javax.swing.JMenuItem searchTarefaMenuItem;
     private javax.swing.JMenuItem tarefasMenuItem;

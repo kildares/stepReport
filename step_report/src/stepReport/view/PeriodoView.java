@@ -20,7 +20,7 @@ import stepReport.control.PeriodoControl;
  *
  * @author Kildare
  */
-public class PeriodoView extends javax.swing.JPanel {
+public final class PeriodoView extends javax.swing.JPanel {
 
     /**
      * Creates new form PeriodoView
@@ -207,6 +207,7 @@ public class PeriodoView extends javax.swing.JPanel {
                 this.SextaTextField.setText(resultado.get(5));
                 this.SabadoTextField.setText(resultado.get(6));
                 this.diasPanel.setVisible(true);
+                
                 this.confirmarButton.setText("Confirmar");
                 PeriodoView.state = PeriodoView.EDIT;
                 
@@ -263,12 +264,12 @@ public class PeriodoView extends javax.swing.JPanel {
 
     public void initSearchView() {
         
+        this.DatePicker.getJFormattedTextField().setText("");
         this.DatePicker.setVisible(true);
         this.titleLabel.setText("Ver Hora");
         this.numeroTextField.setText("");
         this.numeroTextField.setEditable(true);
         this.diasPanel.setVisible(false);
-        
         PeriodoView.state = PeriodoView.BUSCA;
         
         
