@@ -15,12 +15,8 @@ public interface TarefasDAO {
     //procura na tabela nova se existe alguma outra tupla com mesmo id_func e status CURRENT. Se sim, muda pra OLD
     //cria tupla nova com id do func e status CURRENT
     
-    public void update(int id_func, String bsp, String task_number, String navio);
-    //achar linha na tabela com esse id_func e status=CURRENT, pegar infos, mudar status p/ OLD
-    //criar nova tupla com status CURRENT
-
-    public TarefasModel findByIdFunc(int id_func);
+    public int findCurrentByIdFunc(int id_func);
+    //retorna o id da tarefa com status=CURRENT relacionada ao funcionario com id=id_func
     
-    public void remove(int id_func);
-   
+    public void changeStatusToOld(int id);
 }
