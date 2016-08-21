@@ -94,7 +94,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="relatorioMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x Nacionalidade"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioMenuItemActionPerformed"/>

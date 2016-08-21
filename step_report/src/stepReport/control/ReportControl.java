@@ -23,6 +23,8 @@ public final class ReportControl {
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
         this.setReportBSPView(new ReportBSPView(this));
+        this.getReportNacionalidadeView().setVisible(false);
+        this.getReportBSPView().setVisible(false);
     }
     
     
@@ -49,5 +51,13 @@ public final class ReportControl {
     public void setScreen(mainScreen screen) {
         this.screen = screen;
     }
+
+    public void initNationReport() {
+        this.getReportNacionalidadeView().loadNationReport();
+        mainScreen.setActive(this.getReportNacionalidadeView());
+        this.getReportNacionalidadeView().setBounds(0, 0, 800, 500);
+        this.getReportNacionalidadeView().setVisible(true);
+    }
+
     
 }

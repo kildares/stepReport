@@ -26,8 +26,6 @@ public final class PeriodoView extends javax.swing.JPanel {
      * Creates new form PeriodoView
      */
     private PeriodoControl Control;
-
-   
     private JDatePickerImpl DatePicker;
     
     private static int state;

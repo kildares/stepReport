@@ -10,6 +10,7 @@ import stepReport.control.AdminControl;
 import stepReport.control.TarefasControl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.PeriodoControl;
+import stepReport.control.ReportControl;
 import stepReport.control.loginControl;
 
 /**
@@ -26,7 +27,8 @@ public final class mainScreen extends javax.swing.JFrame {
     private AdminControl admin;
     private PeriodoControl periodo;
     private TarefasControl tarefasFuncionario;
-    
+    private ReportControl report;
+
     private static JPanel active;
     
     public mainScreen() {
@@ -36,12 +38,15 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setAdmin(new AdminControl(this));
         this.setPeriodo(new PeriodoControl(this));
         this.setTarefasFuncionario(new TarefasControl(this));
+        this.setReport(new ReportControl(this));
         
         this.add(this.getLogin().getView());
         this.add(this.getFuncionario().getView());
         this.add(this.getAdmin().getView());
         this.add(this.getPeriodo().getView());
         this.add(this.getTarefasFuncionario().getView());
+        this.add(this.getReport().getReportNacionalidadeView());
+        this.add(this.getReport().getReportBSPView());
         
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
@@ -160,7 +165,7 @@ public final class mainScreen extends javax.swing.JFrame {
 
         relatorioMenu.setText("Relatório");
 
-        relatorioMenuItem.setText("Gerar Relatório");
+        relatorioMenuItem.setText("Funcionário x Nacionalidade");
         relatorioMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorioMenuItemActionPerformed(evt);
@@ -266,7 +271,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private void relatorioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
-        
+        this.getReport().initNationReport();
     }//GEN-LAST:event_relatorioMenuItemActionPerformed
 
     /**
@@ -341,7 +346,15 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getFuncionario().initFuncionario();
     }
     
+    
+    public ReportControl getReport() {
+        return report;
+    }
 
+    public void setReport(ReportControl report) {
+        this.report = report;
+    }
+    
     public loginControl getLogin() {
         return login;
     }
