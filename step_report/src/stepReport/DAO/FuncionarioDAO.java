@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package stepReport.DAO;
+import java.awt.List;
 import stepReport.model.FuncionarioModel;
 /**
  *
@@ -16,4 +17,5 @@ public interface FuncionarioDAO {
     
     public void remove(int id);
     public FuncionarioModel findByID(int id);
+    public List<FuncionarioModel> findAll();
 }
