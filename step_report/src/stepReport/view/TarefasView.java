@@ -192,6 +192,21 @@ public final class TarefasView extends javax.swing.JPanel {
         this.navioTextField.setEditable(false);
         this.confirmarButton.setText("BUSCAR");
         
+        TarefasView.state = TarefasView.BUSCA;
+        
+    }
+
+    public void loadNewView() {
+        
+        this.numeroFormattedField.setText("");
+        this.bspTextField.setText("");
+        this.bspTextField.setEditable(true);
+        this.taskTextField.setText("");
+        this.taskTextField.setEditable(true);
+        this.navioTextField.setText("");
+        this.navioTextField.setEditable(true);
+        this.confirmarButton.setText("Registrar");
+        TarefasView.state = TarefasView.CADASTRO;
     }
 
 

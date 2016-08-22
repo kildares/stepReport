@@ -3,19 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stepReport.view.report.view;
+package stepReport.reports.view;
+
+import stepReport.control.ReportControl;
 
 /**
  *
- * @author Kildare
+ * @author Queiroz Avila Contab
  */
-public class reportHora extends javax.swing.JPanel {
+public final class ReportBSPView extends javax.swing.JPanel {
+
+    private ReportControl Control;
 
     /**
-     * Creates new form reportHora
+     * Creates new form ReportBSPView
+     * @param Control
      */
-    public reportHora() {
+    public ReportBSPView(ReportControl Control) {
         initComponents();
+        this.setControl(Control);
     }
 
     /**
@@ -31,15 +37,24 @@ public class reportHora extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+
+    public ReportControl getControl() {
+        return Control;
+    }
+
+    public void setControl(ReportControl Control) {
+        this.Control = Control;
+    }    
 }

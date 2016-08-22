@@ -6,6 +6,7 @@
 package stepReport.control;
 
 import java.util.ArrayList;
+import stepReport.model.FuncionarioModel;
 import stepReport.model.TarefasModel;
 import stepReport.view.TarefasView;
 import stepReport.view.mainScreen;
@@ -22,8 +23,10 @@ public final class TarefasControl {
     
     public TarefasControl(mainScreen screen){
         this.setScreen(screen);
-        this.setModel(new TarefasModel(this));
+        this.setModel(TarefasModel.getInstance(this));
         this.setView(new TarefasView(this));
+        this.getModel().setControl(this);
+        
         
         this.getView().setVisible(false);
     }
@@ -67,5 +70,12 @@ public final class TarefasControl {
 
     public boolean editTarefa(String bsp, String navio, String task) {
         return this.getModel().editTarefa(bsp,navio,task);
+    }
+
+    public void initNewView() {
+        this.getView().loadNewView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);
     }
 }

@@ -7,7 +7,6 @@ package stepReport.view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import stepReport.control.loginControl;
 
 /**

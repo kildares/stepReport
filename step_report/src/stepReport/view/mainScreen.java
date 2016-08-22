@@ -5,12 +5,12 @@
  */
 package stepReport.view;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.TarefasControl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.PeriodoControl;
+import stepReport.control.ReportControl;
 import stepReport.control.loginControl;
 
 /**
@@ -26,8 +26,9 @@ public final class mainScreen extends javax.swing.JFrame {
     private FuncionarioControl funcionario;
     private AdminControl admin;
     private PeriodoControl periodo;
-    private TarefasControl dadosFuncionario;
-    
+    private TarefasControl tarefasFuncionario;
+    private ReportControl report;
+
     private static JPanel active;
     
     public mainScreen() {
@@ -36,19 +37,22 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
         this.setPeriodo(new PeriodoControl(this));
-        this.setDadosFuncionario(new TarefasControl(this));
+        this.setTarefasFuncionario(new TarefasControl(this));
+        this.setReport(new ReportControl(this));
         
         this.add(this.getLogin().getView());
         this.add(this.getFuncionario().getView());
         this.add(this.getAdmin().getView());
         this.add(this.getPeriodo().getView());
-        this.add(this.getDadosFuncionario().getView());
+        this.add(this.getTarefasFuncionario().getView());
+        this.add(this.getReport().getReportNacionalidadeView());
+        this.add(this.getReport().getReportBSPView());
         
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
         
         this.Toolbar.setVisible(false);
-        
+        this.isPrintable(false);
         
         this.getLogin().getView().setBounds(0, 0, 300, 160);
         
@@ -65,52 +69,42 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
+        printMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        RegistroMenuItem = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
-        AtividadesMenuItem = new javax.swing.JMenuItem();
+        searchTarefaMenuItem = new javax.swing.JMenuItem();
+        tarefasMenuItem = new javax.swing.JMenuItem();
+        searchHorasMenuItem = new javax.swing.JMenuItem();
+        RegistroMenuItem = new javax.swing.JMenuItem();
+        relatorioMenu = new javax.swing.JMenu();
+        relatorioMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         jMenu1.setText("Arquivo");
 
-        jMenuItem3.setText("Salvar");
-        jMenu1.add(jMenuItem3);
+        saveMenuItem.setText("Salvar");
+        jMenu1.add(saveMenuItem);
 
-        jMenuItem2.setText("Imprimir");
-        jMenu1.add(jMenuItem2);
+        printMenuItem.setText("Imprimir");
+        jMenu1.add(printMenuItem);
 
         jMenuItem1.setText("Sair");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         Toolbar.add(jMenu1);
-
-        jMenu2.setText("Registro");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
-
-        RegistroMenuItem.setText("Registro de horas");
-        RegistroMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegistroMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu2.add(RegistroMenuItem);
-
-        Toolbar.add(jMenu2);
 
         funcMenu.setText("Funcionário");
         funcMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -135,15 +129,51 @@ public final class mainScreen extends javax.swing.JFrame {
         });
         funcMenu.add(CadastroFuncMenuItem);
 
-        AtividadesMenuItem.setText("Atividades");
-        AtividadesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        searchTarefaMenuItem.setText("Visualizar Tarefa");
+        searchTarefaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtividadesMenuItemActionPerformed(evt);
+                searchTarefaMenuItemActionPerformed(evt);
             }
         });
-        funcMenu.add(AtividadesMenuItem);
+        funcMenu.add(searchTarefaMenuItem);
+
+        tarefasMenuItem.setText("Registro de Tarefa");
+        tarefasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarefasMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(tarefasMenuItem);
+
+        searchHorasMenuItem.setText("Visualizar Horas");
+        searchHorasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchHorasMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(searchHorasMenuItem);
+
+        RegistroMenuItem.setText("Registro de horas");
+        RegistroMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroMenuItemActionPerformed(evt);
+            }
+        });
+        funcMenu.add(RegistroMenuItem);
 
         Toolbar.add(funcMenu);
+
+        relatorioMenu.setText("Relatório");
+
+        relatorioMenuItem.setText("Funcionário x Nacionalidade");
+        relatorioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioMenuItemActionPerformed(evt);
+            }
+        });
+        relatorioMenu.add(relatorioMenuItem);
+
+        Toolbar.add(relatorioMenu);
 
         userMenu.setText("Usuário");
 
@@ -165,9 +195,6 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar.add(userMenu);
 
-        jMenu3.setText("Relatório");
-        Toolbar.add(jMenu3);
-
         setJMenuBar(Toolbar);
 
         pack();
@@ -180,19 +207,11 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getAdmin().initView();
     }//GEN-LAST:event_userMenuItemActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        // TODO add your handling code here:
-        
-        mainScreen.active.setVisible(false);
-        this.getPeriodo().initView();
-        
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
     private void RegistroMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroMenuItemActionPerformed
         // TODO add your handling code here:
           
         mainScreen.active.setVisible(false);
-        this.getPeriodo().initView();
+        this.getPeriodo().initSearchView();
         
         
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
@@ -221,12 +240,39 @@ public final class mainScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_funcMenuActionPerformed
 
-    private void AtividadesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtividadesMenuItemActionPerformed
+    private void searchTarefaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTarefaMenuItemActionPerformed
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
-        this.getDadosFuncionario().initSearchView();
-    }//GEN-LAST:event_AtividadesMenuItemActionPerformed
+        this.getTarefasFuncionario().initSearchView();
+    }//GEN-LAST:event_searchTarefaMenuItemActionPerformed
+
+    private void tarefasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarefasMenuItemActionPerformed
+        // TODO add your handling code here:
+
+        mainScreen.active.setVisible(false);
+        this.getTarefasFuncionario().initNewView();
+        
+    }//GEN-LAST:event_tarefasMenuItemActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void searchHorasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHorasMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getPeriodo().initSearchView();
+        
+
+    }//GEN-LAST:event_searchHorasMenuItemActionPerformed
+
+    private void relatorioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getReport().initNationReport();
+    }//GEN-LAST:event_relatorioMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,19 +318,21 @@ public final class mainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AtividadesMenuItem;
     private javax.swing.JMenuItem CadastroFuncMenuItem;
     private javax.swing.JMenuItem RegistroMenuItem;
     private javax.swing.JMenuBar Toolbar;
     private javax.swing.JMenuItem buscarFuncMenuItem;
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem printMenuItem;
+    private javax.swing.JMenu relatorioMenu;
+    private javax.swing.JMenuItem relatorioMenuItem;
+    private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem searchHorasMenuItem;
+    private javax.swing.JMenuItem searchTarefaMenuItem;
+    private javax.swing.JMenuItem tarefasMenuItem;
     private javax.swing.JMenu userMenu;
     private javax.swing.JMenuItem userMenuItem;
     // End of variables declaration//GEN-END:variables
@@ -298,7 +346,15 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getFuncionario().initFuncionario();
     }
     
+    
+    public ReportControl getReport() {
+        return report;
+    }
 
+    public void setReport(ReportControl report) {
+        this.report = report;
+    }
+    
     public loginControl getLogin() {
         return login;
     }
@@ -335,12 +391,17 @@ public final class mainScreen extends javax.swing.JFrame {
         return this.periodo;
     }
     
-     public TarefasControl getDadosFuncionario() {
-        return dadosFuncionario;
+     public TarefasControl getTarefasFuncionario() {
+        return tarefasFuncionario;
     }
 
-    public void setDadosFuncionario(TarefasControl dadosFuncionario) {
-        this.dadosFuncionario = dadosFuncionario;
+    public void setTarefasFuncionario(TarefasControl dadosFuncionario) {
+        this.tarefasFuncionario = dadosFuncionario;
+    }
+
+    public void isPrintable(boolean Printable) {
+        this.saveMenuItem.setVisible(Printable);
+        this.printMenuItem.setVisible(Printable);
     }
     
 }

@@ -5,14 +5,52 @@
  */
 package stepReport.model;
 
-import java.awt.List;
 import java.util.ArrayList;
+import stepReport.control.FuncionarioControl;
+import stepReport.control.TarefasControl;
 
 /**
- *
+ * Classe que trata o Funcionário de funcionario, implementa o padrão Singleton
+ * 
+ * 
  * @author Kildare
  */
 public class FuncionarioModel {
+
+    private static FuncionarioModel instance = null;
+
+    private FuncionarioControl Control;
+    
+    protected FuncionarioModel(){
+        
+    }
+    
+    public static FuncionarioModel getInstance(FuncionarioControl funcionarioControl){
+        if(FuncionarioModel.instance == null){
+            instance = new FuncionarioModel();
+        }
+        FuncionarioModel.instance.setControl(funcionarioControl);
+        
+        return FuncionarioModel.instance;
+    }
+    
+    
+    public static FuncionarioModel getInstance() {
+        if(FuncionarioModel.instance == null){
+            instance = new FuncionarioModel();
+        }
+        return FuncionarioModel.instance;
+    }
+
+    public FuncionarioControl getControl() {
+        return Control;
+    }
+
+    public void setControl(FuncionarioControl funcionarioControl) {
+        this.Control = funcionarioControl;
+    }
+    
+    
     
     /**
      * 
@@ -56,5 +94,7 @@ public class FuncionarioModel {
     public boolean registerFuncionaro(ArrayList<String> funcInfo) {
         return true;
     }
+
+    
     
 }

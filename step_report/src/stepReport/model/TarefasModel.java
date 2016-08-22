@@ -12,14 +12,28 @@ import stepReport.control.TarefasControl;
  *
  * @author Kildare
  */
-public final class TarefasModel {
+public class TarefasModel {
 
-    private TarefasControl Control;
+    private TarefasControl control;
 
-    public TarefasModel(TarefasControl control) {
-        this.setControl(control);
+    
+    private static TarefasModel instance = null;
+    
+    protected TarefasModel(){
+        
     }
-
+    
+    
+    public static TarefasModel getInstance(TarefasControl control){
+        if(TarefasModel.instance == null){
+            instance = new TarefasModel();
+        }
+        TarefasModel.instance.setControl(control);
+        
+        return TarefasModel.instance;
+    }
+    
+    
     public ArrayList<String> searchTarefas(String numero) {
         ArrayList<String> list = new ArrayList<String>();
         list.add("");
@@ -29,16 +43,17 @@ public final class TarefasModel {
         
     }
     
+    public boolean editTarefa(String bsp, String navio, String task) {
+        return true;
+    }
+    
+    
     public TarefasControl getControl() {
-        return Control;
+        return control;
     }
 
     public void setControl(TarefasControl control) {
-        this.Control = control;
-    }
-
-    public boolean editTarefa(String bsp, String navio, String task) {
-        return true;
+        this.control = control;
     }
     
     
