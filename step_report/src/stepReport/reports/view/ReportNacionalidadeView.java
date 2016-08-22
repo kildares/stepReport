@@ -65,7 +65,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         periodo2TextField = new javax.swing.JFormattedTextField();
         periodo1Label = new javax.swing.JLabel();
         periodo1TextField = new javax.swing.JFormattedTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        reportScrollPane = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,9 +168,9 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(reportTable);
+        reportScrollPane.setViewportView(reportTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 670, 110));
+        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 670, 110));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
@@ -245,7 +245,6 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JRadioButton anualRadioButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton confirmarButton;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton mensalRadionButton;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
@@ -256,6 +255,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField periodo2TextField;
     private javax.swing.JPanel periodoPanel;
     private javax.swing.JRadioButton personRadionButton;
+    private javax.swing.JScrollPane reportScrollPane;
     private javax.swing.JTable reportTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
@@ -296,13 +296,13 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         this.InitDatePicker.setVisible(false);
         this.FimDatePicker.setVisible(false);
         this.periodoPanel.setVisible(false);
-        
+        this.reportScrollPane.setVisible(false);
         ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
     }
 
     private void loadTable(HashMap<String, String> horas) {
-        
-        DefaultTableModel model = new DefaultTableModel(horas.keySet().size(),2);
+        String[] str = {"Funcionário","Horas"};
+        DefaultTableModel model = new DefaultTableModel(str,2);
         this.reportTable.setModel(model);
         int cont=0;
         for(String func : horas.keySet()){
@@ -310,5 +310,6 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             this.reportTable.setValueAt(horas.get(func), cont, 1);
             cont++;
         }
+        this.reportScrollPane.setVisible(true);
     }
 }

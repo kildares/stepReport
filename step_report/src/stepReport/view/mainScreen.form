@@ -9,7 +9,7 @@
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="saveMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>

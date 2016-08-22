@@ -69,7 +69,7 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
         printMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
@@ -90,8 +90,8 @@ public final class mainScreen extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
 
-        jMenuItem3.setText("Salvar");
-        jMenu1.add(jMenuItem3);
+        saveMenuItem.setText("Salvar");
+        jMenu1.add(saveMenuItem);
 
         printMenuItem.setText("Imprimir");
         jMenu1.add(printMenuItem);
@@ -325,11 +325,11 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem printMenuItem;
     private javax.swing.JMenu relatorioMenu;
     private javax.swing.JMenuItem relatorioMenuItem;
+    private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JMenuItem searchHorasMenuItem;
     private javax.swing.JMenuItem searchTarefaMenuItem;
     private javax.swing.JMenuItem tarefasMenuItem;
@@ -400,6 +400,7 @@ public final class mainScreen extends javax.swing.JFrame {
     }
 
     public void isPrintable(boolean Printable) {
+        this.saveMenuItem.setVisible(Printable);
         this.printMenuItem.setVisible(Printable);
     }
     
