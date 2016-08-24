@@ -80,6 +80,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "USUARIO NAO ENCONTRADO!");
         }
+        return null;
     }
     
     @Override

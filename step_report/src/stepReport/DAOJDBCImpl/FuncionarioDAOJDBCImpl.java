@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package stepReport.DAOJDBCImpl;
-import java.awt.List;
+import java.util.List;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -114,6 +113,8 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
     @Override
     public List<FuncionarioModel> findAll() {
       //TODO  
+      
+      return null;
     }
     
     
