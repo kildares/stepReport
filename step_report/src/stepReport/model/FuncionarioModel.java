@@ -15,32 +15,22 @@ import stepReport.control.TarefasControl;
  * 
  * @author Kildare
  */
-public class FuncionarioModel {
+public final class FuncionarioModel {
 
-    private static FuncionarioModel instance = null;
-
+    private String Nome, Nacionalidade, Profissao;
     private FuncionarioControl Control;
     
-    protected FuncionarioModel(){
+    public FuncionarioModel(){
         
     }
-    
-    public static FuncionarioModel getInstance(FuncionarioControl funcionarioControl){
-        if(FuncionarioModel.instance == null){
-            instance = new FuncionarioModel();
-        }
-        FuncionarioModel.instance.setControl(funcionarioControl);
-        
-        return FuncionarioModel.instance;
+
+    public FuncionarioModel(String nome, String nacionalidade, String profissao) {
+        this.setNome(nome);
+        this.setNacionalidade(nacionalidade);
+        this.setProfissao(profissao);
     }
     
     
-    public static FuncionarioModel getInstance() {
-        if(FuncionarioModel.instance == null){
-            instance = new FuncionarioModel();
-        }
-        return FuncionarioModel.instance;
-    }
 
     public FuncionarioControl getControl() {
         return Control;
@@ -49,6 +39,31 @@ public class FuncionarioModel {
     public void setControl(FuncionarioControl funcionarioControl) {
         this.Control = funcionarioControl;
     }
+    
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    public String getNacionalidade() {
+        return Nacionalidade;
+    }
+
+    public void setNacionalidade(String Nacionalidade) {
+        this.Nacionalidade = Nacionalidade;
+    }
+
+    public String getProfissao() {
+        return Profissao;
+    }
+
+    public void setProfissao(String Profissao) {
+        this.Profissao = Profissao;
+    }
+    
     
     
     

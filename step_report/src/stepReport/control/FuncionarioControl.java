@@ -29,7 +29,7 @@ public final class FuncionarioControl {
     }
     
     public FuncionarioControl(mainScreen Screen){
-        this.setModel(FuncionarioModel.getInstance(this));
+        this.setModel(new FuncionarioModel());
         this.setScreen(Screen);
         this.setView(new FuncionarioView(this));
         this.getView().setVisible(false);

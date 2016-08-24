@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package stepReport.DAO;
-import java.awt.List;
+import java.util.List;
 import stepReport.model.FuncionarioModel;
 /**
  *
