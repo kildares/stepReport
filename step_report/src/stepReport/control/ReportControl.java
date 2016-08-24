@@ -73,5 +73,13 @@ public final class ReportControl {
         
     }
 
+    public void initBSPReport() {
+        
+        this.getReportBSPView().loadBSPReport();
+        mainScreen.setActive(this.getReportBSPView());
+        this.getReportNacionalidadeView().setBounds(0, 0, 800, 500);
+        this.getReportBSPView().setVisible(true);
+    }
+
     
 }

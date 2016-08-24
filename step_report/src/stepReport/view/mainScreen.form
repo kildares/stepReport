@@ -92,12 +92,20 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="relatorioMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="relatorioNacMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x Nacionalidade"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioNacMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="relatorioBSPMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x BSP"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioBSPMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

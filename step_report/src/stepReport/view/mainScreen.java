@@ -80,7 +80,8 @@ public final class mainScreen extends javax.swing.JFrame {
         searchHorasMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
         relatorioMenu = new javax.swing.JMenu();
-        relatorioMenuItem = new javax.swing.JMenuItem();
+        relatorioNacMenuItem = new javax.swing.JMenuItem();
+        relatorioBSPMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
@@ -165,13 +166,21 @@ public final class mainScreen extends javax.swing.JFrame {
 
         relatorioMenu.setText("Relatório");
 
-        relatorioMenuItem.setText("Funcionário x Nacionalidade");
-        relatorioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        relatorioNacMenuItem.setText("Funcionário x Nacionalidade");
+        relatorioNacMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioMenuItemActionPerformed(evt);
+                relatorioNacMenuItemActionPerformed(evt);
             }
         });
-        relatorioMenu.add(relatorioMenuItem);
+        relatorioMenu.add(relatorioNacMenuItem);
+
+        relatorioBSPMenuItem.setText("Funcionário x BSP");
+        relatorioBSPMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioBSPMenuItemActionPerformed(evt);
+            }
+        });
+        relatorioMenu.add(relatorioBSPMenuItem);
 
         Toolbar.add(relatorioMenu);
 
@@ -268,11 +277,18 @@ public final class mainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_searchHorasMenuItemActionPerformed
 
-    private void relatorioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioMenuItemActionPerformed
+    private void relatorioNacMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioNacMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
         this.getReport().initNationReport();
-    }//GEN-LAST:event_relatorioMenuItemActionPerformed
+    }//GEN-LAST:event_relatorioNacMenuItemActionPerformed
+
+    private void relatorioBSPMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioBSPMenuItemActionPerformed
+        // TODO add your handling code here:
+        
+        mainScreen.active.setVisible(false);
+        this.getReport().initBSPReport();
+    }//GEN-LAST:event_relatorioBSPMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,8 +343,9 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem printMenuItem;
+    private javax.swing.JMenuItem relatorioBSPMenuItem;
     private javax.swing.JMenu relatorioMenu;
-    private javax.swing.JMenuItem relatorioMenuItem;
+    private javax.swing.JMenuItem relatorioNacMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JMenuItem searchHorasMenuItem;
     private javax.swing.JMenuItem searchTarefaMenuItem;
