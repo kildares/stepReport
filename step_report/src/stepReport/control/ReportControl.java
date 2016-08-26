@@ -5,7 +5,9 @@
  */
 package stepReport.control;
 
+import java.io.File;
 import java.util.HashMap;
+import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
 import stepReport.reports.view.ReportNacionalidadeView;
 import stepReport.reports.view.ReportTaskView;
@@ -23,8 +25,13 @@ public final class ReportControl {
     private mainScreen screen;
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
+    private savePDFModel saverPDF;
+
     
-    public ReportControl(mainScreen screen){
+    public ReportControl(mainScreen screen)
+    {
+        this.setSaverPDF(new savePDFModel());
+        
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
         this.setReportBSPView(new ReportBSPView(this));
@@ -78,6 +85,16 @@ public final class ReportControl {
         this.reportUnidadeView = reportUnidadeView;
     }
 
+    
+    public savePDFModel getSaverPDF() {
+        return saverPDF;
+    }
+
+    public void setSaverPDF(savePDFModel saverPDF) {
+        this.saverPDF = saverPDF;
+    }
+    
+    
     public void initNationReport() {
         this.getReportNacionalidadeView().loadNationReport();
         mainScreen.setActive(this.getReportNacionalidadeView());
@@ -118,6 +135,11 @@ public final class ReportControl {
         mainScreen.setActive(this.getReportTaskView());
         this.getReportTaskView().setBounds(0, 0, 800, 500);
         this.getReportTaskView().setVisible(true);
+    }
+
+    public void savePDF(File file) 
+    {
+        this.getSaverPDF().savePDF(file);
     }
 
     

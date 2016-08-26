@@ -5,6 +5,9 @@
  */
 package stepReport.view;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.TarefasControl;
@@ -29,6 +32,8 @@ public final class mainScreen extends javax.swing.JFrame {
     private TarefasControl tarefasFuncionario;
     private ReportControl report;
     private static JPanel active;
+    private final static JFileChooser FILECHOOSER = new JFileChooser();
+    
     
     public mainScreen() {
         initComponents();
@@ -94,6 +99,11 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenu1.setText("Arquivo");
 
         saveMenuItem.setText("Salvar");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(saveMenuItem);
 
         printMenuItem.setText("Imprimir");
@@ -320,6 +330,24 @@ public final class mainScreen extends javax.swing.JFrame {
         mainScreen.active.setVisible(false);
         this.getReport().initUnidadeReport();
     }//GEN-LAST:event_unidadeMenuItemActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        // TODO add your handling code here:
+        int ret = 999;
+        boolean accepted = false;
+        while(!accepted)
+        {
+            ret = mainScreen.FILECHOOSER.showSaveDialog(this);
+            if(ret == JFileChooser.APPROVE_OPTION)
+            {
+                File file = mainScreen.FILECHOOSER.getSelectedFile();
+                this.getReport().savePDF(file);
+                accepted = true;   
+            }
+            else if(ret == JFileChooser.CANCEL_OPTION)
+                accepted=true; 
+        }
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
