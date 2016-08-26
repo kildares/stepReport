@@ -50,7 +50,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "SELECT * FROM tarefas(bsp,task_number,navio,status_tarefa,id_func)"+
+            String sql = "SELECT id FROM tarefas"+
                          "WHERE id_func=?"+
                          "AND status_tarefa=?";
             
