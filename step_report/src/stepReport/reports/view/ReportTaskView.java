@@ -16,7 +16,7 @@ import stepReport.control.ReportControl;
  *
  * @author Queiroz Avila Contab
  */
-public final class ReportBSPView extends javax.swing.JPanel {
+public final class ReportTaskView extends javax.swing.JPanel {
 
     private ReportControl Control;
     private JDatePickerImpl InitDatePicker;
@@ -30,7 +30,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
      * Creates new form ReportBSPView
      * @param Control
      */
-    public ReportBSPView(ReportControl Control) {
+    public ReportTaskView(ReportControl Control) {
         initComponents();
         this.setControl(Control);
         this.insertDatePicker();
@@ -50,9 +50,9 @@ public final class ReportBSPView extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        bspLabel = new javax.swing.JLabel();
+        taskLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
-        BSPTextField = new javax.swing.JFormattedTextField();
+        taskTextField = new javax.swing.JFormattedTextField();
         periodoLabel = new javax.swing.JLabel();
         anualRadioButton = new javax.swing.JRadioButton();
         mensalRadionButton = new javax.swing.JRadioButton();
@@ -68,17 +68,17 @@ public final class ReportBSPView extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bspLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        bspLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        bspLabel.setText("BSP:");
-        add(bspLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 170, -1));
+        taskLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        taskLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        taskLabel.setText("Task Number:");
+        add(taskLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 170, -1));
 
         titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        titleLabel.setText("Relatório de BSP");
+        titleLabel.setText("Relatório por Task Number");
         add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
 
-        BSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(BSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 390, -1));
+        taskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(taskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 390, -1));
 
         periodoLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         periodoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -214,7 +214,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
-        if(ReportBSPView.state == ReportBSPView.BUSCA){
+        if(ReportTaskView.state == ReportTaskView.BUSCA){
             if(this.anualRadioButton.isSelected())
             {
                 String ano = this.periodo1TextField.getText();
@@ -238,9 +238,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField BSPTextField;
     private javax.swing.JRadioButton anualRadioButton;
-    private javax.swing.JLabel bspLabel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton confirmarButton;
     private javax.swing.JRadioButton mensalRadionButton;
@@ -253,6 +251,8 @@ public final class ReportBSPView extends javax.swing.JPanel {
     private javax.swing.JRadioButton personRadionButton;
     private javax.swing.JScrollPane reportScrollPane;
     private javax.swing.JTable reportTable;
+    private javax.swing.JLabel taskLabel;
+    private javax.swing.JFormattedTextField taskTextField;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -297,11 +297,8 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.reportScrollPane.setVisible(true);
     }
 
-  
-
-    public void loadBSPReport() {
-        
-        this.titleLabel.setText("Relatório de BSP");
+    public void loadTaskReport() {
+        this.titleLabel.setText("Relatório por Task");
         this.confirmarButton.setText("Gerar");
         this.InitDatePicker.getJFormattedTextField().setText("");
         this.InitDatePicker.getJFormattedTextField().setEditable(true);
@@ -313,6 +310,6 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.FimDatePicker.setVisible(false);
         this.periodoPanel.setVisible(false);
         this.reportScrollPane.setVisible(false);
-        ReportBSPView.state = ReportBSPView.BUSCA;
+        ReportTaskView.state = ReportTaskView.BUSCA;
     }
 }

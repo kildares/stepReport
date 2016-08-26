@@ -92,12 +92,36 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="relatorioMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="relatorioNacMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x Nacionalidade"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioNacMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="relatorioBSPMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x BSP"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="relatorioBSPMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="taskMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x Task"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="taskMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="unidadeMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio x Unidade"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadeMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
