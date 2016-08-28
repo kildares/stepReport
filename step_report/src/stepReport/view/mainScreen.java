@@ -341,7 +341,7 @@ public final class mainScreen extends javax.swing.JFrame {
             if(ret == JFileChooser.APPROVE_OPTION)
             {
                 File file = mainScreen.FILECHOOSER.getSelectedFile();
-                this.getReport().savePDF(file);
+                this.getReport().savePDF(file,mainScreen.active);
                 accepted = true;   
             }
             else if(ret == JFileChooser.CANCEL_OPTION)

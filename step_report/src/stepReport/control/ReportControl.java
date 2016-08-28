@@ -7,6 +7,10 @@ package stepReport.control;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import stepReport.Util.FuncionarioData;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
 import stepReport.reports.view.ReportNacionalidadeView;
@@ -30,7 +34,7 @@ public final class ReportControl {
     
     public ReportControl(mainScreen screen)
     {
-        this.setSaverPDF(new savePDFModel());
+        this.setSaverPDF(new savePDFModel(this));
         
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
@@ -137,9 +141,23 @@ public final class ReportControl {
         this.getReportTaskView().setVisible(true);
     }
 
-    public void savePDF(File file) 
+    public void savePDF(File file,JPanel active) 
     {
-        this.getSaverPDF().savePDF(file);
+        List<FuncionarioData> list = null;
+        if(active instanceof ReportBSPView){
+            list = this.getReportBSPView().getPDFData();
+        }
+        else if(active instanceof ReportNacionalidadeView){
+            list = this.getReportNacionalidadeView().getPDFData();
+        }
+        else if(active instanceof ReportUnidadeView){
+            list = this.getReportUnidadeView().getPDFData();
+        }
+        else if(active instanceof ReportTaskView){
+            list = this.getReportTaskView().getPDFData();
+        }
+        
+        this.getSaverPDF().savePDF(file,list);
     }
 
     
