@@ -5,11 +5,14 @@
  */
 package stepReport.reports.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import stepReport.Util.FuncionarioData;
 import stepReport.control.ReportControl;
 
 
@@ -311,5 +314,16 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             cont++;
         }
         this.reportScrollPane.setVisible(true);
+    }
+
+    public List<FuncionarioData> getPDFData() {
+        
+        List<FuncionarioData> func = new ArrayList<FuncionarioData>();
+        
+        int numRow = this.reportTable.getRowCount();
+        for(int i=0;i<numRow;i++){
+            func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
+        }
+        return func;
     }
 }
