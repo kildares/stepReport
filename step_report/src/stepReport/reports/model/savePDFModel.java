@@ -29,6 +29,9 @@ public class savePDFModel {
     public savePDFModel(ReportControl control){
         this.Control = control;
     }
+    public savePDFModel(){
+        
+    }
     
     
     public void savePDF(File file, List<FuncionarioData> list) 
@@ -41,17 +44,26 @@ public class savePDFModel {
        PDPage page = new PDPage();
        document.addPage(page);
        PDFont font = PDType1Font.HELVETICA;
-       
+
         //
         try 
         {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.beginText();
             contentStream.setFont(font, 12);
-            contentStream.moveTextPositionByAmount(100, 700);
-            contentStream.drawString("MY TEXT");            
+            contentStream.setLeading(14.5f);
+            contentStream.newLineAtOffset(50, 700);
+            contentStream.showText("ID NOME TOTAL DE HORAS");
+            contentStream.newLine();
+//contentStream.newLine();
+            for(FuncionarioData func : list){
+                contentStream.showText(func.getNumero() +" "+func.getHoras()+" "+func.getPeriodo());
+                contentStream.newLine();
+            
+            }
             
             
+            contentStream.endText();
             
             contentStream.close();
             
