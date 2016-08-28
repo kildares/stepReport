@@ -5,14 +5,17 @@
  */
 package stepReport.DAO;
 
+import java.util.List;
+import stepReport.Util.FuncionarioHoras;
+
 /**
  *
  * @author gabriela
  */
 public interface RelatoriosDAO {
-    public void totalHorasMensal(String dataSemIni, String dataSemFim);
-    public void hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim);
-    public void hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim);
-    public void hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim);
-    public void hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim);
 }

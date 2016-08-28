@@ -8,11 +8,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import stepReport.DAO.RelatoriosDAO;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.model.ConnectionDB;
 /**
  *
@@ -21,7 +24,7 @@ import stepReport.model.ConnectionDB;
 public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
 
     @Override
-    public void totalHorasMensal(String dataSemIni, String dataSemFim) {
+    public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -34,18 +37,25 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(1,dataSemIni);
             prepStatement.setString(2, dataSemFim);
             ResultSet rs = prepStatement.executeQuery();
-            
-            //RETORNAR O QUE?
-            
             conexao.close();
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_func")),
+                rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),
+                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),
+                rs.getString("horas_sex"),rs.getString("horas_sab")));
+            }
+            return list;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
+            return null;
         }
     }
 
     @Override
-    public void hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim) {
+    public List<FuncionarioHoras> hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -66,18 +76,26 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(3, dataSemFim);
             
             ResultSet rs = prepStatement.executeQuery();
-            
-            //RETORNAR O QUE?
-            
             conexao.close();
+            
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_horas")),Integer.toString(rs.getInt("id_func")),
+                rs.getString("nome_func"),rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),                       
+                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),rs.getString("horas_sex"),
+                rs.getString("horas_sab")));
+            }
+            return list;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
+            return null;
         }
     }
 
     @Override
-    public void hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim) {
+    public List<FuncionarioHoras> hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -99,18 +117,25 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(3, dataSemFim);
             
             ResultSet rs = prepStatement.executeQuery();
-            
-            //RETORNAR O QUE?
-            
             conexao.close();
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_horas")),Integer.toString(rs.getInt("id_func")),
+                rs.getString("nome_func"),rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),                       
+                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),rs.getString("horas_sex"),
+                rs.getString("horas_sab")));
+            }
+            return list;
+         
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
+            return null;
         }
     }
 
     @Override
-    public void hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
+    public List<FuncionarioHoras> hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
        try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -132,18 +157,25 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(3, dataSemFim);
             
             ResultSet rs = prepStatement.executeQuery();
-            
-            //RETORNAR O QUE?
-            
             conexao.close();
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_horas")),Integer.toString(rs.getInt("id_func")),
+                rs.getString("nome_func"),rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),                       
+                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),rs.getString("horas_sex"),
+                rs.getString("horas_sab")));
+            }
+            return list;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
+            return null;
         }
     }
 
     @Override
-    public void hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim) {
+    public List<FuncionarioHoras> hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -165,14 +197,21 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(3, dataSemFim);
             
             ResultSet rs = prepStatement.executeQuery();
-            
-            //RETORNAR O QUE?
-            
             conexao.close();
+            
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_horas")),Integer.toString(rs.getInt("id_func")),
+                rs.getString("nome_func"),rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),                       
+                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),rs.getString("horas_sex"),
+                rs.getString("horas_sab")));
+            }
+            return list;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
+            return null;
         }
     }
-    
 }

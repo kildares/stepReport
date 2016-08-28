@@ -10,7 +10,9 @@ package stepReport.Util;
  * @author Kildare
  */
 public class FuncionarioHoras {
+    private String idHoras;
     private String idFunc;
+    private String nomeFunc;
     private String dataSemana;
     private String horasDomingo;
     private String horasSegunda;
@@ -31,6 +33,21 @@ public class FuncionarioHoras {
             this.horasQuinta=horasQuinta;
             this.horasSexta=horasSexta;
             this.horasSabado=horasSabado;
+    }
+    
+    public FuncionarioHoras(String idHoras, String idFunc, String nomeFunc, String dataSemana,String horasDomingo,String horasSegunda,String horasTerca,String horasQuarta,String horasQuinta,
+            String horasSexta,String horasSabado){
+        this.idHoras=idHoras;
+        this.idFunc=idFunc;
+        this.nomeFunc=nomeFunc;
+        this.dataSemana=dataSemana;
+        this.horasDomingo=horasDomingo;
+        this.horasSegunda=horasSegunda;
+        this.horasTerca=horasTerca;
+        this.horasQuarta=horasQuarta;
+        this.horasQuinta=horasQuinta;
+        this.horasSexta=horasSexta;
+        this.horasSabado=horasSabado;
     }
     
     public String getIdFunc() {
