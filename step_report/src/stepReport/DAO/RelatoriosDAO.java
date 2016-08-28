@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package stepReport.DAO;
-
 import java.util.List;
 import stepReport.Util.FuncionarioHoras;
 

@@ -171,6 +171,7 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
+
         }
     }
 
