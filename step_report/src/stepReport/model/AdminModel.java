@@ -5,6 +5,8 @@
  */
 package stepReport.model;
 
+import stepReport.DAO.AdminDAO;
+import stepReport.DAOJDBCImpl.AdminDAOJDBCImpl;
 import stepReport.control.AdminControl;
 
 /**
@@ -21,8 +23,9 @@ public class AdminModel {
         
     }
     
-    public AdminModel(String string, String string0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AdminModel(String usuario, String senha) {
+        this.Usuario = usuario;
+        this.Senha = senha;
     }
     
     
@@ -35,8 +38,8 @@ public class AdminModel {
         return true;
     }
 
-    public void registerUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void registerUser(String user,String pass) {
+        
     }
     
     

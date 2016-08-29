@@ -5,7 +5,12 @@
  */
 package stepReport.view;
 
+import Exceptions.alreadyExistsException;
+import Exceptions.notFoundException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import stepReport.control.AdminControl;
 
 /**
@@ -188,10 +193,53 @@ public class AdminView extends javax.swing.JPanel {
             String pass1 = new String(this.passwordTextField.getPassword());
             String pass2 = new String(this.confirmTextField.getPassword());
             if((user.length()>3) && (!pass1.isEmpty()) && (pass1.equals(pass2))){
-                this.getControl().registerUser(user,pass1);
+                try{
+                    this.getControl().registerUser(user,pass1);
+                }
+                catch(alreadyExistsException ex){
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), ex.getMessage());
+                }
+                finally{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Usuário Cadastrado com sucesso");
+                    this.loadNewView();
+                }
             }
+            else
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados inválidos");
             
         }
+        else if(AdminView.state == AdminView.BUSCA){
+            String user = this.userTextField.getText();
+            if(!user.equals("")&&user.length()>3){
+                try{
+                    boolean admExists = this.getControl().findUser(user);
+                    if(admExists)
+                        this.loadEditView();
+                } catch (notFoundException ex) {
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), ex.getMessage());
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dado inválido");
+        }
+        
+        else if(AdminView.state == AdminView.EDIT){
+            String oldPass = new String(this.passwordTextField.getPassword());
+            if(this.getControl().isValidPassword(oldPass)){
+                String pass1 = new String(this.confirmTextField.getPassword());
+                String pass2 = new String(this.confirmTextField2.getPassword());
+                if(!pass1.equals("")&&pass1.length()>3&&pass1.equals(pass2)){
+                    this.getControl().updatePassword(this.userTextField.getText(), pass1);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nova Senha não confere");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Senha Invalida");
+            }
+        }
+        
     }//GEN-LAST:event_confirmButtonActionPerformed
 
 
@@ -210,7 +258,7 @@ public class AdminView extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void loadSearchView() {
-        
+        this.userTextField.setEditable(true);
         this.titleLabel.setText("Buscar Usuário");
         this.cancelButton.setText("Novo usuário");
         this.passwordLabel.setVisible(false);
@@ -225,10 +273,13 @@ public class AdminView extends javax.swing.JPanel {
 
     public void loadNewView() {
         this.titleLabel.setText("Cadastrar Usuário");
+        this.userTextField.setText("");
         this.cancelButton.setText("Cancelar");
+        this.passwordLabel.setText("Senha:");
         this.passwordLabel.setVisible(true);
         this.passwordTextField.setVisible(true);
         this.confirmButton.setText("Confirmar");
+        this.confirmLabel.setText("Reinsira a senha:");
         this.confirmLabel.setVisible(true);
         this.confirmTextField.setVisible(true);
         this.confirmLabel2.setVisible(false);
@@ -237,6 +288,25 @@ public class AdminView extends javax.swing.JPanel {
         AdminView.state = AdminView.CADASTRO;
     }
     
+     private void loadEditView() {
+         this.titleLabel.setText("Editar Usuário");
+        this.userTextField.setEditable(false);
+        this.cancelButton.setText("Cancelar");
+        this.passwordLabel.setText("Senha antiga");
+        this.passwordLabel.setVisible(true);
+        this.passwordTextField.setVisible(true);
+        this.confirmButton.setText("Confirmar");
+        this.confirmLabel.setText("Nova senha:");
+        this.confirmLabel.setVisible(true);
+        this.confirmTextField.setVisible(true);
+        this.confirmLabel2.setText("Reinsira a senha:");
+        this.confirmLabel2.setVisible(true);
+        this.confirmTextField2.setVisible(true);
+        
+        AdminView.state = AdminView.EDIT;
+    }
+    
+    
     public AdminControl getControl() {
         return Control;
     }
@@ -244,6 +314,7 @@ public class AdminView extends javax.swing.JPanel {
     public void setControl(AdminControl Control) {
         this.Control = Control;
     }
-    
+
+  
     
 }

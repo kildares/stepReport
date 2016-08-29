@@ -67,14 +67,15 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String updateSQL = "SELECT * FROM login"+
+            String updateSQL = "SELECT * FROM login "+
                                "WHERE usuario=?";
             PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
             prepStatement.setString(1, user);
             ResultSet rs = prepStatement.executeQuery();
-            conexao.close();
             if(rs.next()){
-                return new AdminModel(rs.getString("usuario"),rs.getString("senha"));
+                AdminModel md = new AdminModel(rs.getString("usuario"),rs.getString("senha"));
+                conexao.close();
+                return md;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
