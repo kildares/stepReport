@@ -121,5 +121,24 @@ public class FuncionarioHoras {
     public void setHorasSabado(String horasSabado) {
         this.horasSabado = horasSabado;
     }
+
+    public String getTotalHoras() {
+        int tot = Integer.parseInt(this.getHorasDomingo()) +
+                Integer.parseInt(this.getHorasSegunda()) +
+                Integer.parseInt(this.getHorasTerca()) +
+                Integer.parseInt(this.getHorasQuarta()) +
+                Integer.parseInt(this.getHorasQuinta()) +
+                Integer.parseInt(this.getHorasSexta()) +
+                Integer.parseInt(this.getHorasSabado()) +
+                Integer.parseInt(this.getHorasDomingo());
+        return Integer.toString(tot);
+    }
+
+    public Object getFormattedDataSemana() {
+        String str = this.getDataSemana();
+        str = str.substring(0, 2) + "/" + str.substring(2, 2) + "/" + str.substring(4, 4);
+        return str;
+    }
+    
     
 }

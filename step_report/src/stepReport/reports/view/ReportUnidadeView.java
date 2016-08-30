@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import stepReport.Util.FuncionarioData;
 import stepReport.control.ReportControl;
 
 /**
@@ -222,8 +221,8 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
-                    this.loadTable(horas);
+                    //HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
+                    //this.loadTable(horas);
                 }
             }
             else if(this.mensalRadionButton.isSelected())
@@ -313,7 +312,7 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         ReportUnidadeView.state = ReportUnidadeView.BUSCA;
     }
 
-    public List<FuncionarioData> getPDFData() {
+    /*public List<FuncionarioData> getPDFData() {
         
         List<FuncionarioData> func = new ArrayList<FuncionarioData>();
         
@@ -322,5 +321,5 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
             func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
         return func;
-    }
+    }*/
 }

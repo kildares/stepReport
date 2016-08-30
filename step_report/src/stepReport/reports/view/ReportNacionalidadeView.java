@@ -8,11 +8,12 @@ package stepReport.reports.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import stepReport.Util.FuncionarioData;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
 
 
@@ -183,17 +184,27 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
-                    this.loadTable(horas);
+                    List<FuncionarioHoras> func = this.getControl().getHorasNation((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
+                    this.loadTable(func);
                 }
             }
             else if(this.mensalRadionButton.isSelected())
             {
-                
+                String ano = this.periodo2TextField.getText();
+                String mes = this.periodo1TextField.getText();
+                if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13){
+                    
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Data inválida");
+                }
             }
             else if(this.personRadionButton.isSelected())
             {
                 
+            }
+            else{
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhuma opção selecionada");
             }
             
             
@@ -303,26 +314,27 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
     }
 
-    private void loadTable(HashMap<String, String> horas) {
+    private void loadTable(List<FuncionarioHoras> func) {
         String[] str = {"Funcionário","Horas"};
         DefaultTableModel model = new DefaultTableModel(str,2);
         this.reportTable.setModel(model);
         int cont=0;
-        for(String func : horas.keySet()){
-            this.reportTable.setValueAt(func, cont, 0);
-            this.reportTable.setValueAt(horas.get(func), cont, 1);
+        for(FuncionarioHoras x : func){
+            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
+            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 1);
             cont++;
         }
         this.reportScrollPane.setVisible(true);
     }
 
-    public List<FuncionarioData> getPDFData() {
+    public List<FuncionarioHoras> getPDFData() {
         
-        List<FuncionarioData> func = new ArrayList<FuncionarioData>();
+        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
         
         int numRow = this.reportTable.getRowCount();
         for(int i=0;i<numRow;i++){
-            func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
+            //func.add(new FuncionarioHoras((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
         return func;
     }

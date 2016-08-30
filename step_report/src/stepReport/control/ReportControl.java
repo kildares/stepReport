@@ -5,12 +5,14 @@
  */
 package stepReport.control;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import stepReport.Util.FuncionarioData;
+import stepReport.DAO.RelatoriosDAO;
+import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
+import stepReport.Util.FuncionarioHoras;
+import stepReport.model.PeriodoModel;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
 import stepReport.reports.view.ReportNacionalidadeView;
@@ -30,12 +32,12 @@ public final class ReportControl {
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
     private savePDFModel saverPDF;
-
+    private PeriodoModel periodoModel;
     
     public ReportControl(mainScreen screen)
     {
         this.setSaverPDF(new savePDFModel(this));
-        
+        this.setPeriodoModel(new PeriodoModel());
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
         this.setReportBSPView(new ReportBSPView(this));
@@ -98,6 +100,14 @@ public final class ReportControl {
         this.saverPDF = saverPDF;
     }
     
+       public PeriodoModel getPeriodoModel() {
+        return periodoModel;
+    }
+
+    public void setPeriodoModel(PeriodoModel periodoModel) {
+        this.periodoModel = periodoModel;
+    }
+    
     
     public void initNationReport() {
         this.getReportNacionalidadeView().loadNationReport();
@@ -106,16 +116,9 @@ public final class ReportControl {
         this.getReportNacionalidadeView().setVisible(true);
     }
 
-    public HashMap<String,String> getHorasNation(String text, String ano) {
-        boolean isFound=true;
+    public List<FuncionarioHoras> getHorasNation(String Nacionalidade, String Ano) {
         
-        //TODO codigo pra impressao do relatorio
-        
-        if(isFound){
-            this.getScreen().isPrintable(true);
-        }
-        
-        return new HashMap<String,String>();
+        return this.getPeriodoModel().getHorasNation(Nacionalidade,Ano);
         
     }
 
@@ -143,11 +146,11 @@ public final class ReportControl {
 
     public void savePDF(File file,JPanel active) 
     {
-        List<FuncionarioData> list = null;
+        List<FuncionarioHoras> list = null;
         if(active instanceof ReportBSPView){
             list = this.getReportBSPView().getPDFData();
         }
-        else if(active instanceof ReportNacionalidadeView){
+       /* else if(active instanceof ReportNacionalidadeView){
             list = this.getReportNacionalidadeView().getPDFData();
         }
         else if(active instanceof ReportUnidadeView){
@@ -155,9 +158,9 @@ public final class ReportControl {
         }
         else if(active instanceof ReportTaskView){
             list = this.getReportTaskView().getPDFData();
-        }
+        }*/
         
-        this.getSaverPDF().savePDF(file,list);
+       // this.getSaverPDF().savePDF(file,list);
     }
 
     

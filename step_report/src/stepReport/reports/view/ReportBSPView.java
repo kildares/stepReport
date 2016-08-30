@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import stepReport.Util.FuncionarioData;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
 
 /**
@@ -222,8 +222,8 @@ public final class ReportBSPView extends javax.swing.JPanel {
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
-                    this.loadTable(horas);
+                    List<FuncionarioHoras> func = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
+                    this.loadTable(func);
                 }
             }
             else if(this.mensalRadionButton.isSelected())
@@ -287,16 +287,16 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-    private void loadTable(HashMap<String, String> horas) {
+    private void loadTable(List<FuncionarioHoras> horas) {
         String[] str = {"Funcionário","Horas"};
         DefaultTableModel model = new DefaultTableModel(str,2);
         this.reportTable.setModel(model);
         int cont=0;
-        for(String func : horas.keySet()){
+        /*for(String func : horas){
             this.reportTable.setValueAt(func, cont, 0);
             this.reportTable.setValueAt(horas.get(func), cont, 1);
             cont++;
-        }
+        }*/
         this.reportScrollPane.setVisible(true);
     }
 
@@ -319,14 +319,14 @@ public final class ReportBSPView extends javax.swing.JPanel {
         ReportBSPView.state = ReportBSPView.BUSCA;
     }
 
-    public List<FuncionarioData> getPDFData() {
+    public List<FuncionarioHoras> getPDFData() {
         
-        List<FuncionarioData> func = new ArrayList<FuncionarioData>();
+        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
         
         int numRow = this.reportTable.getRowCount();
-        for(int i=0;i<numRow;i++){
+        /*for(int i=0;i<numRow;i++){
             func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
-        }
+        }*/
         return func;
     }
 }

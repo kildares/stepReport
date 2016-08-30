@@ -15,7 +15,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import stepReport.Util.FuncionarioData;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
 
 /**
@@ -34,7 +34,7 @@ public class savePDFModel {
     }
     
     
-    public void savePDF(File file, List<FuncionarioData> list) 
+    /*public void savePDF(File file, List<FuncionarioHoras> list) 
     {
         
        if(list == null) 
@@ -79,5 +79,5 @@ public class savePDFModel {
         
         
     }
-    
+    */
 }
