@@ -45,8 +45,8 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String updateSQL = "UPDATE login"+
-                               "SET senha=?"+
+            String updateSQL = "UPDATE login "+
+                               "SET senha=? "+
                                "WHERE usuario=?";
             PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
             prepStatement.setString(1, password);
@@ -90,7 +90,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String deleteSQL = "DELETE FROM login"+
+            String deleteSQL = "DELETE FROM login "+
                                "WHERE usuario=?";
             PreparedStatement prepStatement = conexao.prepareStatement(deleteSQL);
             prepStatement.setString(1, user);

@@ -25,7 +25,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String createSQL = "INSERT INTO funcionario(nome,nacionalidade,profissao)"+
+            String createSQL = "INSERT INTO funcionario(nome,nacionalidade,profissao) "+
                                "VALUES (?,?,?)";
             PreparedStatement prepStatement = conexao.prepareStatement(createSQL,Statement.RETURN_GENERATED_KEYS);
             prepStatement.setString(1,nome);
@@ -49,8 +49,8 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String updateSQL = "UPDATE funcionario"+
-                               "SET nome=?,nacionalidade=?,profissao=?"+
+            String updateSQL = "UPDATE funcionario "+
+                               "SET nome=?,nacionalidade=?,profissao=? "+
                                "WHERE id=?";
             PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
             prepStatement.setString(1, nome);
@@ -73,7 +73,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String deleteSQL = "DELETE FROM funcionario"+
+            String deleteSQL = "DELETE FROM funcionario "+
                                "WHERE id=?";
             PreparedStatement prepStatement = conexao.prepareStatement(deleteSQL);
             prepStatement.setInt(1, id);
@@ -93,7 +93,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String updateSQL = "SELECT * FROM funcionario"+
+            String updateSQL = "SELECT * FROM funcionario "+
                                "WHERE id=?";
             PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
             prepStatement.setInt(1, id);
