@@ -150,7 +150,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
 
         add(periodoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 520, 110));
 
-        reportTable.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        reportTable.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -315,14 +315,14 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     }
 
     private void loadTable(List<FuncionarioHoras> func) {
-        String[] str = {"Funcionário","Horas"};
-        DefaultTableModel model = new DefaultTableModel(str,2);
+        String[] str = {"Funcionário","Horas","Período"};
+        DefaultTableModel model = new DefaultTableModel(str,func.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : func){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
             this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 1);
+            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
         this.reportScrollPane.setVisible(true);

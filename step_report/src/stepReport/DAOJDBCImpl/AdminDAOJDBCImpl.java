@@ -30,8 +30,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(1,user);
             prepStatement.setString(2, password);
             prepStatement.executeUpdate();
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO CADASTRADO COM SUCESSO!");
-            
+                        
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,7 +52,6 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(2, user);
             prepStatement.executeUpdate();
             
-            JOptionPane.showMessageDialog(new JFrame(), "SENHA ALTERADA COM SUCESSO!");
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,8 +93,6 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             PreparedStatement prepStatement = conexao.prepareStatement(deleteSQL);
             prepStatement.setString(1, user);
             prepStatement.executeUpdate();
-            
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO REMOVIDO COM SUCESSO!");
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);

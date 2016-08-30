@@ -135,8 +135,10 @@ public class FuncionarioHoras {
     }
 
     public Object getFormattedDataSemana() {
-        String str = this.getDataSemana();
-        str = str.substring(0, 2) + "/" + str.substring(2, 2) + "/" + str.substring(4, 4);
+        char[] c = this.getDataSemana().toCharArray();
+        String str =  this.getDataSemana().substring(6, 8)+"/"+ this.getDataSemana().substring(4, 6)
+                + "/" + this.getDataSemana().substring(0, 4);
+        
         return str;
     }
     

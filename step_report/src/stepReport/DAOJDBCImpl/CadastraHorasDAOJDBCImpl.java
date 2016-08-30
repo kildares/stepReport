@@ -42,8 +42,6 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.executeUpdate();
             conexao.close();
             
-            JOptionPane.showMessageDialog(new JFrame(), "HORAS CADASTRADAS COM SUCESSO!");
-            
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR HORAS!");
