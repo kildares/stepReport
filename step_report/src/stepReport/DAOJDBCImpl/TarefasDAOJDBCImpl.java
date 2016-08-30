@@ -24,7 +24,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String createSQL = "INSERT INTO tarefas(bsp,task_number,navio,status_tarefa,id_func)"+
+            String createSQL = "INSERT INTO tarefas(bsp,task_number,navio,status_tarefa,id_func) "+
                                "VALUES (?,?,?,?,?)";
             PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
             prepStatement.setString(1,bsp);
@@ -50,7 +50,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "SELECT * FROM tarefas(bsp,task_number,navio,status_tarefa,id_func)"+
+            String sql = "SELECT * FROM tarefas(bsp,task_number,navio,status_tarefa,id_func) "+
                          "WHERE id_func=?"+
                          "AND status_tarefa=?";
             

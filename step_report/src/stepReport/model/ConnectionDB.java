@@ -19,11 +19,11 @@ public class ConnectionDB {
     public ConnectionDB(){
     }
     private static String driverName = "com.mysql.jdbc.Driver";
-    private static String serverName = "";     //caminho do servidor do BD
-    private static String dbName = "";         //nome do BD
+    private static String serverName = "127.0.0.1:3306";     //caminho do servidor do BD
+    private static String dbName = "db_report";         //nome do BD
     private static String url = "jdbc:mysql://"+ serverName + "/" + dbName;
     private static String user = "root";
-    private static String password = "root";
+    private static String password = "";    //ENCONTRAR PARAMETRO PARA ATUALIZAR USUARIO E SENHA
     private Connection newConnection;
     
     
