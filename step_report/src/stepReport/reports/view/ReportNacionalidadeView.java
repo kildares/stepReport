@@ -15,7 +15,7 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
-
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -184,8 +184,12 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    List<FuncionarioHoras> func = this.getControl().getHorasNation((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
-                    this.loadTable(func);
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationAno((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                    
                 }
             }
             else if(this.mensalRadionButton.isSelected())
@@ -193,7 +197,12 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 String ano = this.periodo2TextField.getText();
                 String mes = this.periodo1TextField.getText();
                 if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13){
-                    
+                    mes = StringUtils.leftPad(mes, 2, "0");
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationMes((String)this.nacionalidadeCombo.getSelectedItem(), "01/"+mes+"/"+ano);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
                 else{
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Data inválida");

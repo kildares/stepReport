@@ -116,11 +116,17 @@ public final class ReportControl {
         this.getReportNacionalidadeView().setVisible(true);
     }
 
-    public List<FuncionarioHoras> getHorasNation(String Nacionalidade, String Ano) {
+    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade, String Ano) {
         
-        return this.getPeriodoModel().getHorasNation(Nacionalidade,Ano);
-        
+        return this.getPeriodoModel().getHorasNationAno(Nacionalidade,Ano);
     }
+    
+    public List<FuncionarioHoras> getHorasNationMes(String nacionalidade, String mes) 
+    {
+        
+        return this.getPeriodoModel().getHorasNationMes(nacionalidade,mes);
+    }
+
 
     public void initBSPReport() {
         
@@ -163,5 +169,6 @@ public final class ReportControl {
        // this.getSaverPDF().savePDF(file,list);
     }
 
+    
     
 }

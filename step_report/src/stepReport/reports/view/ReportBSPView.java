@@ -222,7 +222,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    List<FuncionarioHoras> func = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationAno(this.periodo1TextField.getText(), ano);
                     this.loadTable(func);
                 }
             }

@@ -61,7 +61,7 @@ public class PeriodoModel {
         c.set(Integer.parseInt(Ano), Calendar.DECEMBER, 31);
         day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, 1);
+            c.add(Calendar.DAY_OF_WEEK, -1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -70,9 +70,51 @@ public class PeriodoModel {
         String v[] = {dataIni,dataFim};
         return v;
     }
+    
+    private String[] calcPeriodoMes(String Mes) {
+        Calendar c = Calendar.getInstance();
+        
+        String ano = Mes.substring(6, 10);
+        String mes = Mes.substring(3, 5);
+        
+        mes = Integer.toString(Integer.parseInt(mes) -1);
+        
+        c.set(Integer.parseInt(ano), Integer.parseInt(mes), 1);
+        
+        int day = c.get(Calendar.DAY_OF_WEEK);
+        while(day != Calendar.SUNDAY){
+            c.add(Calendar.DAY_OF_WEEK, -1);
+            day = c.get(Calendar.DAY_OF_WEEK);
+        }
+        
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        String dataIni = fmt.format(c.getTime());
+        
+        
+        int maxDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        c = Calendar.getInstance();
+        c.set(Integer.parseInt(ano), Integer.parseInt(mes), maxDay);
+        day = c.get(Calendar.DAY_OF_MONTH);
+        while(day != Calendar.SUNDAY){
+            c.add(Calendar.DAY_OF_WEEK, -1);
+            day = c.get(Calendar.DAY_OF_WEEK);
+        }
+        String dataFim = fmt.format(c.getTime());
+        
+        String[] v = {dataIni,dataFim};
+        return v;
+    }
 
-    public List<FuncionarioHoras> getHorasNation(String Nacionalidade,String Ano) {
+    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade,String Ano) {
         String periodo[] = this.calcPeriodoAno(Ano);
+        
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getHorasNationMes(String Nacionalidade, String Mes) {
+        String periodo[] = this.calcPeriodoMes(Mes);
         
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
         List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);

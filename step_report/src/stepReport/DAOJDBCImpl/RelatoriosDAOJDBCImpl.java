@@ -31,8 +31,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
             String sql = "SELECT id_func,data_semana,horas_dom, horas_seg, horas_ter, horas_qua, horas_qui, "+
                          "horas_sex, horas_sab FROM cadastra_horas " +
-                         "WHERE data_semana > ?"+
-                         "AND data_semana < ?";
+                         "WHERE data_semana >= ?"+
+                         "AND data_semana <= ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,dataSemIni);
             prepStatement.setString(2, dataSemFim);
@@ -67,8 +67,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario " +
                          "ON cadastra_horas.id_func = funcionario.id " +
                          "WHERE funcionario.nacionalidade = ? " +
-                         "AND data_semana > ? " +
-                         "AND data_semana < ? ";
+                         "AND data_semana >= ? " +
+                         "AND data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,nacionalidade);
@@ -109,8 +109,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.bsp = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,bsp);
@@ -149,8 +149,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.task_number = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,taskNumber);
@@ -190,8 +190,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.navio = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,navio);
