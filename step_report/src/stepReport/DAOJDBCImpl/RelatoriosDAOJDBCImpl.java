@@ -158,14 +158,14 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             prepStatement.setString(3, dataSemFim);
             
             ResultSet rs = prepStatement.executeQuery();
-            conexao.close();
             List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
             while(rs.next()){
-                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("id_horas")),Integer.toString(rs.getInt("id_func")),
-                rs.getString("nome_func"),rs.getString("data_semana"),rs.getString("horas_dom"),rs.getString("horas_seg"),                       
-                rs.getString("horas_ter"),rs.getString("horas_qua"),rs.getString("horas_qui"),rs.getString("horas_sex"),
-                rs.getString("horas_sab")));
+                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("cadastra_horas.id")),Integer.toString(rs.getInt("cadastra_horas.id_func")),
+                rs.getString("funcionario.nome"),rs.getString("cadastra_horas.data_semana"),rs.getString("cadastra_horas.horas_dom"),rs.getString("cadastra_horas.horas_seg"),                       
+                rs.getString("cadastra_horas.horas_ter"),rs.getString("cadastra_horas.horas_qua"),rs.getString("cadastra_horas.horas_qui"),rs.getString("cadastra_horas.horas_sex"),
+                rs.getString("cadastra_horas.horas_sab")));
             }
+            conexao.close();
             return list;
             
         } catch (SQLException ex) {

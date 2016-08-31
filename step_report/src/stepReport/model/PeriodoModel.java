@@ -159,7 +159,7 @@ public class PeriodoModel {
     }
 
     public List<FuncionarioHoras> getHorasBSPMes(String Bsp, String mes) {
-         String periodo[] = this.calcPeriodoMes(mes);
+        String periodo[] = this.calcPeriodoMes(mes);
         
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
         List<FuncionarioHoras> horas = conn.hrsTrabByBsp(Bsp, periodo[0],periodo[1]);
@@ -171,6 +171,29 @@ public class PeriodoModel {
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
         List<FuncionarioHoras> horas = conn.hrsTrabByBsp(bsp, periodo1,periodo2);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getHorasTaskAno(String task, String Ano) {
+        String periodo[] = this.calcPeriodoAno(Ano);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getHorasTaskMes(String task, String mes) {
+        String periodo[] = this.calcPeriodoMes(mes);
+        
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getTaskCustom(String task, String dataIni, String dataFim) {
+        String periodo1 = this.calcPeriodoCustom(dataIni);
+        String periodo2 = this.calcPeriodoCustom(dataFim);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo1,periodo2);
         return horas;
     }
 

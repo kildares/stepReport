@@ -8,10 +8,13 @@ package stepReport.reports.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import org.apache.commons.lang3.StringUtils;
+import stepReport.Util.FuncionarioHoras;
 
 import stepReport.control.ReportControl;
 
@@ -137,7 +140,7 @@ public final class ReportTaskView extends javax.swing.JPanel {
 
         add(periodoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 520, 110));
 
-        reportTable.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        reportTable.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -216,26 +219,65 @@ public final class ReportTaskView extends javax.swing.JPanel {
     }//GEN-LAST:event_personRadionButtonActionPerformed
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
-        // TODO add your handling code here:
-        if(ReportTaskView.state == ReportTaskView.BUSCA){
+     if(ReportTaskView.state == ReportTaskView.BUSCA){
             if(this.anualRadioButton.isSelected())
             {
+                String bsp = this.taskTextField.getText();
                 String ano = this.periodo1TextField.getText();
-                if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    //HashMap<String,String> horas = this.getControl().getHorasNation(this.periodo1TextField.getText(), ano);
-                    //this.loadTable(horas);
+                if(!ano.equals("") && Integer.parseInt(ano) > 1900 && !bsp.equals("")){
+                    List<FuncionarioHoras> horas = this.getControl().getHorasTaskAno((String)bsp, this.periodo1TextField.getText());
+                    if(horas.size()>0)
+                        this.loadTable(horas);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados Inválidos");
                 }
             }
             else if(this.mensalRadionButton.isSelected())
             {
-
+                String task = this.taskTextField.getText();
+                
+                String ano = this.periodo2TextField.getText();
+                String mes = this.periodo1TextField.getText();
+                if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13 && !task.equals("")){
+                    mes = StringUtils.leftPad(mes, 2, "0");
+                    List<FuncionarioHoras> func = this.getControl().getHorasTaskMes(task, "01/"+mes+"/"+ano);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados Inválidos");
+                }
             }
             else if(this.personRadionButton.isSelected())
             {
-
+                String task = this.taskTextField.getText();
+                if(this.validDate() && !task.equals(""))              
+                {
+                    
+                    String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
+                    String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
+                    List<FuncionarioHoras> func = this.getControl().getHorasTaskCustom(task,dataIni,dataFim);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados Inválidos");
+                }
             }
-
+            else{
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhuma opção selecionada");
+            }
+            
+            
         }
+
 
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
@@ -273,9 +315,6 @@ public final class ReportTaskView extends javax.swing.JPanel {
         this.FimDatePicker = new JDatePickerImpl(datePanel2);
         this.FimDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         this.periodoPanel.add(FimDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 62));
-        
-  
-        
     }
     
 
@@ -287,16 +326,18 @@ public final class ReportTaskView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-    private void loadTable(HashMap<String, String> horas) {
-        String[] str = {"Funcionário","Horas"};
-        DefaultTableModel model = new DefaultTableModel(str,2);
+      private void loadTable(List<FuncionarioHoras> horas) {
+        String[] str = {"Funcionário","Horas","Período"};
+        DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
-        for(String func : horas.keySet()){
-            this.reportTable.setValueAt(func, cont, 0);
-            this.reportTable.setValueAt(horas.get(func), cont, 1);
+        for(FuncionarioHoras x : horas){
+            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
+            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
+        this.reportTable.setEnabled(false);
         this.reportScrollPane.setVisible(true);
     }
 
@@ -326,4 +367,17 @@ public final class ReportTaskView extends javax.swing.JPanel {
         }
         return func;
     }*/
+    
+     private boolean validDate() {
+        String ini = this.InitDatePicker.getJFormattedTextField().getText();
+        String fim = this.FimDatePicker.getJFormattedTextField().getText();
+        
+        if(ini.equals("")||fim.equals(""))
+            return false;
+        
+        String fmtIni = ini.substring(6, 10) + ini.substring(3, 5) + ini.substring(0, 2);
+        String fmtFim = fim.substring(6, 10) + fim.substring(3, 5) + fim.substring(0, 2);
+        
+        return Integer.parseInt(fmtFim) > Integer.parseInt(fmtIni);
+    }
 }

@@ -150,6 +150,18 @@ public final class ReportControl {
     }
 
 
+    public List<FuncionarioHoras> getHorasTaskAno(String task, String Ano) {
+         return this.getPeriodoModel().getHorasTaskAno(task,Ano);
+    }
+
+    public List<FuncionarioHoras> getHorasTaskMes(String task, String mes) {
+        return this.getPeriodoModel().getHorasTaskMes(task,mes);
+    }
+
+    public List<FuncionarioHoras> getHorasTaskCustom(String task, String dataIni, String dataFim) {
+       return this.getPeriodoModel().getTaskCustom(task,dataIni,dataFim);
+    }
+
 
 
     public void initBSPReport() {
