@@ -10,10 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import stepReport.DAO.CadastraHorasDAO;
 import stepReport.DAO.RelatoriosDAO;
+import stepReport.DAO.TarefasDAO;
 import stepReport.DAOJDBCImpl.CadastraHorasDAOJDBCImpl;
 import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
+import stepReport.DAOJDBCImpl.TarefasDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
 
 /**
@@ -35,7 +39,24 @@ public class PeriodoModel {
                            Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), Integer.parseInt(hrSab));
     
     }
+    public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
+                                  String hrSex, String hrSab) {
+        
+        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        TarefasDAO conn2 = new TarefasDAOJDBCImpl();
+        int idTarefa = conn2.findCurrentByIdFunc(Integer.parseInt(idFunc));
+        if(idTarefa != -1){
+            return conn.create(dataSemana, Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
+                               Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), 
+                               Integer.parseInt(hrSab),Integer.parseInt(idFunc), idTarefa);
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Funcionario não possui nenhuma tarefa associada");
+            return false;
+        }
+        
     
+    }
     
     
     /**
@@ -77,5 +98,6 @@ public class PeriodoModel {
         List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
         return horas;
     }
+
     
 }

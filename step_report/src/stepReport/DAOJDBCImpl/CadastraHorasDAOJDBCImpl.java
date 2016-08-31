@@ -22,12 +22,13 @@ import stepReport.model.ConnectionDB;
 public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
 
     @Override
-    public void create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab, int idFunc, int idTarefa) {
+    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab, int idFunc, int idTarefa) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String createSQL = "INSERT INTO cadastra_horas(data_semana,horas_dom,horas_seg,horas_ter,horas_qua,horas_qui,horas_sex,horas_sab,id_func,id_tarefa)"+
+            String createSQL = "INSERT INTO cadastra_horas(data_semana,horas_dom,horas_seg,horas_ter, "+
+                               "horas_qua,horas_qui,horas_sex,horas_sab,id_func,id_tarefa) "+
                                "VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
             prepStatement.setString(1,dataSemana);
@@ -44,11 +45,11 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.executeUpdate();
             conexao.close();
             
-            JOptionPane.showMessageDialog(new JFrame(), "HORAS CADASTRADAS COM SUCESSO!");
+            return true;
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR HORAS!");
+            return false;
         }
     }
 

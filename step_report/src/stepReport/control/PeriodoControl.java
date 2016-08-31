@@ -75,4 +75,10 @@ public final class PeriodoControl {
         
     }
     
+    public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
+                                String hrSex, String hrSab) {
+        return this.getModel().createCadastro(idFunc, dataSemana, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab);
+        
+    }
+    
 }

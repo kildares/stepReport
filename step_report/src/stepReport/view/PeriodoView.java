@@ -257,7 +257,22 @@ public final class PeriodoView extends javax.swing.JPanel {
         }
         
         else if(PeriodoView.state == PeriodoView.CADASTRO){
+            String numeroFunc = this.numeroTextField.getText();
+            String data = this.DatePicker.getJFormattedTextField().getText();
+            String hrDom = this.DomingoTextField.getText();
+            String hrSeg = this.SegundaTextField.getText();
+            String hrTer = this.TercaTextField.getText();
+            String hrQua = this.QuartaTextField.getText();
+            String hrQui= this.QuintaTextField.getText();
+            String hrSex = this.SextaTextField.getText();
+            String hrSab = this.SabadoTextField.getText();
             
+            if(this.getControl().createCadastro(numeroFunc, data, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
+                JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");   
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");   
+            }
         }
         
         
