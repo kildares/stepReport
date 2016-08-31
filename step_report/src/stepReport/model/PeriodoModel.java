@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import stepReport.DAO.CadastraHorasDAO;
 import stepReport.DAO.RelatoriosDAO;
+import stepReport.DAOJDBCImpl.CadastraHorasDAOJDBCImpl;
 import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
 
@@ -20,22 +22,19 @@ import stepReport.Util.FuncionarioHoras;
  */
 public class PeriodoModel {
 
-    public ArrayList<String> searchTarefa(String numeroFunc, String replace) {
-        
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        
-        
-        return list;
-        
+    public ArrayList<String> searchTarefa(String numeroFunc, String dataSemana) {
+        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        return conn.findCadastro(Integer.parseInt(numeroFunc), dataSemana);
     }
-
+    
+    public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
+                                  String hrSex, String hrSab) {
+        
+        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        return conn.update(Integer.parseInt(idCadastro),Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
+                           Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), Integer.parseInt(hrSab));
+    
+    }
     
     
     

@@ -69,5 +69,10 @@ public final class PeriodoControl {
         return this.getModel().searchTarefa(numeroFunc,replace);
         
     }
+    public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
+                                String hrSex, String hrSab) {
+        return this.getModel().updateCadastro(idCadastro, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab);
+        
+    }
     
 }

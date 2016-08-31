@@ -24,6 +24,7 @@ import stepReport.model.ConnectionDB;
 public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -31,8 +32,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
             String sql = "SELECT id_func,data_semana,horas_dom, horas_seg, horas_ter, horas_qua, horas_qui, "+
                          "horas_sex, horas_sab FROM cadastra_horas " +
-                         "WHERE data_semana > ?"+
-                         "AND data_semana < ?";
+                         "WHERE data_semana >= ?"+
+                         "AND data_semana <= ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,dataSemIni);
             prepStatement.setString(2, dataSemFim);
@@ -55,6 +56,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo nacionalidade igual ao informado
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -67,8 +70,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario " +
                          "ON cadastra_horas.id_func = funcionario.id " +
                          "WHERE funcionario.nacionalidade = ? " +
-                         "AND data_semana > ? " +
-                         "AND data_semana < ? ";
+                         "AND data_semana >= ? " +
+                         "AND data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,nacionalidade);
@@ -96,6 +99,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //bsp igual ao informado na tarefa CURRENT do funcionario
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -109,8 +115,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.bsp = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,bsp);
@@ -136,6 +142,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //task number igual ao informado na tarefa CURRENT do funcionário
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
        try {
             ConnectionDB conn = new ConnectionDB();
@@ -149,8 +158,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.task_number = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,taskNumber);
@@ -177,6 +186,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //unidade/navio igual ao informado na tarefa CURRENT do funcionario
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -190,8 +202,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
                          "INNER JOIN funcionario ON cadastra_horas.id_func = funcionario.id " +
                          "INNER JOIN tarefas ON cadastra_horas.id_tarefa = tarefas.id " +
                          "WHERE tarefas.navio = ? " +
-                         "AND cadastra_horas.data_semana > ? " +
-                         "AND cadastra_horas.data_semana < ? ";
+                         "AND cadastra_horas.data_semana >= ? " +
+                         "AND cadastra_horas.data_semana <= ? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,navio);

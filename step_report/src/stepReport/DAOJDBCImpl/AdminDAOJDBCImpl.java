@@ -30,12 +30,12 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(1,user);
             prepStatement.setString(2, password);
             prepStatement.executeUpdate();
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO CADASTRADO COM SUCESSO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Usuário cadastrado com sucesso");
             
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao cadastrar usuário");
         }
     }
 
@@ -53,11 +53,11 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(2, user);
             prepStatement.executeUpdate();
             
-            JOptionPane.showMessageDialog(new JFrame(), "SENHA ALTERADA COM SUCESSO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Senha alterada com sucesso");
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO ATUALIZAR USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao atualizar usuario");
         }
     }
     
@@ -79,7 +79,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO NAO ENCONTRADO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Usuário não encontrado");
         }
         return null;
     }
@@ -96,11 +96,11 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(1, user);
             prepStatement.executeUpdate();
             
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO REMOVIDO COM SUCESSO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Usuário removido com sucesso");
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REMOVER USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao remover usuário");
         }
     }
     

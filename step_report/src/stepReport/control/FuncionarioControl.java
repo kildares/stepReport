@@ -5,6 +5,7 @@
  */
 package stepReport.control;
 
+import Exceptions.notFoundException;
 import java.util.ArrayList;
 import stepReport.view.FuncionarioView;
 import stepReport.view.mainScreen;
@@ -67,7 +68,7 @@ public final class FuncionarioControl {
      * @param numero
      * @return
      */
-    public ArrayList<String> searchFuncionario(String numero) {
+    public ArrayList<String> searchFuncionario(String numero) throws notFoundException {
         return this.getModel().searchFuncionario(numero);
     }
 
@@ -89,7 +90,7 @@ public final class FuncionarioControl {
         return this.getModel().updateFuncionario(funcInfo);
     }
 
-    public boolean registerFuncionario(ArrayList<String> funcInfo) {
+    public int registerFuncionario(ArrayList<String> funcInfo) {
         
         return this.getModel().registerFuncionaro(funcInfo);
         

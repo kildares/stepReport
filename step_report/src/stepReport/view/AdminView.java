@@ -314,7 +314,4 @@ public class AdminView extends javax.swing.JPanel {
     public void setControl(AdminControl Control) {
         this.Control = Control;
     }
-
-  
-    
 }
