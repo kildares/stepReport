@@ -6,7 +6,6 @@
 package stepReport.reports.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -178,7 +177,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
-        // TODO add your handling code here:
+       
         if(ReportNacionalidadeView.state == ReportNacionalidadeView.BUSCA){
             if(this.anualRadioButton.isSelected())
             {
@@ -211,6 +210,19 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             else if(this.personRadionButton.isSelected())
             {
                 
+                if(this.validDate())              
+                {
+                    String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
+                    String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationCustom((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Data inválida");
+                }
             }
             else{
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhuma opção selecionada");
@@ -334,6 +346,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
+        this.reportTable.setEnabled(false);
         this.reportScrollPane.setVisible(true);
     }
 
@@ -346,5 +359,18 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             //func.add(new FuncionarioHoras((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
         return func;
+    }
+
+    private boolean validDate() {
+        String ini = this.InitDatePicker.getJFormattedTextField().getText();
+        String fim = this.FimDatePicker.getJFormattedTextField().getText();
+        
+        if(ini.equals("")||fim.equals(""))
+            return false;
+        
+        String fmtIni = ini.substring(6, 10) + ini.substring(3, 5) + ini.substring(0, 2);
+        String fmtFim = fim.substring(6, 10) + fim.substring(3, 5) + fim.substring(0, 2);
+        
+        return Integer.parseInt(fmtFim) > Integer.parseInt(fmtIni);
     }
 }

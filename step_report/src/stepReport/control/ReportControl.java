@@ -126,6 +126,30 @@ public final class ReportControl {
         
         return this.getPeriodoModel().getHorasNationMes(nacionalidade,mes);
     }
+    
+    
+    public List<FuncionarioHoras> getHorasNationCustom(String Nacionalidade,String dataIni,String dataFim) {
+    
+        
+        return this.getPeriodoModel().getNationCustom(Nacionalidade,dataIni,dataFim);
+        
+    }
+    
+    
+    public List<FuncionarioHoras> getHorasBSPAno(String Bsp, String Ano) {
+        return this.getPeriodoModel().getHorasBSPAno(Bsp,Ano);
+    }
+
+    public List<FuncionarioHoras> getHorasBSPMes(String Bsp, String mes) {
+        return this.getPeriodoModel().getHorasBSPMes(Bsp,mes);
+    }
+
+    
+    public List<FuncionarioHoras> getHorasBSPCustom(String bsp, String dataIni, String dataFim) {
+       return this.getPeriodoModel().getBSPCustom(bsp,dataIni,dataFim);
+    }
+
+
 
 
     public void initBSPReport() {
@@ -169,6 +193,5 @@ public final class ReportControl {
        // this.getSaverPDF().savePDF(file,list);
     }
 
-    
     
 }
