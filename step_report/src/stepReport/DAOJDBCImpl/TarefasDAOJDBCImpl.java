@@ -35,8 +35,6 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             
             prepStatement.executeUpdate();
           
-            JOptionPane.showMessageDialog(new JFrame(), "DADOS DE FUNCIONARIO CADASTRADO COM SUCESSO!");
-          
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);

@@ -34,7 +34,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.executeUpdate();
             ResultSet rs = prepStatement.getGeneratedKeys();
             if(rs.next()){
-                JOptionPane.showMessageDialog(new JFrame(), "FUNCIONARIO CADASTRADO COM SUCESSO!"+"\nNUMERO DO FUNCIONARIO: "+rs.getInt(1));
+                
             }
             conexao.close();
         } catch (SQLException ex) {
@@ -59,7 +59,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.setInt(4, id);
             prepStatement.executeUpdate();
             
-            JOptionPane.showMessageDialog(new JFrame(), "DADOS DE FUNCIONARIO ATUALIZADOS COM SUCESSO!");
+            
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +79,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.setInt(1, id);
             prepStatement.executeUpdate();
             
-            JOptionPane.showMessageDialog(new JFrame(), "FUNCIONARIO REMOVIDO COM SUCESSO!");
+            
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);

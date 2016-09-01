@@ -6,7 +6,6 @@
 package stepReport.reports.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +14,7 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
-
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -150,7 +149,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
 
         add(periodoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 520, 110));
 
-        reportTable.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        reportTable.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -178,14 +177,18 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
-        // TODO add your handling code here:
+       
         if(ReportNacionalidadeView.state == ReportNacionalidadeView.BUSCA){
             if(this.anualRadioButton.isSelected())
             {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
-                    List<FuncionarioHoras> func = this.getControl().getHorasNation((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
-                    this.loadTable(func);
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationAno((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                    
                 }
             }
             else if(this.mensalRadionButton.isSelected())
@@ -193,7 +196,12 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 String ano = this.periodo2TextField.getText();
                 String mes = this.periodo1TextField.getText();
                 if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13){
-                    
+                    mes = StringUtils.leftPad(mes, 2, "0");
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationMes((String)this.nacionalidadeCombo.getSelectedItem(), "01/"+mes+"/"+ano);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
                 else{
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Data inválida");
@@ -202,6 +210,19 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             else if(this.personRadionButton.isSelected())
             {
                 
+                if(this.validDate())              
+                {
+                    String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
+                    String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
+                    List<FuncionarioHoras> func = this.getControl().getHorasNationCustom((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
+                    if(func.size()>0)
+                        this.loadTable(func);
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Data inválida");
+                }
             }
             else{
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhuma opção selecionada");
@@ -315,16 +336,17 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     }
 
     private void loadTable(List<FuncionarioHoras> func) {
-        String[] str = {"Funcionário","Horas"};
-        DefaultTableModel model = new DefaultTableModel(str,2);
+        String[] str = {"Funcionário","Horas","Período"};
+        DefaultTableModel model = new DefaultTableModel(str,func.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : func){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
             this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 1);
+            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
+        this.reportTable.setEnabled(false);
         this.reportScrollPane.setVisible(true);
     }
 
@@ -337,5 +359,18 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             //func.add(new FuncionarioHoras((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
         return func;
+    }
+
+    private boolean validDate() {
+        String ini = this.InitDatePicker.getJFormattedTextField().getText();
+        String fim = this.FimDatePicker.getJFormattedTextField().getText();
+        
+        if(ini.equals("")||fim.equals(""))
+            return false;
+        
+        String fmtIni = ini.substring(6, 10) + ini.substring(3, 5) + ini.substring(0, 2);
+        String fmtFim = fim.substring(6, 10) + fim.substring(3, 5) + fim.substring(0, 2);
+        
+        return Integer.parseInt(fmtFim) > Integer.parseInt(fmtIni);
     }
 }

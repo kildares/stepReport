@@ -116,11 +116,53 @@ public final class ReportControl {
         this.getReportNacionalidadeView().setVisible(true);
     }
 
-    public List<FuncionarioHoras> getHorasNation(String Nacionalidade, String Ano) {
+    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade, String Ano) {
         
-        return this.getPeriodoModel().getHorasNation(Nacionalidade,Ano);
+        return this.getPeriodoModel().getHorasNationAno(Nacionalidade,Ano);
+    }
+    
+    public List<FuncionarioHoras> getHorasNationMes(String nacionalidade, String mes) 
+    {
+        
+        return this.getPeriodoModel().getHorasNationMes(nacionalidade,mes);
+    }
+    
+    
+    public List<FuncionarioHoras> getHorasNationCustom(String Nacionalidade,String dataIni,String dataFim) {
+    
+        
+        return this.getPeriodoModel().getNationCustom(Nacionalidade,dataIni,dataFim);
         
     }
+    
+    
+    public List<FuncionarioHoras> getHorasBSPAno(String Bsp, String Ano) {
+        return this.getPeriodoModel().getHorasBSPAno(Bsp,Ano);
+    }
+
+    public List<FuncionarioHoras> getHorasBSPMes(String Bsp, String mes) {
+        return this.getPeriodoModel().getHorasBSPMes(Bsp,mes);
+    }
+
+    
+    public List<FuncionarioHoras> getHorasBSPCustom(String bsp, String dataIni, String dataFim) {
+       return this.getPeriodoModel().getBSPCustom(bsp,dataIni,dataFim);
+    }
+
+
+    public List<FuncionarioHoras> getHorasTaskAno(String task, String Ano) {
+         return this.getPeriodoModel().getHorasTaskAno(task,Ano);
+    }
+
+    public List<FuncionarioHoras> getHorasTaskMes(String task, String mes) {
+        return this.getPeriodoModel().getHorasTaskMes(task,mes);
+    }
+
+    public List<FuncionarioHoras> getHorasTaskCustom(String task, String dataIni, String dataFim) {
+       return this.getPeriodoModel().getTaskCustom(task,dataIni,dataFim);
+    }
+
+
 
     public void initBSPReport() {
         
