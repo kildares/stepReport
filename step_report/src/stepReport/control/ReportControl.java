@@ -211,9 +211,9 @@ public final class ReportControl {
     {
         List<FuncionarioHoras> list = null;
         if(active instanceof ReportBSPView){
-            list = this.getReportBSPView().getPDFData();
+            list = this.getReportBSPView().getListaPrint();
         }
-       /* else if(active instanceof ReportNacionalidadeView){
+        else if(active instanceof ReportNacionalidadeView){
             list = this.getReportNacionalidadeView().getPDFData();
         }
         else if(active instanceof ReportUnidadeView){
@@ -221,9 +221,12 @@ public final class ReportControl {
         }
         else if(active instanceof ReportTaskView){
             list = this.getReportTaskView().getPDFData();
-        }*/
+        }
+        else if(active instanceof ReportHorasMensal){
+            list = this.getReportHorasMensal().getPDFData();
+        }
         
-       // this.getSaverPDF().savePDF(file,list);
+        this.getSaverPDF().savePDF(file,list);
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
@@ -240,6 +243,10 @@ public final class ReportControl {
 
     public List<FuncionarioHoras> getHorasTotaisMes(String mes) {
         return this.getPeriodoModel().getHorasUnidadeMes(mes);
+    }
+
+    public void isPrintable(boolean option) {
+        this.getScreen().isPrintable(option);
     }
 
 

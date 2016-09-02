@@ -8,9 +8,6 @@ package stepReport.reports.view;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
@@ -180,6 +177,10 @@ public class ReportHorasMensal extends javax.swing.JPanel {
         this.periodo2TextField.setText("");
         this.reportScrollPane.setVisible(false);
         ReportHorasMensal.state = ReportHorasMensal.BUSCA;
+    }
+
+    public List<FuncionarioHoras> getPDFData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

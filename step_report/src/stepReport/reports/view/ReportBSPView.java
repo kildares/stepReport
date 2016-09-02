@@ -28,7 +28,8 @@ public final class ReportBSPView extends javax.swing.JPanel {
     private JDatePickerImpl FimDatePicker;
 
     private static int state;
-    
+    private List<FuncionarioHoras> listaPrint;
+
     private static final int BUSCA = 1;  
     
     /**
@@ -225,8 +226,12 @@ public final class ReportBSPView extends javax.swing.JPanel {
                 String ano = this.periodo1TextField.getText();
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900 && !bsp.equals("")){
                     List<FuncionarioHoras> func = this.getControl().getHorasBSPAno((String)bsp, this.periodo1TextField.getText());
-                    if(func.size()>0)
+                    if(func.size()>0){
+                        this.setListaPrint(func);
+                        this.getControl().isPrintable(true);
                         this.loadTable(func);
+                    }
+                        
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -298,7 +303,15 @@ public final class ReportBSPView extends javax.swing.JPanel {
     private javax.swing.JTable reportTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public List<FuncionarioHoras> getListaPrint() {
+        return listaPrint;
+    }
 
+    public void setListaPrint(List<FuncionarioHoras> listaPrint) {
+        this.listaPrint = listaPrint;
+    }
     
      public void insertDatePicker(){
         
@@ -313,8 +326,6 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.FimDatePicker = new JDatePickerImpl(datePanel2);
         this.FimDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         this.periodoPanel.add(FimDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 62));
-        
-  
         
     }
     
@@ -361,17 +372,6 @@ public final class ReportBSPView extends javax.swing.JPanel {
         ReportBSPView.state = ReportBSPView.BUSCA;
     }
 
-    public List<FuncionarioHoras> getPDFData() {
-        
-        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
-        
-        int numRow = this.reportTable.getRowCount();
-        /*for(int i=0;i<numRow;i++){
-            func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
-        }*/
-        return func;
-    }
-    
     private boolean validDate() {
         String ini = this.InitDatePicker.getJFormattedTextField().getText();
         String fim = this.FimDatePicker.getJFormattedTextField().getText();
