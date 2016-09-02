@@ -353,17 +353,6 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         this.reportScrollPane.setVisible(false);
         ReportUnidadeView.state = ReportUnidadeView.BUSCA;
     }
-
-    /*public List<FuncionarioData> getPDFData() {
-        
-        List<FuncionarioData> func = new ArrayList<FuncionarioData>();
-        
-        int numRow = this.reportTable.getRowCount();
-        for(int i=0;i<numRow;i++){
-            func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
-        }
-        return func;
-    }*/
     
      private boolean validDate() {
         String ini = this.InitDatePicker.getJFormattedTextField().getText();
@@ -376,5 +365,9 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         String fmtFim = fim.substring(6, 10) + fim.substring(3, 5) + fim.substring(0, 2);
         
         return Integer.parseInt(fmtFim) > Integer.parseInt(fmtIni);
+    }
+
+    public List<FuncionarioHoras> getPDFData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
