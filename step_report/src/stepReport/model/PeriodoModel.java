@@ -218,6 +218,35 @@ public class PeriodoModel {
         return horas;
     }
 
+    public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
+        String periodo[] = this.calcPeriodoAno(Ano);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
+        return horas;
+    }
 
+    public List<FuncionarioHoras> getHorasUnidadeMes(String Unidade, String mes) {   
+        String periodo[] = this.calcPeriodoMes(mes);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getUnidadeCustom(String Unidade, String dataIni, String dataFim) {
+        String periodo1 = this.calcPeriodoCustom(dataIni);
+        String periodo2 = this.calcPeriodoCustom(dataFim);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo1,periodo2);
+        return horas;
+    }
+
+    public List<FuncionarioHoras> getHorasUnidadeMes(String mes) {
+       String periodo[] = this.calcPeriodoMes(mes);
+        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        List<FuncionarioHoras> horas = conn.totalHorasMensal(periodo[0],periodo[1]);
+        return horas;
+    }
+    
+    
     
 }

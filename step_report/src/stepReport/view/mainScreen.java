@@ -53,6 +53,7 @@ public final class mainScreen extends javax.swing.JFrame {
         this.add(this.getReport().getReportBSPView());
         this.add(this.getReport().getReportTaskView());
         this.add(this.getReport().getReportUnidadeView());
+        this.add(this.getReport().getReportHorasMensal());
         
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
@@ -85,6 +86,7 @@ public final class mainScreen extends javax.swing.JFrame {
         searchHorasMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
         relatorioMenu = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         relatorioNacMenuItem = new javax.swing.JMenuItem();
         relatorioBSPMenuItem = new javax.swing.JMenuItem();
         taskMenuItem = new javax.swing.JMenuItem();
@@ -177,6 +179,14 @@ public final class mainScreen extends javax.swing.JFrame {
         Toolbar.add(funcMenu);
 
         relatorioMenu.setText("Relatório");
+
+        jMenuItem2.setText("Horas mensais");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        relatorioMenu.add(jMenuItem2);
 
         relatorioNacMenuItem.setText("Funcionário x Nacionalidade");
         relatorioNacMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -349,6 +359,13 @@ public final class mainScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+        mainScreen.active.setVisible(false);
+        this.getReport().initMensalReport();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,6 +417,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem printMenuItem;
     private javax.swing.JMenuItem relatorioBSPMenuItem;

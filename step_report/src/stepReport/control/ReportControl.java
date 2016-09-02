@@ -15,6 +15,7 @@ import stepReport.Util.FuncionarioHoras;
 import stepReport.model.PeriodoModel;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
+import stepReport.reports.view.ReportHorasMensal;
 import stepReport.reports.view.ReportNacionalidadeView;
 import stepReport.reports.view.ReportTaskView;
 import stepReport.reports.view.ReportUnidadeView;
@@ -31,8 +32,10 @@ public final class ReportControl {
     private mainScreen screen;
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
+    private ReportHorasMensal reportHorasMensal;
     private savePDFModel saverPDF;
     private PeriodoModel periodoModel;
+    
     
     public ReportControl(mainScreen screen)
     {
@@ -43,11 +46,12 @@ public final class ReportControl {
         this.setReportBSPView(new ReportBSPView(this));
         this.setReportTaskView(new ReportTaskView(this));
         this.setReportUnidadeView(new ReportUnidadeView(this));
-        
+        this.setReportHorasMensal(new ReportHorasMensal(this));
         this.getReportNacionalidadeView().setVisible(false);
         this.getReportBSPView().setVisible(false);
         this.getReportTaskView().setVisible(false);
         this.getReportUnidadeView().setVisible(false);
+        this.getReportHorasMensal().setVisible(false);
     }
     
     
@@ -106,6 +110,15 @@ public final class ReportControl {
 
     public void setPeriodoModel(PeriodoModel periodoModel) {
         this.periodoModel = periodoModel;
+    }
+    
+    
+    public ReportHorasMensal getReportHorasMensal() {
+        return reportHorasMensal;
+    }
+
+    public void setReportHorasMensal(ReportHorasMensal reportHorasMensal) {
+        this.reportHorasMensal = reportHorasMensal;
     }
     
     
@@ -180,10 +193,18 @@ public final class ReportControl {
     }
 
     public void initUnidadeReport() {
-        this.getReportTaskView().loadTaskReport();
-        mainScreen.setActive(this.getReportTaskView());
+        this.getReportUnidadeView().loadUnidadeReport();
+        mainScreen.setActive(this.getReportUnidadeView());
+        this.getReportUnidadeView().setBounds(0, 0, 800, 500);
+        this.getReportUnidadeView().setVisible(true);
+    }
+    
+    
+    public void initMensalReport() {
+        this.getReportHorasMensal().loadMensalReport();
+        mainScreen.setActive(this.getReportHorasMensal());
         this.getReportTaskView().setBounds(0, 0, 800, 500);
-        this.getReportTaskView().setVisible(true);
+        this.getReportHorasMensal().setVisible(true);
     }
 
     public void savePDF(File file,JPanel active) 
@@ -204,6 +225,23 @@ public final class ReportControl {
         
        // this.getSaverPDF().savePDF(file,list);
     }
+
+    public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
+         return this.getPeriodoModel().getHorasUnidadeAno(Unidade,Ano);
+    }
+
+    public List<FuncionarioHoras> getHorasUnidadeMes(String Unidade, String mes) {
+         return this.getPeriodoModel().getHorasUnidadeMes(Unidade,mes);
+    }
+
+    public List<FuncionarioHoras> getHorasUnidadeCustom(String Unidade, String dataIni, String dataFim) {
+        return this.getPeriodoModel().getUnidadeCustom(Unidade,dataIni,dataFim);
+    }
+
+    public List<FuncionarioHoras> getHorasTotaisMes(String mes) {
+        return this.getPeriodoModel().getHorasUnidadeMes(mes);
+    }
+
 
     
 }
