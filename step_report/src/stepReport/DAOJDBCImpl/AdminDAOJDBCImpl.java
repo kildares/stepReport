@@ -30,11 +30,10 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(1,user);
             prepStatement.setString(2, password);
             prepStatement.executeUpdate();
-                        
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao cadastrar usuário");
         }
     }
 
@@ -55,7 +54,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO ATUALIZAR USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao atualizar usuario");
         }
     }
     
@@ -77,7 +76,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "USUARIO NAO ENCONTRADO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Usuário não encontrado");
         }
         return null;
     }
@@ -96,7 +95,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             conexao.close();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REMOVER USUARIO!");
+            JOptionPane.showMessageDialog(new JFrame(), "Erro ao remover usuário");
         }
     }
     

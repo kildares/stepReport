@@ -101,7 +101,6 @@ public final class AdminControl{
     public void updatePassword(String user,String pass){
         AdminDAO conn = new AdminDAOJDBCImpl();
         conn.updatePassword(user, pass);
-        
     }
     
 }

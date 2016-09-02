@@ -5,6 +5,7 @@
  */
 package stepReport.DAOJDBCImpl;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -19,7 +20,8 @@ import stepReport.model.TarefasModel;
 public class TarefasDAOJDBCImpl implements TarefasDAO{
 
     @Override
-    public void create(int id_func, String bsp, String task_number, String navio) {
+    //cria tupla nova com id do func e status CURRENT
+    public boolean create(int id_func, String bsp, String task_number, String navio) {
          try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -34,15 +36,16 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             prepStatement.setInt(5, id_func);
             
             prepStatement.executeUpdate();
-          
             conexao.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR FUNCIONARIO!");
+            return false;
         }
     }
     
     @Override
+    //retorna o id da tarefa com status=CURRENT relacionada ao funcionario com id=id_func
     public int findCurrentByIdFunc(int id_func) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -66,9 +69,39 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
         }
         return -1;
     }
-
+    
     @Override
-    public void changeStatusToOld(int id) {
+    //retorna todos os dados da tarefa com id informado
+    public ArrayList<String> findById(int id) {
+        try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String sql = "SELECT * FROM tarefas "+
+                         "WHERE id=?";
+            
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+            prepStatement.setInt(1, id);
+            ResultSet rs = prepStatement.executeQuery();
+            conexao.close();
+            if(rs.next()){
+                ArrayList<String> info = new ArrayList<String>();
+                info.add(Integer.toString(rs.getInt("id_func")));
+                info.add(rs.getString("bsp"));
+                info.add(rs.getString("task_number"));
+                info.add(rs.getString("navio"));
+                return info;    
+            } 
+        }catch (SQLException ex) {
+            Logger.getLogger(TarefasDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    @Override
+    //muda o status de uma tarefa CURRENT para OLD
+    public boolean changeStatusToOld(int id) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -82,10 +115,11 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             prepStatement.setInt(2, id);
             prepStatement.executeUpdate();
             conexao.close();
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO ATUALIZAR STATUS DE TAREFA DE FUNCIONARIO!");
+            return false;
         }
     }
 }

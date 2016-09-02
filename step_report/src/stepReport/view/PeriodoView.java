@@ -196,26 +196,83 @@ public final class PeriodoView extends javax.swing.JPanel {
                 //c.
                 
                 ArrayList<String> resultado = this.getControl().searchTarefa(numeroFunc,data.replace("/",""));
-                this.titleLabel.setText("Editar horas da semana");
-                this.DomingoTextField.setText(resultado.get(0));
-                this.SegundaTextField.setText(resultado.get((1)));
-                this.TercaTextField.setText(resultado.get(2));
-                this.QuartaTextField.setText(resultado.get(3));
-                this.QuintaTextField.setText(resultado.get(4));
-                this.SextaTextField.setText(resultado.get(5));
-                this.SabadoTextField.setText(resultado.get(6));
-                this.diasPanel.setVisible(true);
+                if(resultado != null){
+                    this.titleLabel.setText("Editar horas da semana");
+                    this.DomingoTextField.setText(resultado.get(0));
+                    this.SegundaTextField.setText(resultado.get((1)));
+                    this.TercaTextField.setText(resultado.get(2));
+                    this.QuartaTextField.setText(resultado.get(3));
+                    this.QuintaTextField.setText(resultado.get(4));
+                    this.SextaTextField.setText(resultado.get(5));
+                    this.SabadoTextField.setText(resultado.get(6));
+                    this.diasPanel.setVisible(true);
                 
-                this.confirmarButton.setText("Confirmar");
-                PeriodoView.state = PeriodoView.EDIT;
-                
-                //JOptionPane.showMessageDialog(new JFrame(), "O funcionário fornecido não está registrado para este período");
+                    this.confirmarButton.setText("Confirmar");
+                    PeriodoView.state = PeriodoView.EDIT;
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "O funcionário fornecido não está registrado para este período");
+                }
             }
+        }
+        
+        else if(PeriodoView.state == PeriodoView.EDIT){
+            String numeroFunc = this.numeroTextField.getText();
+            String data = this.DatePicker.getJFormattedTextField().getText();
+            String hrDom = this.DomingoTextField.getText();
+            String hrSeg = this.SegundaTextField.getText();
+            String hrTer = this.TercaTextField.getText();
+            String hrQua = this.QuartaTextField.getText();
+            String hrQui= this.QuintaTextField.getText();
+            String hrSex = this.SextaTextField.getText();
+            String hrSab = this.SabadoTextField.getText();
             
+            if(numeroFunc.equals("")){
+                JOptionPane.showMessageDialog(new JFrame(), "Fornecer número do funcionário");
+            }
+            else if(data.equals("")){
+                JOptionPane.showMessageDialog(new JFrame(), "Fornecer data da semana");
+            }
+            else{ 
+                //TODO fazer tratamento da data
+                //Calendar c = Calendar.getInstance();
+                //c.
+                
+                ArrayList<String> resultado = this.getControl().searchTarefa(numeroFunc,data.replace("/",""));
+                if(resultado != null){
+                  String idCadastro = resultado.get(7);
+                  if(this.getControl().updateCadastro(idCadastro,hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
+                      JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas atualizado com sucesso");
+                  }
+                  else{
+                      JOptionPane.showMessageDialog(new JFrame(), "Erro na atualização do cadastro de horas");
+                  }
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas não encontrado");
+                }
+                
+                
+            }
         }
         
         else if(PeriodoView.state == PeriodoView.CADASTRO){
+            String numeroFunc = this.numeroTextField.getText();
+            String data = this.DatePicker.getJFormattedTextField().getText();
+            String hrDom = this.DomingoTextField.getText();
+            String hrSeg = this.SegundaTextField.getText();
+            String hrTer = this.TercaTextField.getText();
+            String hrQua = this.QuartaTextField.getText();
+            String hrQui= this.QuintaTextField.getText();
+            String hrSex = this.SextaTextField.getText();
+            String hrSab = this.SabadoTextField.getText();
             
+            if(this.getControl().createCadastro(numeroFunc, data, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
+                JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");   
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");   
+            }
         }
         
         

@@ -40,7 +40,6 @@ public class ConnectionDB {
         try{
             Class.forName(driverName);
             newConnection = DriverManager.getConnection(url, user, password);
-            //JOptionPane.showMessageDialog(null, "Banco de dados conectado com sucesso!");
             return newConnection;
         }
         catch (ClassNotFoundException e){

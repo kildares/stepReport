@@ -68,10 +68,10 @@ public final class TarefasControl {
         
     }
 
-    public boolean editTarefa(String bsp, String navio, String task) {
-        return this.getModel().editTarefa(bsp,navio,task);
+    public boolean editTarefa(String idFunc, String bsp, String navio, String task) {
+        return this.getModel().editTarefa(idFunc,bsp,navio,task);
     }
-
+            
     public void initNewView() {
         this.getView().loadNewView();
         mainScreen.setActive(this.getView());

@@ -24,6 +24,7 @@ import stepReport.model.ConnectionDB;
 public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -55,6 +56,8 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo nacionalidade igual ao informado
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -96,6 +99,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //bsp igual ao informado na tarefa CURRENT do funcionario
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -136,6 +142,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //task number igual ao informado na tarefa CURRENT do funcionário
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
        try {
             ConnectionDB conn = new ConnectionDB();
@@ -177,6 +186,9 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     }
 
     @Override
+    //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo
+    //unidade/navio igual ao informado na tarefa CURRENT do funcionario
+    //e o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim) {
         try {
             ConnectionDB conn = new ConnectionDB();

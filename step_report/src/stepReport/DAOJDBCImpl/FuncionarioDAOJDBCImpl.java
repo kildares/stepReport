@@ -20,7 +20,7 @@ import stepReport.model.FuncionarioModel;
 public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
 
     @Override
-    public void create(String nome, String nacionalidade, String profissao) {
+    public int create(String nome, String nacionalidade, String profissao) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -34,17 +34,18 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.executeUpdate();
             ResultSet rs = prepStatement.getGeneratedKeys();
             if(rs.next()){
-                
-            }
-            conexao.close();
+                int result = rs.getInt(1);
+                conexao.close();
+                return result;
+            }  
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR FUNCIONARIO!");
         }
+        return -1;
     }
 
     @Override
-    public void update(int id, String nome, String nacionalidade, String profissao) {
+    public boolean update(int id, String nome, String nacionalidade, String profissao) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -59,11 +60,11 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.setInt(4, id);
             prepStatement.executeUpdate();
             
-            
-            conexao.close();
+       conexao.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO ATUALIZAR DADOS DE FUNCIONARIO!");
+            return false;
         }
     }
 

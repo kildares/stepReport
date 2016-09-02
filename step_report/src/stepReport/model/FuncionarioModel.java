@@ -5,7 +5,12 @@
  */
 package stepReport.model;
 
+import Exceptions.notFoundException;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import stepReport.DAO.FuncionarioDAO;
+import stepReport.DAOJDBCImpl.FuncionarioDAOJDBCImpl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.TarefasControl;
 
@@ -78,9 +83,19 @@ public final class FuncionarioModel {
      *  id 5: Task Number
      *  id 6: Navio
      */
-    public ArrayList<String> searchFuncionario(String numero){
+    public ArrayList<String> searchFuncionario(String numero) throws notFoundException{
         ArrayList<String> func = new ArrayList<String>();
-        return func;
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
+        FuncionarioModel funcionario = conn.findByID(Integer.parseInt(numero));
+        if(funcionario != null){
+         func.add(funcionario.getNome());
+         func.add(funcionario.getNacionalidade());
+         func.add(funcionario.getProfissao());
+         return func;
+        }
+        else{
+            return null;
+        }
     }
 
     /**
@@ -98,7 +113,15 @@ public final class FuncionarioModel {
      * @return true
      */
     public boolean updateFuncionario(ArrayList<String> funcInfo) {
-        return true;
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
+        FuncionarioModel func = conn.findByID(Integer.parseInt(funcInfo.get(0)));
+        if(func == null){
+            JOptionPane.showMessageDialog(new JFrame(), "Funcionário não encontrado");
+            return false;
+        }
+        else{
+            return conn.update(Integer.parseInt(funcInfo.get(0)), funcInfo.get(1), funcInfo.get(2), funcInfo.get(3));
+        }
     }
 
     /**
@@ -106,8 +129,10 @@ public final class FuncionarioModel {
      * @param funcInfo
      * @return
      */
-    public boolean registerFuncionaro(ArrayList<String> funcInfo) {
-        return true;
+    public int registerFuncionaro(ArrayList<String> funcInfo) {
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
+        int result = conn.create(funcInfo.get(1),funcInfo.get(2), funcInfo.get(3));
+        return result;
     }
 
     

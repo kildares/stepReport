@@ -109,43 +109,74 @@ public final class TarefasView extends javax.swing.JPanel {
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
      
         if(TarefasView.state == TarefasView.EDIT){
-            String bsp,navio,task;
+            String idFunc, bsp,navio,task;
+            idFunc = this.numeroFormattedField.getText();
             bsp = this.bspTextField.getText();
             navio = this.navioTextField.getText();
             task = this.taskTextField.getText();
             
-            if(bsp.isEmpty())
+            if(idFunc.isEmpty()){
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo BSP não pode ser vazio");
+            }
+            else if(bsp.isEmpty())
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo BSP não pode ser vazio");
             else if(navio.isEmpty())
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo Navio não pode ser vazio");
             else if(task.isEmpty())
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo Task não pode ser vazio");
             else{
-                if(this.getControl().editTarefa(bsp,navio,task)){
-                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Atualizacao Concluida");
+                if(this.getControl().editTarefa(idFunc,bsp,navio,task)){
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Atualizacao concluida com sucesso");
                     this.loadSearchView();
                 }
                 else{
-                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Erro ao comunicar com banco");
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Erro ao atualizar dados de funcionário");
                 }
             }
             
         }
         
+        if(TarefasView.state == TarefasView.CADASTRO){
+            String idFunc, bsp,navio,task;
+            idFunc = this.numeroFormattedField.getText();
+            bsp = this.bspTextField.getText();
+            navio = this.navioTextField.getText();
+            task = this.taskTextField.getText();
+            
+            if(idFunc.isEmpty()){
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo BSP não pode ser vazio");
+            }
+            else if(bsp.isEmpty())
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo BSP não pode ser vazio");
+            else if(navio.isEmpty())
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo Navio não pode ser vazio");
+            else if(task.isEmpty())
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Campo Task não pode ser vazio");
+            else{
+                if(this.getControl().editTarefa(idFunc,bsp,navio,task)){    //Usa a mesma funcao de editar uma tarefa
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados cadastrados com sucesso");
+                    this.loadSearchView();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Erro ao cadastrar dados de funcionário");
+                }
+            }
+            
+        }
         
         if(TarefasView.state == TarefasView.BUSCA){
             String numero = this.numeroFormattedField.getText();
             if(!numero.isEmpty()){
                 ArrayList<String> tasks = this.getControl().searchTarefas(numero);
-                
+
                 if(tasks!=null){
                     this.numeroFormattedField.setEditable(false);
                     
-                    this.bspTextField.setText(tasks.get(0));
+                    this.bspTextField.setText(tasks.get(1));
                     this.bspTextField.setEditable(true);
-                    this.taskTextField.setText(tasks.get(1));
+                    this.taskTextField.setText(tasks.get(2));
                     this.taskTextField.setEditable(true);
-                    this.navioTextField.setText(tasks.get(2));
+                    this.navioTextField.setText(tasks.get(3));
                     this.navioTextField.setEditable(true);
                     this.confirmarButton.setText("Alterar");
                     TarefasView.state = TarefasView.EDIT;

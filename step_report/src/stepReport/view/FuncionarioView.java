@@ -5,7 +5,10 @@
  */
 package stepReport.view;
 
+import Exceptions.notFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import stepReport.control.FuncionarioControl;
@@ -122,13 +125,16 @@ public class FuncionarioView extends javax.swing.JPanel {
             ArrayList<String> funcInfo = new ArrayList<String>();
             
             try{
-                funcInfo.add(this.nomeTextField.getText());
                 funcInfo.add(this.numeroFormattedField.getText());
+                funcInfo.add(this.nomeTextField.getText());
                 funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
                 funcInfo.add(this.profissaoTextField.getText());
-
+                
                 if(this.getControl().updateFuncionario(funcInfo)){
                     JOptionPane.showMessageDialog(new JFrame(), "Funcionário atualizado com sucesso");
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Erro ao atualizar funcionário");
                 }
             
                 FuncionarioView.state = FuncionarioView.BUSCA;
@@ -143,8 +149,13 @@ public class FuncionarioView extends javax.swing.JPanel {
             String numero = this.numeroFormattedField.getText();
             if(!numero.equals("")){
                 
-                ArrayList<String> funcInfo;
-                funcInfo = this.getControl().searchFuncionario(numero);
+                ArrayList<String> funcInfo = new ArrayList<String>();
+                try {
+                    funcInfo = this.getControl().searchFuncionario(numero);
+                } catch (notFoundException ex) {
+                    Logger.getLogger(FuncionarioView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(new JFrame(), "Funcionário não encontrado");
+                }
                 
                 try{
                     this.nomeTextField.setText(funcInfo.get(0));
@@ -165,19 +176,24 @@ public class FuncionarioView extends javax.swing.JPanel {
         if(FuncionarioView.state == FuncionarioView.CADASTRO){
             ArrayList<String> funcInfo = new ArrayList<String>();
             
-            funcInfo.add(this.nomeTextField.getText());
-            funcInfo.add(this.numeroFormattedField.getText());
-            funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
-            funcInfo.add(this.profissaoTextField.getText());
+            try{
+                funcInfo.add(this.numeroFormattedField.getText());  //??
+                funcInfo.add(this.nomeTextField.getText());
+                funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
+                funcInfo.add(this.profissaoTextField.getText());
 
-            
-            if(this.getControl().registerFuncionario(funcInfo)){
-                JOptionPane.showMessageDialog(new JFrame(), "Funcionario Registrado");
-                this.loadSearchView();
+                int result  = this.getControl().registerFuncionario(funcInfo);
+                if( result != -1){
+                    JOptionPane.showMessageDialog(new JFrame(), "Funcionario Registrado com numero "+result);
+                    this.loadSearchView();
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Erro ao registrar funcionário");
+                }
+            }catch(java.lang.IndexOutOfBoundsException ex){
+                JOptionPane.showMessageDialog(new JFrame(), "Campos Obrigatórios ausentes");
             }
         }
-        
-        
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
@@ -186,7 +202,6 @@ public class FuncionarioView extends javax.swing.JPanel {
             this.loadNewView();
         else if(FuncionarioView.state == FuncionarioView.CADASTRO)
             this.loadSearchView();
-        
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
 
