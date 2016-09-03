@@ -2,7 +2,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import stepReport.Util.FuncionarioData;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.reports.model.savePDFModel;
 
 /*
@@ -18,10 +18,10 @@ import stepReport.reports.model.savePDFModel;
 public class TestPDF {
     public static void main(String args[]){
         
-        List<FuncionarioData> list = new ArrayList<FuncionarioData>();
-        list.add(new FuncionarioData("AAA","BBB","CCC"));
-        list.add(new FuncionarioData("BBB","CCC","DDD"));
-        list.add(new FuncionarioData("AAA","BBB","CCC"));
+        List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+        list.add(new FuncionarioHoras("1","20"));
+        list.add(new FuncionarioHoras("BBB","CCC","DDD"));
+        list.add(new FuncionarioHoras("AAA","BBB","CCC"));
         savePDFModel pdf = new savePDFModel();
         
         File fp = new File("./ABC.pdf");

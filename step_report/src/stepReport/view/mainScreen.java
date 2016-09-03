@@ -7,7 +7,6 @@ package stepReport.view;
 
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.TarefasControl;
@@ -60,7 +59,7 @@ public final class mainScreen extends javax.swing.JFrame {
         
         this.Toolbar.setVisible(false);
         this.isPrintable(false);
-        
+        this.searchHorasMenuItem.setVisible(false);
         this.getLogin().getView().setBounds(0, 0, 300, 160);
     }
 
@@ -251,6 +250,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getAdmin().initView();
     }//GEN-LAST:event_userMenuItemActionPerformed
 
@@ -258,7 +258,8 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
           
         mainScreen.active.setVisible(false);
-        this.getPeriodo().initSearchView();
+        this.isPrintable(false);
+        this.getPeriodo().initRegisterView();
         
         
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
@@ -272,12 +273,14 @@ public final class mainScreen extends javax.swing.JFrame {
     private void buscarFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarFuncMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getFuncionario().initSearchView();
     }//GEN-LAST:event_buscarFuncMenuItemActionPerformed
 
     private void CadastroFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroFuncMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getFuncionario().initNewView();
     }//GEN-LAST:event_CadastroFuncMenuItemActionPerformed
 
@@ -291,6 +294,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getTarefasFuncionario().initSearchView();
     }//GEN-LAST:event_searchTarefaMenuItemActionPerformed
 
@@ -298,6 +302,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getTarefasFuncionario().initNewView();
         
     }//GEN-LAST:event_tarefasMenuItemActionPerformed
@@ -310,6 +315,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private void searchHorasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHorasMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getPeriodo().initSearchView();
         
 
@@ -318,6 +324,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private void relatorioNacMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioNacMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getReport().initNationReport();
     }//GEN-LAST:event_relatorioNacMenuItemActionPerformed
 
@@ -325,12 +332,14 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getReport().initBSPReport();
     }//GEN-LAST:event_relatorioBSPMenuItemActionPerformed
 
     private void taskMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getReport().initTaskReport();
     }//GEN-LAST:event_taskMenuItemActionPerformed
 
@@ -338,6 +347,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getReport().initUnidadeReport();
     }//GEN-LAST:event_unidadeMenuItemActionPerformed
 
@@ -363,6 +373,7 @@ public final class mainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
+        this.isPrintable(false);
         this.getReport().initMensalReport();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

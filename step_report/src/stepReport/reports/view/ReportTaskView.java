@@ -27,9 +27,8 @@ public final class ReportTaskView extends javax.swing.JPanel {
     private ReportControl Control;
     private JDatePickerImpl InitDatePicker;
     private JDatePickerImpl FimDatePicker;
-
     private static int state;
-    
+    private static List<FuncionarioHoras> listaConsulta;
     private static final int BUSCA = 1;  
     
     /**
@@ -227,7 +226,7 @@ public final class ReportTaskView extends javax.swing.JPanel {
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900 && !bsp.equals("")){
                     List<FuncionarioHoras> horas = this.getControl().getHorasTaskAno((String)bsp, this.periodo1TextField.getText());
                     if(horas.size()>0)
-                        this.loadTable(horas);
+                        this.loadTable(horas,ano+"0101");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -244,8 +243,9 @@ public final class ReportTaskView extends javax.swing.JPanel {
                 if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13 && !task.equals("")){
                     mes = StringUtils.leftPad(mes, 2, "0");
                     List<FuncionarioHoras> func = this.getControl().getHorasTaskMes(task, "01/"+mes+"/"+ano);
+                    ReportTaskView.listaConsulta = func;
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,ano+mes+"01");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -263,7 +263,7 @@ public final class ReportTaskView extends javax.swing.JPanel {
                     String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                     List<FuncionarioHoras> func = this.getControl().getHorasTaskCustom(task,dataIni,dataFim);
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,"");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -326,14 +326,14 @@ public final class ReportTaskView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-      private void loadTable(List<FuncionarioHoras> horas) {
+      private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
         String[] str = {"Funcionário","Horas","Período"};
         DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : horas){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
@@ -357,16 +357,15 @@ public final class ReportTaskView extends javax.swing.JPanel {
         ReportTaskView.state = ReportTaskView.BUSCA;
     }
 
-    /*public List<FuncionarioData> getPDFData() {
+    public List<FuncionarioHoras> getPDFData() {
         
-        List<FuncionarioData> func = new ArrayList<FuncionarioData>();
+        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
         
         int numRow = this.reportTable.getRowCount();
         for(int i=0;i<numRow;i++){
-            func.add(new FuncionarioData((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
         return func;
-    }*/
+    }
     
      private boolean validDate() {
         String ini = this.InitDatePicker.getJFormattedTextField().getText();
@@ -380,4 +379,6 @@ public final class ReportTaskView extends javax.swing.JPanel {
         
         return Integer.parseInt(fmtFim) > Integer.parseInt(fmtIni);
     }
+
+    
 }

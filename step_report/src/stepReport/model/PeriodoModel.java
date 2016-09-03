@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 import stepReport.DAO.CadastraHorasDAO;
 import stepReport.DAO.RelatoriosDAO;
 import stepReport.DAO.TarefasDAO;
@@ -28,6 +29,7 @@ public class PeriodoModel {
 
     public ArrayList<String> searchTarefa(String numeroFunc, String dataSemana) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        
         return conn.findCadastro(numeroFunc, dataSemana);
     }
     
@@ -41,7 +43,6 @@ public class PeriodoModel {
     }
     public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
                                   String hrSex, String hrSab) {
-        
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
         TarefasDAO conn2 = new TarefasDAOJDBCImpl();
         String idTarefa = conn2.findCurrentByIdFunc(idFunc);
@@ -54,9 +55,8 @@ public class PeriodoModel {
             JOptionPane.showMessageDialog(new JFrame(), "Funcionario não possui nenhuma tarefa associada");
             return false;
         }
-        
-    
     }
+    
     
     
     /**
@@ -70,7 +70,7 @@ public class PeriodoModel {
         c.set(Calendar.DAY_OF_YEAR, 1);
         int day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -81,7 +81,7 @@ public class PeriodoModel {
         c.set(Integer.parseInt(Ano), Calendar.DECEMBER, 31);
         day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -103,7 +103,7 @@ public class PeriodoModel {
         
         int day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -116,7 +116,7 @@ public class PeriodoModel {
         c.set(Integer.parseInt(ano), Integer.parseInt(mes), maxDay);
         day = c.get(Calendar.DAY_OF_MONTH);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         String dataFim = fmt.format(c.getTime());
@@ -242,8 +242,26 @@ public class PeriodoModel {
 
     public List<FuncionarioHoras> getHorasUnidadeMes(String mes) {
        String periodo[] = this.calcPeriodoMes(mes);
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.totalHorasMensal(periodo[0],periodo[1]);
+       String dataIni = mes.replace("/", "");
+       
+       String mesIni = dataIni.substring(2, 4);
+       String anoIni = dataIni.substring(4, 8);
+       dataIni = anoIni + mesIni + "01";
+       String dataFim;
+       
+       RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+       List<FuncionarioHoras> horas = null;
+       if(mesIni.equals("12")){
+           dataFim = Integer.toString(Integer.parseInt(anoIni)+1) + "0106";
+           horas = conn.totalHorasMensal(dataIni,dataFim);
+       }
+       else{
+           dataFim = anoIni + StringUtils.leftPad(Integer.toString(Integer.parseInt(mesIni)+1),2,"0")+"06";
+           horas = conn.totalHorasMensal(dataIni,dataFim);
+       }
+        
+       
+       
         return horas;
     }
     

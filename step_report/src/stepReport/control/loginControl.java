@@ -30,7 +30,7 @@ public final class loginControl {
    
     public loginControl(mainScreen screen){
         this.view = new loginView(this);
-        this.model = new AdminModel();
+        this.model = AdminModel.getInstance();
         this.setScreen(screen);
     }
     
@@ -43,15 +43,14 @@ public final class loginControl {
     
     
     public boolean validateLogin(String user,String password)
-    {
-        
+    {   
         if(this.getModel().validateLogin(user,password))
         {
             this.getScreen().remove(this.getView());
             this.getScreen().showMain();
+            return true;
         }
-        
-        return true;
+        return false;
     }
     
      public loginView getView() {

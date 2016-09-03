@@ -8,9 +8,6 @@ package stepReport.reports.view;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
@@ -128,7 +125,7 @@ public class ReportHorasMensal extends javax.swing.JPanel {
                 mes = StringUtils.leftPad(mes, 2, "0");
                 List<FuncionarioHoras> func = this.getControl().getHorasTotaisMes("01/"+mes+"/"+ano);
                 if(func.size()>0)
-                this.loadTable(func);
+                this.loadTable(func,ano+mes+"01");
                 else
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
             }
@@ -158,14 +155,14 @@ public class ReportHorasMensal extends javax.swing.JPanel {
     }
     
     
-      private void loadTable(List<FuncionarioHoras> horas) {
+      private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
         String[] str = {"Funcionário","Horas","Período"};
         DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : horas){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
@@ -180,6 +177,10 @@ public class ReportHorasMensal extends javax.swing.JPanel {
         this.periodo2TextField.setText("");
         this.reportScrollPane.setVisible(false);
         ReportHorasMensal.state = ReportHorasMensal.BUSCA;
+    }
+
+    public List<FuncionarioHoras> getPDFData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

@@ -34,7 +34,7 @@ public class savePDFModel {
     }
     
     
-    /*public void savePDF(File file, List<FuncionarioHoras> list) 
+    public void savePDF(File file, List<FuncionarioHoras> list) 
     {
         
        if(list == null) 
@@ -53,15 +53,19 @@ public class savePDFModel {
             contentStream.setFont(font, 12);
             contentStream.setLeading(14.5f);
             contentStream.newLineAtOffset(50, 700);
-            contentStream.showText("ID NOME TOTAL DE HORAS");
+            contentStream.showText("ID    PERIODO    TOTAL DE HORAS");
+            contentStream.newLine();
+            contentStream.showText("_______________________________");
             contentStream.newLine();
 //contentStream.newLine();
-            for(FuncionarioData func : list){
-                contentStream.showText(func.getNumero() +" "+func.getHoras()+" "+func.getPeriodo());
+
+            //TODO criar loop duplo para criar pagina e depois imprimir o dado enquanto houver dados a serem impressos
+
+            for(FuncionarioHoras func : list){
+       //         contentStream.showText(func.getIdFunc() +" "+func.getTotalHoras()+" "+func.getDataSemana());
                 contentStream.newLine();
             
             }
-            
             
             contentStream.endText();
             
@@ -79,5 +83,5 @@ public class savePDFModel {
         
         
     }
-    */
+    
 }

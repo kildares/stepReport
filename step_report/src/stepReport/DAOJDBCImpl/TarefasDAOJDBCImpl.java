@@ -84,13 +84,13 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1, id);
             ResultSet rs = prepStatement.executeQuery();
-            conexao.close();
             if(rs.next()){
                 ArrayList<String> info = new ArrayList<String>();
                 info.add(Integer.toString(rs.getInt("id_func")));
                 info.add(rs.getString("bsp"));
                 info.add(rs.getString("task_number"));
                 info.add(rs.getString("navio"));
+                conexao.close();
                 return info;    
             } 
         }catch (SQLException ex) {
@@ -107,12 +107,12 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "UPDATE tarefas"+
-                         "SET status_tarefa=?"+
+            String sql = "UPDATE tarefas "+
+                         "SET status_tarefa=? "+
                          "WHERE id=?";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setString(1, "CURRENT");
+            prepStatement.setString(1, "OLD");
             prepStatement.setString(2, id);
             prepStatement.executeUpdate();
             conexao.close();

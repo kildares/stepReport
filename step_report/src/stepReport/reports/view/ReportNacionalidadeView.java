@@ -185,7 +185,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 if(!ano.equals("") && Integer.parseInt(ano) > 1900){
                     List<FuncionarioHoras> func = this.getControl().getHorasNationAno((String)this.nacionalidadeCombo.getSelectedItem(), this.periodo1TextField.getText());
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,ano+"0101");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                     
@@ -199,7 +199,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                     mes = StringUtils.leftPad(mes, 2, "0");
                     List<FuncionarioHoras> func = this.getControl().getHorasNationMes((String)this.nacionalidadeCombo.getSelectedItem(), "01/"+mes+"/"+ano);
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,ano+mes+"01");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -216,7 +216,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                     String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                     List<FuncionarioHoras> func = this.getControl().getHorasNationCustom((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,"");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -335,14 +335,14 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
     }
 
-    private void loadTable(List<FuncionarioHoras> func) {
+    private void loadTable(List<FuncionarioHoras> func,String dataBusca) {
         String[] str = {"Funcionário","Horas","Período"};
         DefaultTableModel model = new DefaultTableModel(str,func.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : func){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }

@@ -54,8 +54,9 @@ public final class loginView extends javax.swing.JPanel {
         passwordLabel = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
-        loginButton = new javax.swing.JButton();
+        cfgButton = new javax.swing.JButton();
         passTextField = new javax.swing.JPasswordField();
+        loginButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -70,23 +71,42 @@ public final class loginView extends javax.swing.JPanel {
         userTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(userTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 13, 150, -1));
 
-        loginButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        loginButton.setText("ENTRAR");
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
+        cfgButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        cfgButton.setText("Config");
+        cfgButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
+                cfgButtonActionPerformed(evt);
             }
         });
-        add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 108, -1, -1));
+        add(cfgButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 110, -1));
 
         passTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         add(passTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 60, 150, -1));
+
+        loginButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        loginButton1.setText("ENTRAR");
+        loginButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButton1ActionPerformed(evt);
+            }
+        });
+        add(loginButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String user, password;
+    private void cfgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cfgButtonActionPerformed
+        
+        JFrame frame = new JFrame();
+        ServerConfigPanel cfg = new ServerConfigPanel(frame);
+        frame.add(cfg);
+        frame.setBounds(300, 300, 400, 350);
+        frame.setVisible(true);
+    }//GEN-LAST:event_cfgButtonActionPerformed
+
+    private void loginButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton1ActionPerformed
+        // TODO add your handling code here:
+         String user;
         user = this.userTextField.getText();
-        password = this.passTextField.getText();
+        String password = new String(this.passTextField.getPassword());
         if(user.equals("")&&password.equals("")){
             JOptionPane.showMessageDialog(new JFrame(), "Campos Usuário e Senha não podem ser vazios");
         }
@@ -95,13 +115,11 @@ public final class loginView extends javax.swing.JPanel {
         else if(password.equals("")){
             JOptionPane.showMessageDialog(new JFrame(), "Campo Senha não pode ser vazio");
         }
-        else{
-            
-            this.getControl().validateLogin(user, password);
-            
-        }
-        
-    }//GEN-LAST:event_loginButtonActionPerformed
+        else
+            if(!this.getControl().validateLogin(user, password)){
+                JOptionPane.showMessageDialog(new JFrame(), "Usuário não encontrado");
+            }
+    }//GEN-LAST:event_loginButton1ActionPerformed
 
     public void setGroupVisible(boolean isVisible){
         
@@ -109,14 +127,15 @@ public final class loginView extends javax.swing.JPanel {
             this.passwordLabel.setVisible(isVisible);
             this.userTextField.setVisible(isVisible);
             this.userLabel.setVisible(isVisible);
-            this.loginButton.setVisible(isVisible);
+            this.cfgButton.setVisible(isVisible);
         
     }
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton loginButton;
+    private javax.swing.JButton cfgButton;
+    private javax.swing.JButton loginButton1;
     private javax.swing.JPasswordField passTextField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel userLabel;
