@@ -62,7 +62,7 @@ public class savePDFModel {
             //TODO criar loop duplo para criar pagina e depois imprimir o dado enquanto houver dados a serem impressos
 
             for(FuncionarioHoras func : list){
-                contentStream.showText(func.getIdFunc() +" "+func.getTotalHoras()+" "+func.getDataSemana());
+       //         contentStream.showText(func.getIdFunc() +" "+func.getTotalHoras()+" "+func.getDataSemana());
                 contentStream.newLine();
             
             }

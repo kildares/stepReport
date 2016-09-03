@@ -229,7 +229,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
                     if(func.size()>0){
                         this.setListaPrint(func);
                         this.getControl().isPrintable(true);
-                        this.loadTable(func);
+                        this.loadTable(func,ano+"0101");
                     }
                         
                     else
@@ -249,7 +249,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
                     mes = StringUtils.leftPad(mes, 2, "0");
                     List<FuncionarioHoras> func = this.getControl().getHorasBSPMes(bsp, "01/"+mes+"/"+ano);
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,ano+mes+"01");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -267,7 +267,7 @@ public final class ReportBSPView extends javax.swing.JPanel {
                     String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                     List<FuncionarioHoras> func = this.getControl().getHorasBSPCustom(bsp,dataIni,dataFim);
                     if(func.size()>0)
-                        this.loadTable(func);
+                        this.loadTable(func,"");
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -338,14 +338,14 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-    private void loadTable(List<FuncionarioHoras> horas) {
+    private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
         String[] str = {"Funcionário","Horas","Período"};
         DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
         for(FuncionarioHoras x : horas){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(), cont, 1);
+            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }

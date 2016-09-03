@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 import stepReport.DAO.CadastraHorasDAO;
 import stepReport.DAO.RelatoriosDAO;
 import stepReport.DAO.TarefasDAO;
@@ -241,8 +242,26 @@ public class PeriodoModel {
 
     public List<FuncionarioHoras> getHorasUnidadeMes(String mes) {
        String periodo[] = this.calcPeriodoMes(mes);
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.totalHorasMensal(periodo[0],periodo[1]);
+       String dataIni = mes.replace("/", "");
+       
+       String mesIni = dataIni.substring(2, 4);
+       String anoIni = dataIni.substring(4, 8);
+       dataIni = anoIni + mesIni + "01";
+       String dataFim;
+       
+       RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+       List<FuncionarioHoras> horas = null;
+       if(mesIni.equals("12")){
+           dataFim = Integer.toString(Integer.parseInt(anoIni)+1) + "0106";
+           horas = conn.totalHorasMensal(dataIni,dataFim);
+       }
+       else{
+           dataFim = anoIni + StringUtils.leftPad(Integer.toString(Integer.parseInt(mesIni)+1),2,"0")+"06";
+           horas = conn.totalHorasMensal(dataIni,dataFim);
+       }
+        
+       
+       
         return horas;
     }
     
