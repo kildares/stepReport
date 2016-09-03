@@ -6,6 +6,7 @@
 package stepReport.DAOJDBCImpl;
 import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -45,7 +46,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
     }
 
     @Override
-    public boolean update(int id, String nome, String nacionalidade, String profissao) {
+    public boolean update(String id, String nome, String nacionalidade, String profissao) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -57,7 +58,7 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             prepStatement.setString(1, nome);
             prepStatement.setString(2, nacionalidade);
             prepStatement.setString(3, profissao);
-            prepStatement.setInt(4, id);
+            prepStatement.setString(4, id);
             prepStatement.executeUpdate();
             
        conexao.close();
@@ -89,24 +90,29 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
     }
 
     @Override
-    public FuncionarioModel findByID(int id) {
+    public ArrayList<String> findByID(String id) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String updateSQL = "SELECT * FROM funcionario "+
+            String sql = "SELECT * FROM funcionario "+
                                "WHERE id=?";
-            PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
-            prepStatement.setInt(1, id);
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+            prepStatement.setString(1, id);
             ResultSet rs = prepStatement.executeQuery();
-            conexao.close();
+            
             
             if(rs.next()){
-                return new FuncionarioModel(rs.getString("nome"),rs.getString("nacionalidade"), rs.getString("profissao"));
+                ArrayList<String> func = new ArrayList<String>();
+                func.add(rs.getString("nome"));
+                func.add(rs.getString("nacionalidade"));
+                func.add(rs.getString("Profissao"));
+                System.out.println("ResultSet: "+func.get(0)+" "+func.get(1)+" "+func.get(2));
+                conexao.close();
+                return func;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "FUNCIONARIO NAO ENCONTRADO!");
         }
         return null;
     }

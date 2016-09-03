@@ -23,7 +23,7 @@ public class ConnectionDB {
     private static String dbName = "db_report";         //nome do BD
     private static String url = "jdbc:mysql://"+ serverName + "/" + dbName;
     private static String user = "root";
-    private static String password = "";    //ENCONTRAR PARAMETRO PARA ATUALIZAR USUARIO E SENHA
+    private static String password = "root";    //ENCONTRAR PARAMETRO PARA ATUALIZAR USUARIO E SENHA
     private Connection newConnection;
     
     

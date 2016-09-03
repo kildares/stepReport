@@ -32,7 +32,7 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
             String sql = "SELECT id_func,data_semana,horas_dom, horas_seg, horas_ter, horas_qua, horas_qui, "+
                          "horas_sex, horas_sab FROM cadastra_horas " +
-                         "WHERE data_semana >= ?"+
+                         "WHERE data_semana >= ? "+
                          "AND data_semana <= ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1,dataSemIni);
@@ -51,7 +51,6 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
         }
     }
@@ -94,7 +93,6 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
         }
     }
@@ -137,7 +135,6 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
          
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
         }
     }
@@ -180,7 +177,6 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
 
         }
@@ -226,7 +222,6 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO REALIZAR CONSULTA!");
             return null;
         }
     }

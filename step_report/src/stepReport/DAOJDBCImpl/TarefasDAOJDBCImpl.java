@@ -21,7 +21,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
 
     @Override
     //cria tupla nova com id do func e status CURRENT
-    public boolean create(int id_func, String bsp, String task_number, String navio) {
+    public boolean create(String id_func, String bsp, String task_number, String navio) {
          try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -33,7 +33,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             prepStatement.setString(2, task_number);
             prepStatement.setString(3, navio);
             prepStatement.setString(4, "CURRENT");
-            prepStatement.setInt(5, id_func);
+            prepStatement.setString(5, id_func);
             
             prepStatement.executeUpdate();
             conexao.close();
@@ -46,33 +46,34 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
     
     @Override
     //retorna o id da tarefa com status=CURRENT relacionada ao funcionario com id=id_func
-    public int findCurrentByIdFunc(int id_func) {
+    public String findCurrentByIdFunc(String id_func) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "SELECT * FROM tarefas(bsp,task_number,navio,status_tarefa,id_func) "+
-                         "WHERE id_func=?"+
-                         "AND status_tarefa=?";
+            String sql = "SELECT * FROM tarefas "+
+                         "WHERE id_func=? "+
+                         "AND status_tarefa=? ";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setInt(1, id_func);
+            prepStatement.setString(1, id_func);
             prepStatement.setString(2, "CURRENT");
             ResultSet rs = prepStatement.executeQuery();
-            conexao.close();
+            
             if(rs.next()){
-                return rs.getInt("id");
+                String id =  rs.getString("id");
+                conexao.close();
+                return id;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "DADOS DE FUNCIONARIO NAO ENCONTRADOS!");
         }
-        return -1;
+        return null;
     }
     
     @Override
     //retorna todos os dados da tarefa com id informado
-    public ArrayList<String> findById(int id) {
+    public ArrayList<String> findById(String id) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -81,7 +82,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
                          "WHERE id=?";
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setInt(1, id);
+            prepStatement.setString(1, id);
             ResultSet rs = prepStatement.executeQuery();
             conexao.close();
             if(rs.next()){
@@ -101,7 +102,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
     
     @Override
     //muda o status de uma tarefa CURRENT para OLD
-    public boolean changeStatusToOld(int id) {
+    public boolean changeStatusToOld(String id) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -112,7 +113,7 @@ public class TarefasDAOJDBCImpl implements TarefasDAO{
             
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1, "CURRENT");
-            prepStatement.setInt(2, id);
+            prepStatement.setString(2, id);
             prepStatement.executeUpdate();
             conexao.close();
             return true;
