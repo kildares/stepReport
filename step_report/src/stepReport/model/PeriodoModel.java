@@ -42,7 +42,6 @@ public class PeriodoModel {
     }
     public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
                                   String hrSex, String hrSab) {
-        
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
         TarefasDAO conn2 = new TarefasDAOJDBCImpl();
         String idTarefa = conn2.findCurrentByIdFunc(idFunc);
@@ -55,9 +54,8 @@ public class PeriodoModel {
             JOptionPane.showMessageDialog(new JFrame(), "Funcionario não possui nenhuma tarefa associada");
             return false;
         }
-        
-    
     }
+    
     
     
     /**
@@ -71,7 +69,7 @@ public class PeriodoModel {
         c.set(Calendar.DAY_OF_YEAR, 1);
         int day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -82,7 +80,7 @@ public class PeriodoModel {
         c.set(Integer.parseInt(Ano), Calendar.DECEMBER, 31);
         day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -104,7 +102,7 @@ public class PeriodoModel {
         
         int day = c.get(Calendar.DAY_OF_WEEK);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         
@@ -117,7 +115,7 @@ public class PeriodoModel {
         c.set(Integer.parseInt(ano), Integer.parseInt(mes), maxDay);
         day = c.get(Calendar.DAY_OF_MONTH);
         while(day != Calendar.SUNDAY){
-            c.add(Calendar.DAY_OF_WEEK, -1);
+            c.add(Calendar.DAY_OF_WEEK, 1);
             day = c.get(Calendar.DAY_OF_WEEK);
         }
         String dataFim = fmt.format(c.getTime());

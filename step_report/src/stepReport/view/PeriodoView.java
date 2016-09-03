@@ -39,9 +39,6 @@ public final class PeriodoView extends javax.swing.JPanel {
         initComponents();
         
         this.setControl(control);
-        
-        
-        
     }
 
     /**
@@ -200,21 +197,24 @@ public final class PeriodoView extends javax.swing.JPanel {
                 //TODO fazer tratamento da data
                 //Calendar c = Calendar.getInstance();
                 //c.
-                
-                String str = data.replace("/", "");
-                str = str.substring(4, 8) + str.substring(2, 4) + str.substring(0, 2);
-                ArrayList<String> resultado = this.Control.searchTarefa(numeroFunc,str);
-                if(resultado == null)
-                {
-                    if(this.Control.createCadastro(numeroFunc, str, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab))
-                        JOptionPane.showMessageDialog(new JFrame(), "Cadastrao realizado com sucesso");
-                    else
-                    {
-                        JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");
-                    } 
-                }
+                if(!this.isValidDataSemana(data))
+                    JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
                 else{
-                    JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas ja existente");
+                    String str = data.replace("/", "");
+                    str = str.substring(4, 8) + str.substring(2, 4) + str.substring(0, 2);
+                    ArrayList<String> resultado = this.Control.searchTarefa(numeroFunc,str);
+                    if(resultado == null)
+                    {
+                        if(this.Control.createCadastro(numeroFunc, str, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab))
+                            JOptionPane.showMessageDialog(new JFrame(), "Cadastrao realizado com sucesso");
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");
+                        } 
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas ja existente");
+                    }
                 }
             }
         }
@@ -230,7 +230,10 @@ public final class PeriodoView extends javax.swing.JPanel {
             String hrSex = this.SextaTextField.getText();
             String hrSab = this.SabadoTextField.getText();
             
-            if(this.getControl().createCadastro(numeroFunc, data, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
+            if(!this.isValidDataSemana(data))
+                JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
+            
+            else if(this.getControl().createCadastro(numeroFunc, data, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
                 JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");   
             }
             else{
@@ -278,6 +281,22 @@ public final class PeriodoView extends javax.swing.JPanel {
         //j.add(datePicker);
         //j.setVisible(true);
         //j.setBounds(0, 0, 100, 100);
+    }
+    
+    
+    public boolean isValidDataSemana(String dataSemana){
+        Calendar c = Calendar.getInstance();
+        String ano =dataSemana.substring(6, 10); 
+        String mes = dataSemana.substring(3, 5);
+        String dia = dataSemana.substring(0, 2);
+        
+        c.set(Integer.parseInt(ano), Integer.parseInt(mes)-1, Integer.parseInt(dia));
+        int semana = c.get(Calendar.DAY_OF_WEEK);
+        if(semana != Calendar.SUNDAY){
+            return false; 
+        }
+        else
+            return true;
     }
 
     public void initSearchView() {

@@ -56,7 +56,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         profissaoTextField = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
         confirmarButton = new javax.swing.JButton();
-        cancelarButton = new javax.swing.JButton();
         numeroFormattedField = new javax.swing.JFormattedTextField();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -104,15 +103,6 @@ public class FuncionarioView extends javax.swing.JPanel {
             }
         });
         add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, -1, 45));
-
-        cancelarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        cancelarButton.setText("CONFIRMAR");
-        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarButtonActionPerformed(evt);
-            }
-        });
-        add(cancelarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, 45));
 
         numeroFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         numeroFormattedField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -196,17 +186,8 @@ public class FuncionarioView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
-    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
-        // TODO add your handling code here:
-        if(FuncionarioView.state == FuncionarioView.BUSCA)
-            this.loadNewView();
-        else if(FuncionarioView.state == FuncionarioView.CADASTRO)
-            this.loadSearchView();
-    }//GEN-LAST:event_cancelarButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelarButton;
     private javax.swing.JButton confirmarButton;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
@@ -223,7 +204,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         
         this.titleLabel.setText("Buscar Funcionário");
         this.confirmarButton.setText("Buscar");
-        this.cancelarButton.setText("Cadastrar");
         this.nomeTextField.setText("");
         this.nomeTextField.setEditable(false);
         this.numeroLabel.setVisible(true);
@@ -239,7 +219,6 @@ public class FuncionarioView extends javax.swing.JPanel {
     public void loadNewView(){
         this.titleLabel.setText("Cadastrar Funcionário");
         this.confirmarButton.setText("Confirmar");
-        this.cancelarButton.setText("Cancelar");
         this.nomeTextField.setText("");
         this.nomeTextField.setEditable(true);
         this.numeroLabel.setVisible(true);
@@ -248,7 +227,6 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nacionalidadeCombo.setVisible(true);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(true);
-
         FuncionarioView.state = FuncionarioView.CADASTRO;
             
     }
