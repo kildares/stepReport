@@ -12,7 +12,7 @@ import stepReport.model.PeriodoModel;
  * @author gabriela
  */
 public interface CadastraHorasDAO {
-    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab,int idFunc, int idTarefa);
-    public ArrayList<String> findCadastro (int idFunc, String dataSemana);
-    public boolean update(int id, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab);
+    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab,String idFunc, String idTarefa);
+    public ArrayList<String> findCadastro (String idFunc, String dataSemana);
+    public boolean update(String id, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab);
 }

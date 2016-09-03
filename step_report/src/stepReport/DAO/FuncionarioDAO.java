@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package stepReport.DAO;
+import java.util.ArrayList;
 import java.util.List;
 import stepReport.model.FuncionarioModel;
 /**
@@ -12,10 +13,10 @@ import stepReport.model.FuncionarioModel;
  */
 public interface FuncionarioDAO {
     public int create(String nome, String nacionalidade, String profissao);    
-    public boolean update(int id, String nome, String nacionalidade, String profissao);
+    public boolean update(String id, String nome, String nacionalidade, String profissao);
     //Atualiza a prof do funcionario cujo número é igual a id
     
     public void remove(int id);
-    public FuncionarioModel findByID(int id);
+    public ArrayList<String> findByID(String id);
     public List<FuncionarioModel> findAll();
 }

@@ -22,7 +22,7 @@ import stepReport.model.ConnectionDB;
 public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
 
     @Override
-    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab, int idFunc, int idTarefa) {
+    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab, String idFunc, String idTarefa) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -39,8 +39,8 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.setInt(6, hrQui);
             prepStatement.setInt(7, hrSex);
             prepStatement.setInt(8, hrSab);
-            prepStatement.setInt(9, idFunc);
-            prepStatement.setInt(10, idTarefa);
+            prepStatement.setString(9, idFunc);
+            prepStatement.setString(10, idTarefa);
             
             prepStatement.executeUpdate();
             conexao.close();
@@ -54,7 +54,7 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
     }
 
     @Override
-    public ArrayList<String> findCadastro(int idFunc, String dataSemana) {
+    public ArrayList<String> findCadastro(String idFunc, String dataSemana) {
         try{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -62,7 +62,7 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
                                "WHERE id_func = ? "+
                                "AND data_semana = ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setInt(0, idFunc);
+            prepStatement.setString(0, idFunc);
             prepStatement.setString(1,dataSemana);
             
             ResultSet rs = prepStatement.executeQuery();
@@ -81,12 +81,11 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "ERRO AO CADASTRAR HORAS!");
         }
         return null; 
     }
     @Override
-    public boolean update(int id,int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab) {
+    public boolean update(String id,int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab) {
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -103,7 +102,7 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.setInt(5, hrQui);
             prepStatement.setInt(6, hrSex);
             prepStatement.setInt(7, hrSab);
-            prepStatement.setInt(8, id);
+            prepStatement.setString(8, id);
             
             prepStatement.executeUpdate();
             conexao.close();

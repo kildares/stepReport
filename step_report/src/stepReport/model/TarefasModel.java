@@ -38,8 +38,9 @@ public class TarefasModel {
     //Busca os dados de uma tarefa baseado no numero do funcionário
     public ArrayList<String> searchTarefas(String idFunc) {
         TarefasDAO conn = new TarefasDAOJDBCImpl();     
-        int idTarefa = conn.findCurrentByIdFunc(Integer.parseInt(idFunc));  //Busca o id da tarefa baseado no numero do funcionario
-        if(idTarefa != -1){
+        String idTarefa = conn.findCurrentByIdFunc(idFunc);  //Busca o id da tarefa baseado no numero do funcionario
+        
+        if(idTarefa != null){
             return null;
         }
         else{
@@ -51,17 +52,17 @@ public class TarefasModel {
     //esta usuário
     public boolean editTarefa(String idFunc, String bsp, String navio, String task) {
         TarefasDAO conn = new TarefasDAOJDBCImpl();
-        int tarefaAtual = conn.findCurrentByIdFunc(Integer.parseInt(idFunc));
-        if(tarefaAtual != -1){
+        String tarefaAtual = conn.findCurrentByIdFunc(idFunc);
+        if(tarefaAtual != null){
             if(conn.changeStatusToOld(tarefaAtual)){    //Caso encontre uma tarefa CURRENT para o func, muda esta para OLD e cria uma nova  
-                return conn.create(Integer.parseInt(idFunc), bsp, task, navio);
+                return conn.create(idFunc, bsp, task, navio);
             }
             else{
                 return false;
             }
         }
         else{   //Caso não encontre nenhuma tarefa CURRENT para o func, apenas cria uma nova  
-            return conn.create(Integer.parseInt(idFunc), bsp, task, navio);
+            return conn.create(idFunc, bsp, task, navio);
         }
     }
    

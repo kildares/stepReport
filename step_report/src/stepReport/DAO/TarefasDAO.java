@@ -11,8 +11,8 @@ import stepReport.model.TarefasModel;
  * @author gabriela
  */
 public interface TarefasDAO {
-    public boolean create(int id_func,String bsp, String task_number, String navio);
-    public int findCurrentByIdFunc(int id_func);
-    public ArrayList<String> findById(int id);
-    public boolean changeStatusToOld(int id);
+    public boolean create(String id_func,String bsp, String task_number, String navio);
+    public String findCurrentByIdFunc(String id_func);
+    public ArrayList<String> findById(String id);
+    public boolean changeStatusToOld(String id);
 }

@@ -28,14 +28,14 @@ public class PeriodoModel {
 
     public ArrayList<String> searchTarefa(String numeroFunc, String dataSemana) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        return conn.findCadastro(Integer.parseInt(numeroFunc), dataSemana);
+        return conn.findCadastro(numeroFunc, dataSemana);
     }
     
     public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
                                   String hrSex, String hrSab) {
         
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        return conn.update(Integer.parseInt(idCadastro),Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
+        return conn.update(idCadastro,Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
                            Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), Integer.parseInt(hrSab));
     
     }
@@ -44,11 +44,11 @@ public class PeriodoModel {
         
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
         TarefasDAO conn2 = new TarefasDAOJDBCImpl();
-        int idTarefa = conn2.findCurrentByIdFunc(Integer.parseInt(idFunc));
-        if(idTarefa != -1){
+        String idTarefa = conn2.findCurrentByIdFunc(idFunc);
+        if(idTarefa != null){
             return conn.create(dataSemana, Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
                                Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), 
-                               Integer.parseInt(hrSab),Integer.parseInt(idFunc), idTarefa);
+                               Integer.parseInt(hrSab),idFunc, idTarefa);
         }
         else{
             JOptionPane.showMessageDialog(new JFrame(), "Funcionario não possui nenhuma tarefa associada");
