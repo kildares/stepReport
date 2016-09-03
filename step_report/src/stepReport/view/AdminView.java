@@ -229,7 +229,10 @@ public class AdminView extends javax.swing.JPanel {
                 String pass1 = new String(this.confirmTextField.getPassword());
                 String pass2 = new String(this.confirmTextField2.getPassword());
                 if(!pass1.equals("")&&pass1.length()>3&&pass1.equals(pass2)){
-                    this.getControl().updatePassword(this.userTextField.getText(), pass1);
+                    if(this.getControl().updatePassword(this.userTextField.getText(), pass1))
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Senha atualizada com sucesso");
+                    else
+                        JOptionPane.showMessageDialog(this.getControl().getScreen(), "Não foi possível atualizar a senha");
                 }
                 else{
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nova Senha não confere");
@@ -273,6 +276,7 @@ public class AdminView extends javax.swing.JPanel {
 
     public void loadNewView() {
         this.titleLabel.setText("Cadastrar Usuário");
+        this.userTextField.setEnabled(true);
         this.userTextField.setText("");
         this.cancelButton.setText("Cancelar");
         this.passwordLabel.setText("Senha:");

@@ -7,10 +7,9 @@ package stepReport.DAOJDBCImpl;
 import stepReport.DAO.*;
 import stepReport.model.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +18,7 @@ import javax.swing.JOptionPane;
 public class AdminDAOJDBCImpl implements AdminDAO {
 
     @Override
-    public void create(String user, String password) {
+    public boolean create(String user, String password) {
         
         try {
             ConnectionDB conn = new ConnectionDB();
@@ -32,13 +31,15 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.executeUpdate();
 
             conexao.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false; 
         }
     }
 
     @Override
-    public void updatePassword(String user, String password) {
+    public boolean updatePassword(String user, String password) {
        try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -52,14 +53,15 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.executeUpdate();
             
             conexao.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(new JFrame(), "Erro ao atualizar usuario");
+            return false;
         }
     }
     
     @Override
-    public AdminModel findByUser(String user){
+    public ArrayList<String> findByUser(String user){
         try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -70,7 +72,11 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             prepStatement.setString(1, user);
             ResultSet rs = prepStatement.executeQuery();
             if(rs.next()){
-                AdminModel md = new AdminModel(rs.getString("usuario"),rs.getString("senha"));
+                
+                ArrayList<String> md = new ArrayList<String>();
+                md.add(rs.getString("usuario"));
+                md.add(rs.getString("senha"));
+                
                 conexao.close();
                 return md;
             }
@@ -81,7 +87,7 @@ public class AdminDAOJDBCImpl implements AdminDAO {
     }
     
     @Override
-    public void remove(String user){
+    public boolean remove(String user){
        try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -91,13 +97,11 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
             prepStatement.setString(1, user);
             prepStatement.executeUpdate();
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/conexaoViewBD
             conexao.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);            
+            return false;
         }
     }
     

@@ -60,7 +60,7 @@ public final class TarefasView extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        titleLabel.setText("Cadastrar Horas");
+        titleLabel.setText("Cadastrar Tarefas");
         add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
 
         bspLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N

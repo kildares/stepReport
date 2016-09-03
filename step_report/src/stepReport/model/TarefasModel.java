@@ -41,10 +41,10 @@ public class TarefasModel {
         String idTarefa = conn.findCurrentByIdFunc(idFunc);  //Busca o id da tarefa baseado no numero do funcionario
         
         if(idTarefa != null){
-            return null;
+            return conn.findById(idTarefa);     //Busca infos da tarefa e retorna para view
         }
         else{
-            return conn.findById(idTarefa);     //Busca infos da tarefa e retorna para view
+            return null;
         }
     }
     

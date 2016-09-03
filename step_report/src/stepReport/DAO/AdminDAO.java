@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 package stepReport.DAO;
+import java.util.ArrayList;
 import stepReport.model.AdminModel;
 /**
  *
  * @author gabriela
  */
 public interface AdminDAO {
-    public void create(String user, String password);
-    public void updatePassword(String user, String password);
-    public AdminModel findByUser(String user);
-    public void remove(String user);
+    public boolean create(String user, String password);
+    public boolean updatePassword(String user, String password);
+    public ArrayList<String> findByUser(String user);
+    public boolean remove(String user);
 }

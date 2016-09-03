@@ -28,7 +28,7 @@ public final class AdminControl{
     public AdminControl(mainScreen screen) {
         this.setView(new AdminView(this));
         this.setScreen(screen);
-        this.setModel(new AdminModel());
+        this.setModel(AdminModel.getInstance());
         
         this.getView().setVisible(false);
     }
@@ -76,31 +76,29 @@ public final class AdminControl{
     public void registerUser(String user, String pass) throws alreadyExistsException 
     {
         AdminDAO conn = new AdminDAOJDBCImpl();
-        AdminModel modelo = conn.findByUser(user);
-        if(modelo == null)
+        List<String> data = conn.findByUser(user);
+        if(data == null)
             conn.create(user, pass);
         else
             throw new alreadyExistsException("Usuario já existe");
     }
     public boolean findUser(String username) throws notFoundException{
         AdminDAO conn = new AdminDAOJDBCImpl();
-        AdminModel adm = conn.findByUser(username);
-        if(adm == null)
+        List<String> data = conn.findByUser(username);
+        if(data == null)
             throw new notFoundException("Usuário não existe");
-        else{ 
-            this.setModel(adm);
+        else
+        { 
             return true;
         }
     }
 
     public boolean isValidPassword(String oldPass) {
-        return oldPass.equals(this.getModel().getSenha());
-            
+        return this.getModel().isValidPassword(oldPass);
     }
     
-    public void updatePassword(String user,String pass){
-        AdminDAO conn = new AdminDAOJDBCImpl();
-        conn.updatePassword(user, pass);
+    public boolean updatePassword(String user,String pass){
+        return this.getModel().updatePassword(user,pass);
     }
     
 }

@@ -59,7 +59,7 @@ public final class mainScreen extends javax.swing.JFrame {
         
         this.Toolbar.setVisible(false);
         this.isPrintable(false);
-        
+        this.searchHorasMenuItem.setVisible(false);
         this.getLogin().getView().setBounds(0, 0, 300, 160);
     }
 
@@ -259,7 +259,7 @@ public final class mainScreen extends javax.swing.JFrame {
           
         mainScreen.active.setVisible(false);
         this.isPrintable(false);
-        this.getPeriodo().initSearchView();
+        this.getPeriodo().initRegisterView();
         
         
     }//GEN-LAST:event_RegistroMenuItemActionPerformed

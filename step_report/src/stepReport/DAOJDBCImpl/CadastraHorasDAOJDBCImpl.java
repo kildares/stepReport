@@ -62,8 +62,8 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
                                "WHERE id_func = ? "+
                                "AND data_semana = ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setString(0, idFunc);
-            prepStatement.setString(1,dataSemana);
+            prepStatement.setString(1, idFunc);
+            prepStatement.setString(2,dataSemana);
             
             ResultSet rs = prepStatement.executeQuery();
             if(rs.next()){

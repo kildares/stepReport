@@ -28,6 +28,7 @@ public class PeriodoModel {
 
     public ArrayList<String> searchTarefa(String numeroFunc, String dataSemana) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        
         return conn.findCadastro(numeroFunc, dataSemana);
     }
     

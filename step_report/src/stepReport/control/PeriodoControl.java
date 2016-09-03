@@ -41,6 +41,13 @@ public final class PeriodoControl {
         this.getView().setVisible(true);
     }
     
+    public void initRegisterView() {
+        this.getView().initRegisterView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);    
+    }
+    
      public mainScreen getScreen() {
         return Screen;
     }

@@ -228,6 +228,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nomeTextField.setEditable(false);
         this.numeroLabel.setVisible(true);
         this.numeroFormattedField.setText("");
+        this.numeroFormattedField.setEditable(true);
         this.nacionalidadeCombo.setVisible(false);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(false);
@@ -243,6 +244,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nomeTextField.setEditable(true);
         this.numeroLabel.setVisible(true);
         this.numeroFormattedField.setText("");
+        this.numeroFormattedField.setEditable(false);
         this.nacionalidadeCombo.setVisible(true);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(true);

@@ -84,9 +84,9 @@ public final class loginView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String user, password;
+        String user;
         user = this.userTextField.getText();
-        password = this.passTextField.getText();
+        String password = new String(this.passTextField.getPassword());
         if(user.equals("")&&password.equals("")){
             JOptionPane.showMessageDialog(new JFrame(), "Campos Usuário e Senha não podem ser vazios");
         }
@@ -95,11 +95,10 @@ public final class loginView extends javax.swing.JPanel {
         else if(password.equals("")){
             JOptionPane.showMessageDialog(new JFrame(), "Campo Senha não pode ser vazio");
         }
-        else{
-            
-            this.getControl().validateLogin(user, password);
-            
-        }
+        else
+            if(!this.getControl().validateLogin(user, password)){
+                JOptionPane.showMessageDialog(new JFrame(), "Usuário não encontrado");
+            }
         
     }//GEN-LAST:event_loginButtonActionPerformed
 
