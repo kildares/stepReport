@@ -15,7 +15,7 @@ import stepReport.Util.FuncionarioHoras;
 import stepReport.model.PeriodoModel;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
-import stepReport.reports.view.ReportHorasMensal;
+import stepReport.reports.view.ReportHorasSemanal;
 import stepReport.reports.view.ReportNacionalidadeView;
 import stepReport.reports.view.ReportTaskView;
 import stepReport.reports.view.ReportUnidadeView;
@@ -32,7 +32,7 @@ public final class ReportControl {
     private mainScreen screen;
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
-    private ReportHorasMensal reportHorasMensal;
+    private ReportHorasSemanal reportHorasMensal;
     private savePDFModel saverPDF;
     private PeriodoModel periodoModel;
     
@@ -46,7 +46,7 @@ public final class ReportControl {
         this.setReportBSPView(new ReportBSPView(this));
         this.setReportTaskView(new ReportTaskView(this));
         this.setReportUnidadeView(new ReportUnidadeView(this));
-        this.setReportHorasMensal(new ReportHorasMensal(this));
+        this.setReportHorasMensal(new ReportHorasSemanal(this));
         this.getReportNacionalidadeView().setVisible(false);
         this.getReportBSPView().setVisible(false);
         this.getReportTaskView().setVisible(false);
@@ -113,11 +113,11 @@ public final class ReportControl {
     }
     
     
-    public ReportHorasMensal getReportHorasMensal() {
+    public ReportHorasSemanal getReportHorasMensal() {
         return reportHorasMensal;
     }
 
-    public void setReportHorasMensal(ReportHorasMensal reportHorasMensal) {
+    public void setReportHorasMensal(ReportHorasSemanal reportHorasMensal) {
         this.reportHorasMensal = reportHorasMensal;
     }
     
@@ -222,7 +222,7 @@ public final class ReportControl {
         else if(active instanceof ReportTaskView){
             list = this.getReportTaskView().getPDFData();
         }
-        else if(active instanceof ReportHorasMensal){
+        else if(active instanceof ReportHorasSemanal){
             list = this.getReportHorasMensal().getPDFData();
         }
         
@@ -241,12 +241,13 @@ public final class ReportControl {
         return this.getPeriodoModel().getUnidadeCustom(Unidade,dataIni,dataFim);
     }
 
-    public List<FuncionarioHoras> getHorasTotaisMes(String mes) {
-        return this.getPeriodoModel().getHorasUnidadeMes(mes);
-    }
 
     public void isPrintable(boolean option) {
         this.getScreen().isPrintable(option);
+    }
+
+    public List<String> getHorasTotaisSemanal(java.lang.String dataIni, java.lang.String dataFim) {
+        return this.getPeriodoModel().getHorasTotaisSemanal(dataIni,dataFim);
     }
 
 

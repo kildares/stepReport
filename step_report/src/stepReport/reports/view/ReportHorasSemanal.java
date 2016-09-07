@@ -5,10 +5,13 @@
  */
 package stepReport.reports.view;
 
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.apache.commons.lang3.StringUtils;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.control.ReportControl;
 
@@ -16,11 +19,12 @@ import stepReport.control.ReportControl;
  *
  * @author Kildare
  */
-public class ReportHorasMensal extends javax.swing.JPanel {
+public final class ReportHorasSemanal extends javax.swing.JPanel {
 
     
     private ReportControl Control;
-
+    private JDatePickerImpl InitDatePicker;
+    private JDatePickerImpl FimDatePicker;
 
 
     private static int state;
@@ -31,11 +35,11 @@ public class ReportHorasMensal extends javax.swing.JPanel {
     /**
      * Creates new form ReportHorasMensal
      */
-    public ReportHorasMensal(ReportControl Control) {
+    public ReportHorasSemanal(ReportControl Control) {
         initComponents();
         this.setControl(Control);
-
         
+        this.insertDatePicker();
     }
 
     /**
@@ -48,29 +52,27 @@ public class ReportHorasMensal extends javax.swing.JPanel {
     private void initComponents() {
 
         titleLabel = new javax.swing.JLabel();
-        nacionalidadeLabel1 = new javax.swing.JLabel();
-        nacionalidadeLabel2 = new javax.swing.JLabel();
+        semana2Label = new javax.swing.JLabel();
+        semana1Label = new javax.swing.JLabel();
         reportScrollPane = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
-        periodo1TextField = new javax.swing.JFormattedTextField();
-        periodo2TextField = new javax.swing.JFormattedTextField();
         confirmarButton = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        titleLabel.setText("Relatório de Nacionalidade");
+        titleLabel.setText("Relatório de Período");
         add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 13, -1, -1));
 
-        nacionalidadeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        nacionalidadeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nacionalidadeLabel1.setText("Ano:");
-        add(nacionalidadeLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 170, -1));
+        semana2Label.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        semana2Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        semana2Label.setText("Semana Final:");
+        add(semana2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 170, -1));
 
-        nacionalidadeLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        nacionalidadeLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nacionalidadeLabel2.setText("Mês:");
-        add(nacionalidadeLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 170, -1));
+        semana1Label.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        semana1Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        semana1Label.setText("Semana Inicial:");
+        add(semana1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 170, -1));
 
         reportTable.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -98,14 +100,6 @@ public class ReportHorasMensal extends javax.swing.JPanel {
 
         add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 670, 220));
 
-        periodo1TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        periodo1TextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(periodo1TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 140, -1));
-
-        periodo2TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        periodo2TextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(periodo2TextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 145, 140, -1));
-
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         confirmarButton.setText("CONFIRMAR");
         confirmarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,31 +112,30 @@ public class ReportHorasMensal extends javax.swing.JPanel {
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         
-        if(ReportHorasMensal.state == ReportHorasMensal.BUSCA){
-            String ano = this.periodo2TextField.getText();
-            String mes = this.periodo1TextField.getText();
-            if(!ano.equals("")&&!mes.equals("")&& Integer.parseInt(ano) > 1900 && Integer.parseInt(mes) > 0 && Integer.parseInt(mes) < 13){
-                mes = StringUtils.leftPad(mes, 2, "0");
-                List<FuncionarioHoras> func = this.getControl().getHorasTotaisMes("01/"+mes+"/"+ano);
+        if(ReportHorasSemanal.state == ReportHorasSemanal.BUSCA){
+            if(this.validDate())              
+            {
+                String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
+                String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
+                List<FuncionarioHoras> func = null; this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
                 if(func.size()>0)
-                this.loadTable(func,ano+mes+"01");
+                    this.loadTable(func,"");
                 else
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
             }
             else
-                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Dados Inválidos");
+                JOptionPane.showMessageDialog(this.getControl().getScreen(), "Datas fornecidas são inválidas");
+            
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmarButton;
-    private javax.swing.JLabel nacionalidadeLabel1;
-    private javax.swing.JLabel nacionalidadeLabel2;
-    private javax.swing.JFormattedTextField periodo1TextField;
-    private javax.swing.JFormattedTextField periodo2TextField;
     private javax.swing.JScrollPane reportScrollPane;
     private javax.swing.JTable reportTable;
+    private javax.swing.JLabel semana1Label;
+    private javax.swing.JLabel semana2Label;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -152,6 +145,23 @@ public class ReportHorasMensal extends javax.swing.JPanel {
 
     public void setControl(ReportControl Control) {
         this.Control = Control;
+    }
+    
+       public void insertDatePicker(){
+        
+        UtilDateModel model = new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model);
+        this.InitDatePicker = new JDatePickerImpl(datePanel);
+        this.InitDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
+        
+        
+        UtilDateModel model2 = new UtilDateModel();
+        JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
+        this.FimDatePicker = new JDatePickerImpl(datePanel2);
+        this.FimDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
+        
+        this.add(this.InitDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 105));
+        this.add(this.FimDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150));
     }
     
     
@@ -171,12 +181,41 @@ public class ReportHorasMensal extends javax.swing.JPanel {
     }
 
     public void loadMensalReport() {
-        this.titleLabel.setText("Relatório mensal de funcionários");
+        this.titleLabel.setText("Relatório semanal de funcionário");
         this.confirmarButton.setText("Gerar");
-        this.periodo1TextField.setText("");
-        this.periodo2TextField.setText("");
         this.reportScrollPane.setVisible(false);
-        ReportHorasMensal.state = ReportHorasMensal.BUSCA;
+        
+        this.InitDatePicker.getJFormattedTextField().setText("");
+        this.InitDatePicker.getJFormattedTextField().setEditable(true);
+        
+        this.FimDatePicker.getJFormattedTextField().setText("");
+        this.FimDatePicker.getJFormattedTextField().setEditable(true);
+        
+        ReportHorasSemanal.state = ReportHorasSemanal.BUSCA;
+    }
+    
+    private boolean validDate() {
+        String ini = this.InitDatePicker.getJFormattedTextField().getText();
+        String fim = this.FimDatePicker.getJFormattedTextField().getText();
+        if(ini.equals("")||fim.equals(""))
+            return false;
+        
+        String fmtIni = ini.substring(6, 10) + ini.substring(3, 5) + ini.substring(0, 2);
+        String fmtFim = fim.substring(6, 10) + fim.substring(3, 5) + fim.substring(0, 2);
+        
+        if(Integer.parseInt(fmtFim) < Integer.parseInt(fmtIni))
+            return false;
+        
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(ini.substring(6, 10)), Integer.parseInt(ini.substring(3, 5))-1, Integer.parseInt(ini.substring(0, 2)));
+        if(c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+            return false;
+        c.set(Integer.parseInt(fim.substring(6, 10)), Integer.parseInt(fim.substring(3, 5))-1, Integer.parseInt(fim.substring(0, 2)));
+        if(c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+            return false;
+
+        return true;
+        
     }
 
     public List<FuncionarioHoras> getPDFData() {

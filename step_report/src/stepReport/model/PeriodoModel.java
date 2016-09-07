@@ -264,6 +264,15 @@ public class PeriodoModel {
        
         return horas;
     }
+
+    public List<String> getHorasTotaisSemanal(String dataIni, String dataFim) {
+       String periodo1 = this.calcPeriodoCustom(dataIni);
+       String periodo2 = this.calcPeriodoCustom(dataFim);
+       RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
+        //TODO obter consulta
+        //List<FuncionarioHoras> horas = conn.hrsTrabSemana(periodo1,periodo2);
+        return null;
+    }
     
     
     

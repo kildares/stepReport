@@ -165,7 +165,7 @@ public final class mainScreen extends javax.swing.JFrame {
 
         relatorioMenu.setText("Relatório");
 
-        jMenuItem2.setText("Horas mensais");
+        jMenuItem2.setText("Horas semanais");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
