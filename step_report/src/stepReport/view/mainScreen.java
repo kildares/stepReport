@@ -29,9 +29,8 @@ public final class mainScreen extends javax.swing.JFrame {
     private PeriodoControl periodo;
     private ReportControl report;
     private ServerConfigPanel configPanel;
-
-   
     
+    private static String nextScreen;
     private static JPanel active;
     private final static JFileChooser FILECHOOSER = new JFileChooser();
     
@@ -58,13 +57,11 @@ public final class mainScreen extends javax.swing.JFrame {
         this.add(this.getConfigPanel());
         this.getConfigPanel().setVisible(false);
         
+        this.Toolbar.setVisible(true);
         
-        mainScreen.setActive(this.getLogin().getView());
-        this.getLogin().getView().setVisible(true);
-        
-        this.Toolbar.setVisible(false);
+        mainScreen.setActive(this.getReport().getReportHorasMensal());
         this.isPrintable(false);
-        this.getLogin().getView().setBounds(0, 0, 300, 160);
+        this.getReport().getReportHorasMensal().setVisible(true);
     }
 
     /**
@@ -81,19 +78,19 @@ public final class mainScreen extends javax.swing.JFrame {
         configMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         printMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        sairMenuItem = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
         relatorioMenu = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        relatorioSemanalMenuItem = new javax.swing.JMenuItem();
         relatorioNacMenuItem = new javax.swing.JMenuItem();
         relatorioBSPMenuItem = new javax.swing.JMenuItem();
         taskMenuItem = new javax.swing.JMenuItem();
         unidadeMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        newUserMenuItem = new javax.swing.JMenuItem();
         userMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,13 +117,13 @@ public final class mainScreen extends javax.swing.JFrame {
         printMenuItem.setText("Imprimir");
         jMenu1.add(printMenuItem);
 
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        sairMenuItem.setText("Sair");
+        sairMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                sairMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(sairMenuItem);
 
         Toolbar.add(jMenu1);
 
@@ -165,13 +162,13 @@ public final class mainScreen extends javax.swing.JFrame {
 
         relatorioMenu.setText("Relatório");
 
-        jMenuItem2.setText("Horas semanais");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        relatorioSemanalMenuItem.setText("Horas semanais");
+        relatorioSemanalMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                relatorioSemanalMenuItemActionPerformed(evt);
             }
         });
-        relatorioMenu.add(jMenuItem2);
+        relatorioMenu.add(relatorioSemanalMenuItem);
 
         relatorioNacMenuItem.setText("Funcionário x Nacionalidade");
         relatorioNacMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -209,13 +206,13 @@ public final class mainScreen extends javax.swing.JFrame {
 
         userMenu.setText("Usuário");
 
-        jMenuItem4.setText("Cadastrar Usuário");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        newUserMenuItem.setText("Cadastrar Usuário");
+        newUserMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                newUserMenuItemActionPerformed(evt);
             }
         });
-        userMenu.add(jMenuItem4);
+        userMenu.add(newUserMenuItem);
 
         userMenuItem.setText("Mudar senha");
         userMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -233,41 +230,58 @@ public final class mainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void userMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuItemActionPerformed
-        // TODO add your handling code here:
-        
         mainScreen.active.setVisible(false);
+        mainScreen.nextScreen = "mudaUsuario";
         this.isPrintable(false);
-        this.getAdmin().initView();
+        if(this.getLogin().userLogged())
+            this.getAdmin().initView();
+        else
+            this.getLogin().renderLoginScreen();
+
     }//GEN-LAST:event_userMenuItemActionPerformed
 
     private void RegistroMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroMenuItemActionPerformed
-        // TODO add your handling code here:
-          
         mainScreen.active.setVisible(false);
+        mainScreen.nextScreen = "registraHora";
         this.isPrintable(false);
-        this.getPeriodo().initRegisterView();
-        
-        
+        if(this.getLogin().userLogged())
+            this.getPeriodo().initRegisterView();
+        else
+            this.getLogin().renderLoginScreen();
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+    private void newUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserMenuItemActionPerformed
         mainScreen.active.setVisible(false);
-        this.getAdmin().initNewView();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        mainScreen.nextScreen = "registraUsuario";
+        this.isPrintable(false);
+        if(this.getLogin().userLogged())
+            this.getAdmin().initNewView();
+        else
+            this.getLogin().renderLoginScreen();
+
+    }//GEN-LAST:event_newUserMenuItemActionPerformed
 
     private void buscarFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarFuncMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        mainScreen.nextScreen = "buscaFunc";
         this.isPrintable(false);
-        this.getFuncionario().initSearchView();
+        if(this.getLogin().userLogged())
+            this.getFuncionario().initSearchView();
+        else
+            this.getLogin().renderLoginScreen();
     }//GEN-LAST:event_buscarFuncMenuItemActionPerformed
 
     private void CadastroFuncMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroFuncMenuItemActionPerformed
         // TODO add your handling code here:
         mainScreen.active.setVisible(false);
+        mainScreen.nextScreen = "registraFunc";
         this.isPrintable(false);
-        this.getFuncionario().initNewView();
+        if(this.getLogin().userLogged())
+            this.getFuncionario().initNewView();
+        else
+            this.getLogin().renderLoginScreen();
+
     }//GEN-LAST:event_CadastroFuncMenuItemActionPerformed
 
     private void funcMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcMenuActionPerformed
@@ -276,10 +290,10 @@ public final class mainScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_funcMenuActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void sairMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairMenuItemActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_sairMenuItemActionPerformed
 
     private void relatorioNacMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioNacMenuItemActionPerformed
         // TODO add your handling code here:
@@ -329,13 +343,13 @@ public final class mainScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void relatorioSemanalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioSemanalMenuItemActionPerformed
         // TODO add your handling code here:
         
         mainScreen.active.setVisible(false);
         this.isPrintable(false);
         this.getReport().initMensalReport();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_relatorioSemanalMenuItemActionPerformed
 
     private void configMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configMenuItemActionPerformed
         // TODO add your handling code here:
@@ -380,7 +394,7 @@ public final class mainScreen extends javax.swing.JFrame {
             
                 mainScreen ms = new mainScreen();
                 ms.setVisible(true);
-                ms.setBounds(300, 300, 300, 210);
+                ms.setBounds(300, 300, 1280, 768);
                 
               
             }
@@ -395,13 +409,13 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem configMenuItem;
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem newUserMenuItem;
     private javax.swing.JMenuItem printMenuItem;
     private javax.swing.JMenuItem relatorioBSPMenuItem;
     private javax.swing.JMenu relatorioMenu;
     private javax.swing.JMenuItem relatorioNacMenuItem;
+    private javax.swing.JMenuItem relatorioSemanalMenuItem;
+    private javax.swing.JMenuItem sairMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JMenuItem taskMenuItem;
     private javax.swing.JMenuItem unidadeMenuItem;
@@ -410,12 +424,37 @@ public final class mainScreen extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    public void showMain()
+    public void showNextScreen()
     {
         this.Toolbar.setVisible(true);
         
-        
-        this.getFuncionario().initFuncionario();
+        if(mainScreen.nextScreen.equals("buscaFunc"))
+        {
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getFuncionario().getView();
+            this.getFuncionario().initSearchView();
+        }
+        else if(mainScreen.nextScreen.equals("registraFunc"))
+        {
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getFuncionario().getView();
+            this.getFuncionario().initNewView();
+        }
+        else if(mainScreen.nextScreen.equals("registraHora")){
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getPeriodo().getView();
+            this.getPeriodo().initRegisterView();
+        }
+        else if(mainScreen.nextScreen.equals("mudaUsuario")){
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getAdmin().getView();
+            this.getAdmin().initView();
+        }
+        else if(mainScreen.nextScreen.equals("registraUsuario")){
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getAdmin().getView();
+            this.getAdmin().initNewView();
+        }
     }
     
     

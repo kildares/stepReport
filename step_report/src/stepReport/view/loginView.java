@@ -56,22 +56,23 @@ public final class loginView extends javax.swing.JPanel {
         userTextField = new javax.swing.JTextField();
         passTextField = new javax.swing.JPasswordField();
         loginButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         passwordLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         passwordLabel.setText("Senha:");
-        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 62, -1, -1));
+        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
         userLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         userLabel.setText("Usuário:");
-        add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
+        add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
         userTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(userTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 13, 150, -1));
+        add(userTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 150, -1));
 
         passTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        add(passTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 60, 150, -1));
+        add(passTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 150, -1));
 
         loginButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         loginButton1.setText("ENTRAR");
@@ -80,7 +81,11 @@ public final class loginView extends javax.swing.JPanel {
                 loginButton1ActionPerformed(evt);
             }
         });
-        add(loginButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        add(loginButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        jLabel1.setText("Faça o Login");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton1ActionPerformed
@@ -114,6 +119,7 @@ public final class loginView extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton loginButton1;
     private javax.swing.JPasswordField passTextField;
     private javax.swing.JLabel passwordLabel;

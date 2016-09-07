@@ -18,10 +18,13 @@ public class AdminModel {
 
     private String Usuario, Senha;
     private AdminControl Control;
+    private boolean Logged;
+
+
     private static AdminModel instance = null;
    
     private AdminModel(){
-        
+        this.Logged = false;
     }
     
     public static AdminModel getInstance(String usuario,String senha)
@@ -50,6 +53,7 @@ public class AdminModel {
     private AdminModel(String usuario, String senha) {
         this.Usuario = usuario;
         this.Senha = senha;
+        this.Logged = false;
     }
     
     
@@ -62,9 +66,12 @@ public class AdminModel {
         AdminDAO conn = new AdminDAOJDBCImpl();
         List<String> data = conn.findByUser(user);
         if(data != null){
-            if(data.get(1).equals(password)){
+            if(data.get(1).equals(password))
+            {
+                //TODO inserir log de login realizado no sistemas
                 this.setSenha(data.get(1));
                 this.setUsuario(data.get(0));
+                this.setLogged(true);
                 return true;
             }
         }
@@ -108,7 +115,14 @@ public class AdminModel {
     public void setControl(AdminControl Control) {
         this.Control = Control;
     }
-
     
+    public boolean isLogged() {
+        return Logged;
+    }
+
+    public void setLogged(boolean Logged) {
+        this.Logged = Logged;
+    }
+
     
 }
