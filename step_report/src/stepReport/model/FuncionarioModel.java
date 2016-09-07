@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import stepReport.DAO.FuncionarioDAO;
 import stepReport.DAOJDBCImpl.FuncionarioDAOJDBCImpl;
 import stepReport.control.FuncionarioControl;
-import stepReport.control.TarefasControl;
 
 /**
  * Classe que trata o Funcionário de funcionario, implementa o padrão Singleton

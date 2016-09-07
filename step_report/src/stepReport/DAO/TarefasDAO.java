@@ -5,7 +5,6 @@
  */
 package stepReport.DAO;
 import java.util.ArrayList;
-import stepReport.model.TarefasModel;
 /**
  *
  * @author gabriela

@@ -31,8 +31,6 @@ public final class PeriodoView extends javax.swing.JPanel {
     private static int state;
     private static final int CADASTRO = 1;        
     private static final int BUSCA = 2;
-    private static final int EDIT = 3;
-    private static final int REMOVE = 4; 
     
     
     public PeriodoView(PeriodoControl control) {
@@ -58,18 +56,52 @@ public final class PeriodoView extends javax.swing.JPanel {
         diasPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        SabadoTextField = new javax.swing.JFormattedTextField();
-        DomingoTextField = new javax.swing.JFormattedTextField();
-        SegundaTextField = new javax.swing.JFormattedTextField();
-        TercaTextField = new javax.swing.JFormattedTextField();
-        QuartaTextField = new javax.swing.JFormattedTextField();
-        QuintaTextField = new javax.swing.JFormattedTextField();
-        SextaTextField = new javax.swing.JFormattedTextField();
+        SabadoHorasTextField = new javax.swing.JFormattedTextField();
+        SegundaHorasTextField = new javax.swing.JFormattedTextField();
+        TercaHorasTextField = new javax.swing.JFormattedTextField();
+        QuartaHorasTextField = new javax.swing.JFormattedTextField();
+        QuintaHorasTextField = new javax.swing.JFormattedTextField();
+        SextaHorasTextField = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        DomingoHorasTextField = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        segundaUnidadeTextField = new javax.swing.JTextField();
+        domingoUnidadeTextField = new javax.swing.JTextField();
+        segundaNAMTextField = new javax.swing.JTextField();
+        segundaBSPTextField = new javax.swing.JTextField();
+        segundaTaskTextField = new javax.swing.JTextField();
+        tercaTaskTextField = new javax.swing.JTextField();
+        quartaTaskTextField = new javax.swing.JTextField();
+        quintaTaskTextField = new javax.swing.JTextField();
+        sextaTaskTextField = new javax.swing.JTextField();
+        sabadoTaskTextField = new javax.swing.JTextField();
+        domingoTaskTextField = new javax.swing.JTextField();
+        tercaNAMTextField = new javax.swing.JTextField();
+        quartaNAMTextField = new javax.swing.JTextField();
+        quintaNAMTextField = new javax.swing.JTextField();
+        sextaNAMTextField = new javax.swing.JTextField();
+        sabadoNAMTextField = new javax.swing.JTextField();
+        domingoNAMTextField = new javax.swing.JTextField();
+        tercaBSPTextField = new javax.swing.JTextField();
+        quartaBSPTextField = new javax.swing.JTextField();
+        quintaBSPTextField = new javax.swing.JTextField();
+        sextaBSPTextField = new javax.swing.JTextField();
+        sabadoBSPTextField = new javax.swing.JTextField();
+        domingoBSPTextField = new javax.swing.JTextField();
+        tercaUnidadeTextField = new javax.swing.JTextField();
+        quartaUnidadeTextField = new javax.swing.JTextField();
+        quintaUnidadeTextField = new javax.swing.JTextField();
+        sextaUnidadeTextField = new javax.swing.JTextField();
+        sabadoUnidadeTextField = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         numeroTextField = new javax.swing.JFormattedTextField();
 
         jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
@@ -93,7 +125,7 @@ public final class PeriodoView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, -1, 40));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 540, -1, 40));
 
         nomeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -112,12 +144,7 @@ public final class PeriodoView extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Domingo:");
-        diasPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, -1));
-
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Sábado:");
-        diasPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 130, -1));
+        diasPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 140, -1));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -135,38 +162,151 @@ public final class PeriodoView extends javax.swing.JPanel {
         diasPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 130, -1));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel7.setText("Segunda-Feira:");
+        jLabel7.setText("Segunda-Feira");
         diasPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        SabadoTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        SabadoTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(SabadoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 490, -1));
+        SabadoHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        SabadoHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(SabadoHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 70, -1));
 
-        DomingoTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        DomingoTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(DomingoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 490, -1));
+        SegundaHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        SegundaHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(SegundaHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 70, -1));
 
-        SegundaTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        SegundaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(SegundaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 490, -1));
+        TercaHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        TercaHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(TercaHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 70, -1));
 
-        TercaTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        TercaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(TercaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 490, -1));
+        QuartaHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        QuartaHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(QuartaHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 70, -1));
 
-        QuartaTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        QuartaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(QuartaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 490, -1));
+        QuintaHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        QuintaHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(QuintaHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 70, -1));
 
-        QuintaTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        QuintaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(QuintaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 490, -1));
+        SextaHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        SextaHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(SextaHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 70, -1));
 
-        SextaTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        SextaTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        diasPanel.add(SextaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 490, -1));
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Sábado:");
+        diasPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 130, -1));
 
-        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 730, 310));
+        DomingoHorasTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        DomingoHorasTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(DomingoHorasTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 70, -1));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel8.setText("Unidade");
+        diasPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel9.setText("Dia");
+        diasPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel10.setText("NAM");
+        diasPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel11.setText("BSP");
+        diasPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+
+        segundaUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(segundaUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 110, -1));
+
+        domingoUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(domingoUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 110, -1));
+
+        segundaNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(segundaNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 110, -1));
+
+        segundaBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(segundaBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 110, -1));
+
+        segundaTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(segundaTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 110, -1));
+
+        tercaTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(tercaTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 110, -1));
+
+        quartaTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quartaTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 110, -1));
+
+        quintaTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quintaTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 110, -1));
+
+        sextaTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sextaTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 110, -1));
+
+        sabadoTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sabadoTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 110, -1));
+
+        domingoTaskTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(domingoTaskTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 110, -1));
+
+        tercaNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(tercaNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 110, -1));
+
+        quartaNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quartaNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 110, -1));
+
+        quintaNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quintaNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 110, -1));
+
+        sextaNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sextaNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 110, -1));
+
+        sabadoNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sabadoNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 110, -1));
+
+        domingoNAMTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(domingoNAMTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 110, -1));
+
+        tercaBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(tercaBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 110, -1));
+
+        quartaBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quartaBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, 110, -1));
+
+        quintaBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quintaBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 110, -1));
+
+        sextaBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sextaBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 110, -1));
+
+        sabadoBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sabadoBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 110, -1));
+
+        domingoBSPTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(domingoBSPTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 110, -1));
+
+        tercaUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(tercaUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 110, -1));
+
+        quartaUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quartaUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 110, -1));
+
+        quintaUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(quintaUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 110, -1));
+
+        sextaUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sextaUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 110, -1));
+
+        sabadoUnidadeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        diasPanel.add(sabadoUnidadeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 110, -1));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel12.setText("Task");
+        diasPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 20));
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel13.setText("Horas");
+        diasPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+
+        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 770, 350));
 
         numeroTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -179,13 +319,13 @@ public final class PeriodoView extends javax.swing.JPanel {
         if(PeriodoView.state == PeriodoView.BUSCA){
             String numeroFunc = this.numeroTextField.getText();
             String data = this.DatePicker.getJFormattedTextField().getText();
-            String hrDom = this.DomingoTextField.getText();
-            String hrSeg = this.SegundaTextField.getText();
-            String hrTer = this.TercaTextField.getText();
-            String hrQua = this.QuartaTextField.getText();
-            String hrQui= this.QuintaTextField.getText();
-            String hrSex = this.SextaTextField.getText();
-            String hrSab = this.SabadoTextField.getText();
+            String hrDom = this.DomingoHorasTextField.getText();
+            String hrSeg = this.SegundaHorasTextField.getText();
+            String hrTer = this.TercaHorasTextField.getText();
+            String hrQua = this.QuartaHorasTextField.getText();
+            String hrQui= this.QuintaHorasTextField.getText();
+            String hrSex = this.SextaHorasTextField.getText();
+            String hrSab = this.SabadoHorasTextField.getText();
             
             if(numeroFunc.equals("")){
                 JOptionPane.showMessageDialog(new JFrame(), "Fornecer número do funcionário");
@@ -222,13 +362,13 @@ public final class PeriodoView extends javax.swing.JPanel {
         else if(PeriodoView.state == PeriodoView.CADASTRO){
             String numeroFunc = this.numeroTextField.getText();
             String data = this.DatePicker.getJFormattedTextField().getText();
-            String hrDom = this.DomingoTextField.getText();
-            String hrSeg = this.SegundaTextField.getText();
-            String hrTer = this.TercaTextField.getText();
-            String hrQua = this.QuartaTextField.getText();
-            String hrQui= this.QuintaTextField.getText();
-            String hrSex = this.SextaTextField.getText();
-            String hrSab = this.SabadoTextField.getText();
+            String hrDom = this.DomingoHorasTextField.getText();
+            String hrSeg = this.SegundaHorasTextField.getText();
+            String hrTer = this.TercaHorasTextField.getText();
+            String hrQua = this.QuartaHorasTextField.getText();
+            String hrQui= this.QuintaHorasTextField.getText();
+            String hrSex = this.SextaHorasTextField.getText();
+            String hrSab = this.SabadoHorasTextField.getText();
             
             if(!this.isValidDataSemana(data))
                 JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
@@ -246,26 +386,60 @@ public final class PeriodoView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField DomingoTextField;
-    private javax.swing.JFormattedTextField QuartaTextField;
-    private javax.swing.JFormattedTextField QuintaTextField;
-    private javax.swing.JFormattedTextField SabadoTextField;
-    private javax.swing.JFormattedTextField SegundaTextField;
-    private javax.swing.JFormattedTextField SextaTextField;
-    private javax.swing.JFormattedTextField TercaTextField;
+    private javax.swing.JFormattedTextField DomingoHorasTextField;
+    private javax.swing.JFormattedTextField QuartaHorasTextField;
+    private javax.swing.JFormattedTextField QuintaHorasTextField;
+    private javax.swing.JFormattedTextField SabadoHorasTextField;
+    private javax.swing.JFormattedTextField SegundaHorasTextField;
+    private javax.swing.JFormattedTextField SextaHorasTextField;
+    private javax.swing.JFormattedTextField TercaHorasTextField;
     private javax.swing.JButton confirmarButton;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JPanel diasPanel;
+    private javax.swing.JTextField domingoBSPTextField;
+    private javax.swing.JTextField domingoNAMTextField;
+    private javax.swing.JTextField domingoTaskTextField;
+    private javax.swing.JTextField domingoUnidadeTextField;
     private javax.swing.JFormattedTextField jFormattedTextField5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel nomeLabel1;
     private javax.swing.JFormattedTextField numeroTextField;
+    private javax.swing.JTextField quartaBSPTextField;
+    private javax.swing.JTextField quartaNAMTextField;
+    private javax.swing.JTextField quartaTaskTextField;
+    private javax.swing.JTextField quartaUnidadeTextField;
+    private javax.swing.JTextField quintaBSPTextField;
+    private javax.swing.JTextField quintaNAMTextField;
+    private javax.swing.JTextField quintaTaskTextField;
+    private javax.swing.JTextField quintaUnidadeTextField;
+    private javax.swing.JTextField sabadoBSPTextField;
+    private javax.swing.JTextField sabadoNAMTextField;
+    private javax.swing.JTextField sabadoTaskTextField;
+    private javax.swing.JTextField sabadoUnidadeTextField;
+    private javax.swing.JTextField segundaBSPTextField;
+    private javax.swing.JTextField segundaNAMTextField;
+    private javax.swing.JTextField segundaTaskTextField;
+    private javax.swing.JTextField segundaUnidadeTextField;
+    private javax.swing.JTextField sextaBSPTextField;
+    private javax.swing.JTextField sextaNAMTextField;
+    private javax.swing.JTextField sextaTaskTextField;
+    private javax.swing.JTextField sextaUnidadeTextField;
+    private javax.swing.JTextField tercaBSPTextField;
+    private javax.swing.JTextField tercaNAMTextField;
+    private javax.swing.JTextField tercaTaskTextField;
+    private javax.swing.JTextField tercaUnidadeTextField;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -275,12 +449,6 @@ public final class PeriodoView extends javax.swing.JPanel {
         this.DatePicker = new JDatePickerImpl(datePanel);
         this.DatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         this.add(DatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140));
-        
-        //datePicker.setB
-        //JFrame j = new JFrame();
-        //j.add(datePicker);
-        //j.setVisible(true);
-        //j.setBounds(0, 0, 100, 100);
     }
     
     
@@ -319,13 +487,42 @@ public final class PeriodoView extends javax.swing.JPanel {
         this.numeroTextField.setText("");
         this.numeroTextField.setEditable(true);
         this.diasPanel.setVisible(true);
-        this.DomingoTextField.setText("");
-        this.SabadoTextField.setText("");
-        this.SegundaTextField.setText("");
-        this.TercaTextField.setText("");
-        this.QuartaTextField.setText("");
-        this.QuintaTextField.setText("");
-        this.SextaTextField.setText("");
+        this.DomingoHorasTextField.setText("");
+        this.SabadoHorasTextField.setText("");
+        this.SegundaHorasTextField.setText("");
+        this.TercaHorasTextField.setText("");
+        this.QuartaHorasTextField.setText("");
+        this.QuintaHorasTextField.setText("");
+        this.SextaHorasTextField.setText("");
+        this.segundaTaskTextField.setText("");
+        this.segundaNAMTextField.setText("");
+        this.segundaUnidadeTextField.setText("");
+        this.segundaBSPTextField.setText("");
+        this.tercaTaskTextField.setText("");
+        this.tercaNAMTextField.setText("");
+        this.tercaUnidadeTextField.setText("");
+        this.tercaBSPTextField.setText("");
+        this.quartaTaskTextField.setText("");
+        this.quartaNAMTextField.setText("");
+        this.quartaUnidadeTextField.setText("");
+        this.quartaBSPTextField.setText("");
+        this.quintaTaskTextField.setText("");
+        this.quintaNAMTextField.setText("");
+        this.quintaUnidadeTextField.setText("");
+        this.quintaBSPTextField.setText("");
+        this.sextaTaskTextField.setText("");
+        this.sextaNAMTextField.setText("");
+        this.sextaUnidadeTextField.setText("");
+        this.sextaBSPTextField.setText("");
+        this.sabadoTaskTextField.setText("");
+        this.sabadoNAMTextField.setText("");
+        this.sabadoUnidadeTextField.setText("");
+        this.sabadoBSPTextField.setText("");
+        this.domingoTaskTextField.setText("");
+        this.domingoNAMTextField.setText("");
+        this.domingoUnidadeTextField.setText("");
+        this.domingoBSPTextField.setText("");
+        
         PeriodoView.state = PeriodoView.BUSCA;
     }
     

@@ -9,7 +9,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
-import stepReport.control.TarefasControl;
 import stepReport.control.FuncionarioControl;
 import stepReport.control.PeriodoControl;
 import stepReport.control.ReportControl;
@@ -28,8 +27,11 @@ public final class mainScreen extends javax.swing.JFrame {
     private FuncionarioControl funcionario;
     private AdminControl admin;
     private PeriodoControl periodo;
-    private TarefasControl tarefasFuncionario;
     private ReportControl report;
+    private ServerConfigPanel configPanel;
+
+   
+    
     private static JPanel active;
     private final static JFileChooser FILECHOOSER = new JFileChooser();
     
@@ -40,26 +42,28 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
         this.setPeriodo(new PeriodoControl(this));
-        this.setTarefasFuncionario(new TarefasControl(this));
         this.setReport(new ReportControl(this));
         
         this.add(this.getLogin().getView());
         this.add(this.getFuncionario().getView());
         this.add(this.getAdmin().getView());
         this.add(this.getPeriodo().getView());
-        this.add(this.getTarefasFuncionario().getView());
         this.add(this.getReport().getReportNacionalidadeView());
         this.add(this.getReport().getReportBSPView());
         this.add(this.getReport().getReportTaskView());
         this.add(this.getReport().getReportUnidadeView());
         this.add(this.getReport().getReportHorasMensal());
         
+        this.setConfigPanel(new ServerConfigPanel());
+        this.add(this.getConfigPanel());
+        this.getConfigPanel().setVisible(false);
+        
+        
         mainScreen.setActive(this.getLogin().getView());
         this.getLogin().getView().setVisible(true);
         
         this.Toolbar.setVisible(false);
         this.isPrintable(false);
-        this.searchHorasMenuItem.setVisible(false);
         this.getLogin().getView().setBounds(0, 0, 300, 160);
     }
 
@@ -74,15 +78,13 @@ public final class mainScreen extends javax.swing.JFrame {
 
         Toolbar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        configMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         printMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
-        searchTarefaMenuItem = new javax.swing.JMenuItem();
-        tarefasMenuItem = new javax.swing.JMenuItem();
-        searchHorasMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
         relatorioMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -98,6 +100,14 @@ public final class mainScreen extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         jMenu1.setText("Arquivo");
+
+        configMenuItem.setText("Configurações");
+        configMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(configMenuItem);
 
         saveMenuItem.setText("Salvar");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -142,30 +152,6 @@ public final class mainScreen extends javax.swing.JFrame {
             }
         });
         funcMenu.add(CadastroFuncMenuItem);
-
-        searchTarefaMenuItem.setText("Visualizar Tarefa");
-        searchTarefaMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTarefaMenuItemActionPerformed(evt);
-            }
-        });
-        funcMenu.add(searchTarefaMenuItem);
-
-        tarefasMenuItem.setText("Registro de Tarefa");
-        tarefasMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tarefasMenuItemActionPerformed(evt);
-            }
-        });
-        funcMenu.add(tarefasMenuItem);
-
-        searchHorasMenuItem.setText("Visualizar Horas");
-        searchHorasMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchHorasMenuItemActionPerformed(evt);
-            }
-        });
-        funcMenu.add(searchHorasMenuItem);
 
         RegistroMenuItem.setText("Registro de horas");
         RegistroMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -290,36 +276,10 @@ public final class mainScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_funcMenuActionPerformed
 
-    private void searchTarefaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTarefaMenuItemActionPerformed
-        // TODO add your handling code here:
-        
-        mainScreen.active.setVisible(false);
-        this.isPrintable(false);
-        this.getTarefasFuncionario().initSearchView();
-    }//GEN-LAST:event_searchTarefaMenuItemActionPerformed
-
-    private void tarefasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarefasMenuItemActionPerformed
-        // TODO add your handling code here:
-
-        mainScreen.active.setVisible(false);
-        this.isPrintable(false);
-        this.getTarefasFuncionario().initNewView();
-        
-    }//GEN-LAST:event_tarefasMenuItemActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void searchHorasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHorasMenuItemActionPerformed
-        // TODO add your handling code here:
-        mainScreen.active.setVisible(false);
-        this.isPrintable(false);
-        this.getPeriodo().initSearchView();
-        
-
-    }//GEN-LAST:event_searchHorasMenuItemActionPerformed
 
     private void relatorioNacMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioNacMenuItemActionPerformed
         // TODO add your handling code here:
@@ -377,6 +337,13 @@ public final class mainScreen extends javax.swing.JFrame {
         this.getReport().initMensalReport();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void configMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configMenuItemActionPerformed
+        // TODO add your handling code here:
+        mainScreen.active.setVisible(false);
+        this.getConfigPanel().setVisible(true);
+        mainScreen.active = this.getConfigPanel();        
+    }//GEN-LAST:event_configMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -425,6 +392,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem RegistroMenuItem;
     private javax.swing.JMenuBar Toolbar;
     private javax.swing.JMenuItem buscarFuncMenuItem;
+    private javax.swing.JMenuItem configMenuItem;
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -435,9 +403,6 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu relatorioMenu;
     private javax.swing.JMenuItem relatorioNacMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
-    private javax.swing.JMenuItem searchHorasMenuItem;
-    private javax.swing.JMenuItem searchTarefaMenuItem;
-    private javax.swing.JMenuItem tarefasMenuItem;
     private javax.swing.JMenuItem taskMenuItem;
     private javax.swing.JMenuItem unidadeMenuItem;
     private javax.swing.JMenu userMenu;
@@ -498,14 +463,14 @@ public final class mainScreen extends javax.swing.JFrame {
         return this.periodo;
     }
     
-     public TarefasControl getTarefasFuncionario() {
-        return tarefasFuncionario;
+     public ServerConfigPanel getConfigPanel() {
+        return configPanel;
     }
 
-    public void setTarefasFuncionario(TarefasControl dadosFuncionario) {
-        this.tarefasFuncionario = dadosFuncionario;
+    public void setConfigPanel(ServerConfigPanel configPanel) {
+        this.configPanel = configPanel;
     }
-
+   
     public void isPrintable(boolean Printable) {
         this.saveMenuItem.setVisible(Printable);
         this.printMenuItem.setVisible(Printable);
