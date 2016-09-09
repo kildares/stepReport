@@ -5,11 +5,9 @@
  */
 package stepReport.view;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -24,10 +22,10 @@ public class ServerConfigPanel extends javax.swing.JPanel {
     /**
      * Creates new form ServerConfigPanel
      */
-    JFrame frame;
-    public ServerConfigPanel(JFrame frame) {
+    
+    public ServerConfigPanel() {
         initComponents();
-        this.frame=frame;
+        
     }
 
     /**
@@ -100,12 +98,11 @@ public class ServerConfigPanel extends javax.swing.JPanel {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ServerConfigPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        this.frame.dispose();
+            JOptionPane.showMessageDialog(new JFrame(), "Dados atualizados com sucesso");
         }
         else{
             JOptionPane.showMessageDialog(this, "Um ou mais campos vazios");
-        }
+        }        
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
 

@@ -7,6 +7,7 @@ package stepReport.control;
 
 import Exceptions.notFoundException;
 import java.util.ArrayList;
+import stepReport.model.AdminModel;
 import stepReport.view.FuncionarioView;
 import stepReport.view.mainScreen;
 import stepReport.model.FuncionarioModel;
@@ -20,13 +21,23 @@ public final class FuncionarioControl {
     private mainScreen Screen;
     private FuncionarioView View;
     private FuncionarioModel Model;
+    private loginControl login;
 
+    
     public FuncionarioModel getModel() {
         return Model;
     }
 
     public void setModel(FuncionarioModel model) {
         this.Model = model;
+    }
+    
+    public loginControl getLogin() {
+        return login;
+    }
+
+    public void setLogin(loginControl login) {
+        this.login = login;
     }
     
     public FuncionarioControl(mainScreen Screen){
@@ -63,6 +74,8 @@ public final class FuncionarioControl {
         this.View = view;
     }
 
+    
+
     /**
      *
      * @param numero
@@ -95,5 +108,6 @@ public final class FuncionarioControl {
         return this.getModel().registerFuncionaro(funcInfo);
         
     }
+
     
 }

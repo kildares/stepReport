@@ -8,11 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import stepReport.DAO.TarefasDAO;
 import stepReport.model.ConnectionDB;
-import stepReport.model.TarefasModel;
 /**
  *
  * @author gabriela
