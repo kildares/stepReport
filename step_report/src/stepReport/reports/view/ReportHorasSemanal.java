@@ -117,7 +117,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
             {
                 String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
                 String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
-                List<FuncionarioHoras> func = null; this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
+                List<FuncionarioHoras> func = this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
                 if(func.size()>0)
                     this.loadTable(func,"");
                 else
@@ -166,7 +166,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
     
     
       private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
-        String[] str = {"Funcionário","Horas","Período"};
+        String[] str = {"Funcionário","Profissão","Horas","Total"};
         DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
