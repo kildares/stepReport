@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import stepReport.DAO.CadastraHorasDAO;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.model.ConnectionDB;
 /**
  *
@@ -22,25 +23,23 @@ import stepReport.model.ConnectionDB;
 public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
 
     @Override
-    public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab, String idFunc, String idTarefa) {
-        try {
+    public boolean create(String dataSemana, String diaSemana, int horas, String taskNumber, String nam, String bsp, String unidade, String idFunc) {
+    try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String createSQL = "INSERT INTO cadastra_horas(data_semana,horas_dom,horas_seg,horas_ter, "+
-                               "horas_qua,horas_qui,horas_sex,horas_sab,id_func,id_tarefa) "+
-                               "VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String createSQL = "INSERT INTO cadastra_horas(data_semana,dia_semana,horas,task_number, "+
+                               "nam,bsp,unidade,id_func) "+
+                               "VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
             prepStatement.setString(1,dataSemana);
-            prepStatement.setInt(2, hrDom);
-            prepStatement.setInt(3, hrSeg);
-            prepStatement.setInt(4, hrTer);
-            prepStatement.setInt(5, hrQua);
-            prepStatement.setInt(6, hrQui);
-            prepStatement.setInt(7, hrSex);
-            prepStatement.setInt(8, hrSab);
-            prepStatement.setString(9, idFunc);
-            prepStatement.setString(10, idTarefa);
+            prepStatement.setString(2, diaSemana);
+            prepStatement.setInt(3, horas);
+            prepStatement.setString(4, taskNumber);
+            prepStatement.setString(5, nam);
+            prepStatement.setString(6, bsp);
+            prepStatement.setString(7, unidade);
+            prepStatement.setString(8, idFunc);
             
             prepStatement.executeUpdate();
             conexao.close();
@@ -52,9 +51,9 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             return false;
         }
     }
-
+    
     @Override
-    public ArrayList<String> findCadastro(String idFunc, String dataSemana) {
+    public ArrayList<FuncionarioHoras> findCadastro(String idFunc, String dataSemana) {
         try{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
@@ -66,43 +65,37 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.setString(2,dataSemana);
             
             ResultSet rs = prepStatement.executeQuery();
+            ArrayList<FuncionarioHoras> result = new ArrayList<FuncionarioHoras>();
             if(rs.next()){
-                ArrayList<String> info = new ArrayList<String>();
-                info.add(Integer.toString(rs.getInt("horas_dom")));
-                info.add(Integer.toString(rs.getInt("horas_seg")));
-                info.add(Integer.toString(rs.getInt("horas_ter")));
-                info.add(Integer.toString(rs.getInt("horas_qua")));
-                info.add(Integer.toString(rs.getInt("horas_qui")));
-                info.add(Integer.toString(rs.getInt("horas_sex")));
-                info.add(Integer.toString(rs.getInt("horas_sab")));
-                info.add(Integer.toString(rs.getInt("id")));
+                FuncionarioHoras info = new FuncionarioHoras(rs.getString("id"),rs.getString("id_func"),
+                                                   rs.getString("data_semana"),rs.getString("dia_semana"),rs.getString("horas"),
+                                                   rs.getString("task_number"),rs.getString("nam"),rs.getString("bsp"),rs.getString("unidade"));
+                result.add(info);
                 conexao.close();
-                return info;
+                return result;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null; 
     }
+
     @Override
-    public boolean update(String id,int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab) {
-        try {
+    public boolean update(String id, int horas, String taskNumber, String nam, String bsp, String unidade) {
+       try {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
             String createSQL = "UPDATE cadastra_horas "+
-                               "SET horas_dom = ?, horas_seg = ?, horas_ter = ?, horas_qua = ?, "+
-                               "horas_qui = ?, horas_sex = ?, horas_sab = ? "+
+                               "SET horas = ?, task_number= ?, nam = ?, bsp = ?,unidade = ? "+
                                "WHERE id =?";
             PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
-            prepStatement.setInt(1, hrDom);
-            prepStatement.setInt(2, hrSeg);
-            prepStatement.setInt(3, hrTer);
-            prepStatement.setInt(4, hrQua);
-            prepStatement.setInt(5, hrQui);
-            prepStatement.setInt(6, hrSex);
-            prepStatement.setInt(7, hrSab);
-            prepStatement.setString(8, id);
+            prepStatement.setInt(1, horas);
+            prepStatement.setString(2, taskNumber);
+            prepStatement.setString(3, nam);
+            prepStatement.setString(4, bsp);
+            prepStatement.setString(5, unidade);
+            prepStatement.setString(6, id);
             
             prepStatement.executeUpdate();
             conexao.close();

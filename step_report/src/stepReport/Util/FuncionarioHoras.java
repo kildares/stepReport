@@ -14,25 +14,25 @@ public class FuncionarioHoras {
     private String idFunc;
     private String nomeFunc;
     private String dataSemana;
-    private String horasDomingo;
-    private String horasSegunda;
-    private String horasTerca;
-    private String horasQuarta;
-    private String horasQuinta;
-    private String horasSexta;
-    private String horasSabado;
+    private String diaSemana;
+    private String horas;
+    private String taskNumber;
+    private String nam;
+    private String bsp;
+    private String unidade;
 
-    public FuncionarioHoras(String idFunc,String dataSemana, String horasDomingo,String horasSegunda,String horasTerca,String horasQuarta,String horasQuinta,
-            String horasSexta,String horasSabado){
+
+    public FuncionarioHoras(String idHoras, String idFunc,String dataSemana, String diaSemana,String horas,
+                            String taskNumber,String nam,String bsp, String unidade){
+            this.idHoras = idHoras;
             this.idFunc=idFunc;
             this.dataSemana=dataSemana;
-            this.horasDomingo=horasDomingo;
-            this.horasSegunda=horasSegunda;
-            this.horasTerca=horasTerca;
-            this.horasQuarta=horasQuarta;
-            this.horasQuinta=horasQuinta;
-            this.horasSexta=horasSexta;
-            this.horasSabado=horasSabado;
+            this.diaSemana=diaSemana;
+            this.horas=horas;
+            this.taskNumber=taskNumber;
+            this.nam=nam;
+            this.bsp=bsp;
+            this.unidade=unidade;
     }
     
     public FuncionarioHoras(String idHoras, String idFunc, String nomeFunc, String dataSemana,String horasDomingo,String horasSegunda,String horasTerca,String horasQuarta,String horasQuinta,
@@ -65,61 +65,53 @@ public class FuncionarioHoras {
     public void setDataSemana(String dataSemana) {
         this.dataSemana = dataSemana;
     }
-
-    public String getHorasDomingo() {
-        return horasDomingo;
+    
+     public String getDiaSemana() {
+        return diaSemana;
     }
 
-    public void setHorasDomingo(String horasDomingo) {
-        this.horasDomingo = horasDomingo;
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
-    public String getHorasSegunda() {
-        return horasSegunda;
+    public String getHoras() {
+        return horas;
     }
 
-    public void setHorasSegunda(String horasSegunda) {
-        this.horasSegunda = horasSegunda;
+    public void setHoras(String horas) {
+        this.horas = horas;
     }
 
-    public String getHorasTerca() {
-        return horasTerca;
+    public String getTaskNumber() {
+        return taskNumber;
     }
 
-    public void setHorasTerca(String horasTerca) {
-        this.horasTerca = horasTerca;
+    public void setTaskNumber(String taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
-    public String getHorasQuarta() {
-        return horasQuarta;
+    public String getNam() {
+        return nam;
     }
 
-    public void setHorasQuarta(String horasQuarta) {
-        this.horasQuarta = horasQuarta;
+    public void setNam(String nam) {
+        this.nam = nam;
     }
 
-    public String getHorasQuinta() {
-        return horasQuinta;
+    public String getBsp() {
+        return bsp;
     }
 
-    public void setHorasQuinta(String horasQuinta) {
-        this.horasQuinta = horasQuinta;
+    public void setBsp(String bsp) {
+        this.bsp = bsp;
     }
 
-    public String getHorasSexta() {
-        return horasSexta;
+    public String getUnidade() {
+        return unidade;
     }
 
-    public void setHorasSexta(String horasSexta) {
-        this.horasSexta = horasSexta;
-    }
-
-    public String getHorasSabado() {
-        return horasSabado;
-    }
-
-    public void setHorasSabado(String horasSabado) {
-        this.horasSabado = horasSabado;
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
     }
 
     public String getTotalHoras(String data) {
