@@ -26,6 +26,7 @@ public class FuncionarioHoras {
                             String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
             this.idFunc=idFunc;
+            this.nomeFunc=nomeFunc;
             this.dataSemana=dataSemana;
             this.diaSemana=diaSemana;
             this.horas=horas;

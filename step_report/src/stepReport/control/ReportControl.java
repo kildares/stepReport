@@ -226,7 +226,7 @@ public final class ReportControl {
             list = this.getReportHorasMensal().getPDFData();
         }
         
-        this.getSaverPDF().savePDF(file,list);
+        this.getSaverPDF().savePDFSemanal(file,list);
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
