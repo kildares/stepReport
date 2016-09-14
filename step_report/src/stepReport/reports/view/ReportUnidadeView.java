@@ -7,6 +7,7 @@ package stepReport.reports.view;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -14,6 +15,7 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
 
 /**
@@ -186,7 +188,7 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         int cont=0;
         for(FuncionarioHoras x : horas){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
+            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
@@ -232,7 +234,8 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         return true;
     }
 
-    public List<FuncionarioHoras> getPDFData() {
+    public Map<String,List<FuncionarioHorasSemana>> getPDFData() 
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

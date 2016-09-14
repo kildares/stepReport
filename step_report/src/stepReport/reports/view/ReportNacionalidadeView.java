@@ -8,14 +8,15 @@ package stepReport.reports.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -204,7 +205,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         int cont=0;
         for(FuncionarioHoras x : func){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
+            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
@@ -212,7 +213,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         this.reportScrollPane.setVisible(true);
     }
 
-    public List<FuncionarioHoras> getPDFData() {
+    public Map<String,List<FuncionarioHorasSemana>> getPDFData() {
         
         List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
         
@@ -220,7 +221,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         for(int i=0;i<numRow;i++){
             //func.add(new FuncionarioHoras((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
         }
-        return func;
+        return null;
     }
 
        private boolean validDate() {

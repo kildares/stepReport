@@ -22,8 +22,9 @@ public class FuncionarioHoras {
     private String unidade;
 
 
+
     public FuncionarioHoras(String idHoras, String idFunc, String dataSemana, String diaSemana, String horas,
-                            String taskNumber,String nam,String bsp, String unidade){
+        String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
             this.idFunc=idFunc;
             this.nomeFunc=nomeFunc;
@@ -36,6 +37,7 @@ public class FuncionarioHoras {
             this.unidade=unidade;
     }
     
+
     public FuncionarioHoras(String idHoras, String idFunc, String nomeFunc, String dataSemana, String diaSemana, 
                             String horas, String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
@@ -49,7 +51,7 @@ public class FuncionarioHoras {
             this.bsp=bsp;
             this.unidade=unidade;
     }
-    
+
     public String getIdFunc() {
         return idFunc;
     }

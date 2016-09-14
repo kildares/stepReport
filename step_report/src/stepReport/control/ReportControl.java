@@ -8,10 +8,12 @@ package stepReport.control;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JPanel;
 import stepReport.DAO.RelatoriosDAO;
 import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.model.PeriodoModel;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
@@ -209,9 +211,9 @@ public final class ReportControl {
 
     public void savePDF(File file,JPanel active) 
     {
-        List<FuncionarioHoras> list = null;
+        Map<String,List<FuncionarioHorasSemana>> list = null;
         if(active instanceof ReportBSPView){
-            list = this.getReportBSPView().getListaPrint();
+            list = this.getReportBSPView().getPDFData();
         }
         else if(active instanceof ReportNacionalidadeView){
             list = this.getReportNacionalidadeView().getPDFData();
