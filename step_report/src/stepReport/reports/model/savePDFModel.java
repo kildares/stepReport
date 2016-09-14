@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -18,6 +20,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.util.Matrix;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
 
 /**
@@ -36,10 +39,10 @@ public class savePDFModel {
     }
     
     
-    public void savePDF(File file, List<FuncionarioHoras> list) 
+    public void savePDFSemanal(File file, Map<String,List<FuncionarioHorasSemana>> semanal) 
     {
         
-       if(list == null) 
+       if(semanal == null) 
            return;
         
        PDDocument document = new PDDocument();
@@ -54,14 +57,15 @@ public class savePDFModel {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.transform(new Matrix(0,1,-1,0,pageWidth,0));
             
-            contentStream.setStrokingColor(Color.BLACK);
-            contentStream.setNonStrokingColor(Color.WHITE);
+            //contentStream.setStrokingColor(Color.BLACK);
+            //contentStream.setNonStrokingColor(Color.WHITE);
             //contentStream.addRect(100,100,300,300);
-            contentStream.addRect(40,540,100,30);
-            contentStream.addRect(140,540,100,30);
-            contentStream.addRect(240,540,100,30);
-            contentStream.fillAndStroke();
+            //contentStream.addRect(40,540,100,30);
+            //contentStream.addRect(140,540,100,30);
+            //contentStream.addRect(240,540,100,30);
+            //contentStream.fillAndStroke();
             contentStream.setNonStrokingColor(Color.BLACK);
+            
             contentStream.beginText();
             contentStream.setFont(font, 12);
             contentStream.setLeading(14.5f);
@@ -69,14 +73,45 @@ public class savePDFModel {
             contentStream.showText("Nome");
             contentStream.newLineAtOffset(140, 0);
             contentStream.showText("Profissão");
-            contentStream.newLineAtOffset(120, 5);
-            contentStream.showText("Total");
-            contentStream.newLineAtOffset(0, -12);
-            contentStream.showText("Horas");
+            contentStream.newLineAtOffset(450, 0);
+            contentStream.showText("Total de Horas");
+            
             //TODO criar loop duplo para criar pagina e depois imprimir o dado enquanto houver dados a serem impressos
 
+            contentStream.newLineAtOffset(-600, -30);
             
-            contentStream.newLineAtOffset(0, -200);
+            for(String numero : semanal.keySet())
+            {    
+                if(semanal.get(numero)==null || semanal.get(numero).isEmpty())
+                    continue;
+                
+                String nomeAtual = semanal.get(numero).get(0).getNome();
+                String profissao = semanal.get(numero).get(0).getProfissao();
+                
+                contentStream.showText(StringUtils.rightPad(nomeAtual, 140, " "));
+                contentStream.newLineAtOffset(140, 0);
+                contentStream.showText(StringUtils.rightPad(profissao, 70, " "));
+                contentStream.newLineAtOffset(70, 0);
+                
+                int cont=0;
+                
+                for(FuncionarioHorasSemana data : semanal.get(numero)){
+                    contentStream.showText(StringUtils.rightPad(data.getNumHoras(), 60, " "));
+                    contentStream.newLineAtOffset(0, 30);
+                    contentStream.showText(StringUtils.rightPad((String)data.getFormattedDataSemana(), 50, " "));
+                    contentStream.newLineAtOffset(60, -30);
+                    cont++;
+                }
+                
+                contentStream.newLineAtOffset((7-cont)*60, 0);
+                
+                contentStream.showText(FuncionarioHorasSemana.getTotalHorasSemanais(semanal.get(numero)));
+                contentStream.newLineAtOffset(-200, -30);
+            }
+            
+            
+            
+            contentStream.newLineAtOffset(-400, -50);
             contentStream.showText("Step Signature");
             contentStream.newLine();
             contentStream.newLine();

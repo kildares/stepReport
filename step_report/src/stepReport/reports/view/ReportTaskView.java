@@ -8,6 +8,7 @@ package stepReport.reports.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -15,6 +16,7 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 
 import stepReport.control.ReportControl;
 
@@ -190,7 +192,7 @@ public final class ReportTaskView extends javax.swing.JPanel {
         int cont=0;
         for(FuncionarioHoras x : horas){
             this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
+            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
         }
@@ -213,14 +215,14 @@ public final class ReportTaskView extends javax.swing.JPanel {
         ReportTaskView.state = ReportTaskView.BUSCA;
     }
 
-    public List<FuncionarioHoras> getPDFData() {
+    public Map<String,List<FuncionarioHorasSemana>> getPDFData() {
         
         List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
         
         int numRow = this.reportTable.getRowCount();
         for(int i=0;i<numRow;i++){
         }
-        return func;
+        return null;
     }
     
     private boolean validDate() {
