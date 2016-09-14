@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,11 +22,10 @@ public class FuncionarioHoras {
     private String unidade;
 
 
-    public FuncionarioHoras(String idHoras, String idFunc,String nomeFunc,String dataSemana, String diaSemana,String horas,
+    public FuncionarioHoras(String idHoras, String idFunc, String dataSemana, String diaSemana, String horas,
                             String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
             this.idFunc=idFunc;
-            this.nomeFunc=nomeFunc;
             this.dataSemana=dataSemana;
             this.diaSemana=diaSemana;
             this.horas=horas;
@@ -36,6 +35,19 @@ public class FuncionarioHoras {
             this.unidade=unidade;
     }
     
+    public FuncionarioHoras(String idHoras, String idFunc, String nomeFunc, String dataSemana, String diaSemana, 
+                            String horas, String taskNumber,String nam,String bsp, String unidade){
+            this.idHoras = idHoras;
+            this.idFunc=idFunc;
+            this.nomeFunc = nomeFunc;
+            this.dataSemana=dataSemana;
+            this.diaSemana=diaSemana;
+            this.horas=horas;
+            this.taskNumber=taskNumber;
+            this.nam=nam;
+            this.bsp=bsp;
+            this.unidade=unidade;
+    }
     
     public String getIdFunc() {
         return idFunc;
@@ -43,6 +55,14 @@ public class FuncionarioHoras {
 
     public void setIdFunc(String idFunc) {
         this.idFunc = idFunc;
+    }
+    
+    public String getNomeFunc() {
+        return nomeFunc;
+    }
+
+    public void setNomeFunc(String nomeFunc) {
+        this.nomeFunc = nomeFunc;
     }
 
     public String getDataSemana() {

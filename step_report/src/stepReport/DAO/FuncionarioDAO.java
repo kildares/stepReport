@@ -18,5 +18,6 @@ public interface FuncionarioDAO {
     
     public void remove(int id);
     public ArrayList<String> findByID(String id);
+    public String findNomeByID(String id);
     public List<FuncionarioModel> findAll();
 }

@@ -26,34 +26,7 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
     @Override
     //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo data_semana entre duas datas informadas
     public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim) {
-        try {
-            ConnectionDB conn = new ConnectionDB();
-            Connection conexao = conn.getConnection();
-            
-            String sql = "SELECT id_func,data_semana,horas_dom, horas_seg, horas_ter, horas_qua, horas_qui, "+
-                         "horas_sex, horas_sab FROM cadastra_horas " +
-                         "WHERE data_semana >= ? "+
-                         "AND data_semana <= ?";
-            PreparedStatement prepStatement = conexao.prepareStatement(sql);
-            prepStatement.setString(1,dataSemIni);
-            prepStatement.setString(2, dataSemFim);
-            ResultSet rs = prepStatement.executeQuery();
-            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
-            while(rs.next()){
-                list.add(new FuncionarioHoras(Integer.toString(rs.getInt("cadastra_horas.id_func")),
-                rs.getString("cadastra_horas.data_semana"),rs.getString("cadastra_horas.horas_dom"),rs.getString("cadastra_horas.horas_seg"),
-                rs.getString("cadastra_horas.horas_ter"),rs.getString("cadastra_horas.horas_qua"),rs.getString("cadastra_horas.horas_qui"),
-                rs.getString("cadastra_horas.horas_sex"),rs.getString("cadastra_horas.horas_sab")));
             }
-            conexao.close();
-
-            return list;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
 
     @Override
     //Retorna uma lista de cadastro de horas de funcionarios que possuem o campo nacionalidade igual ao informado
@@ -224,5 +197,67 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodo(String dataSemIni, String dataSemFim) {
+        try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String sql = "SELECT * from cadastra_horas" +
+                         "WHERE data_semana >= ? "+
+                         "AND data_semana <= ?";
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+            prepStatement.setString(1,dataSemIni);
+            prepStatement.setString(2, dataSemFim);
+            ResultSet rs = prepStatement.executeQuery();
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                FuncionarioHoras info = new FuncionarioHoras(rs.getString("id"),rs.getString("id_func"),
+                                        rs.getString("data_semana"),rs.getString("dia_semana"),rs.getString("horas"),
+                                        rs.getString("task_number"),rs.getString("nam"),rs.getString("bsp"),
+                                        rs.getString("unidade"));
+                list.add(info);
+            }
+            conexao.close();
+
+            return list;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByFunc(String idFunc, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByNam(String nam, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByBsp(String bsp, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByUnidade(String unidade, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<FuncionarioHoras> hrsPeriodoByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -12,9 +12,11 @@ import stepReport.Util.FuncionarioHoras;
  * @author gabriela
  */
 public interface RelatoriosDAO {
-    public List<FuncionarioHoras> totalHorasMensal(String dataSemIni, String dataSemFim);
-    public List<FuncionarioHoras> hrsTrabByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim);
-    public List<FuncionarioHoras> hrsTrabByBsp(String bsp, String dataSemIni, String dataSemFim);
-    public List<FuncionarioHoras> hrsTrabByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim);
-    public List<FuncionarioHoras> hrsTrabByNavio(String navio, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodo(String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByFunc(String idFunc, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByNam(String nam, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByBsp(String bsp, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByUnidade(String unidade, String dataSemIni, String dataSemFim);
+    public List<FuncionarioHoras> hrsPeriodoByNacionalidade(String nacionalidade, String dataSemIni, String dataSemFim);
 }
