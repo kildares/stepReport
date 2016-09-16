@@ -73,12 +73,21 @@ public class savePDFModel {
             contentStream.showText("Nome");
             contentStream.newLineAtOffset(140, 0);
             contentStream.showText("Profissão");
-            contentStream.newLineAtOffset(450, 0);
+            
+            contentStream.newLineAtOffset(90, 0);
+            int cont2=0;
+            for(String dataSemana : FuncionarioHorasSemana.obtainDatasSemana(semanal))
+            {
+                contentStream.showText(FuncionarioHorasSemana.getFormattedDataSemana(dataSemana));
+                contentStream.newLineAtOffset(90, 0);
+                cont2++;
+            }
+            contentStream.newLineAtOffset((6-cont2)*60, 0);
             contentStream.showText("Total de Horas");
             
+            
             //TODO criar loop duplo para criar pagina e depois imprimir o dado enquanto houver dados a serem impressos
-
-            contentStream.newLineAtOffset(-600, -30);
+            contentStream.newLineAtOffset(-620, -30);
             
             for(String numero : semanal.keySet())
             {    
@@ -98,18 +107,13 @@ public class savePDFModel {
                 for(FuncionarioHorasSemana data : semanal.get(numero)){
                     contentStream.showText(StringUtils.rightPad(data.getNumHoras(), 60, " "));
                     contentStream.newLineAtOffset(0, 30);
-                    contentStream.showText(StringUtils.rightPad((String)data.getFormattedDataSemana(), 50, " "));
-                    contentStream.newLineAtOffset(60, -30);
                     cont++;
                 }
                 
                 contentStream.newLineAtOffset((7-cont)*60, 0);
-                
                 contentStream.showText(FuncionarioHorasSemana.getTotalHorasSemanais(semanal.get(numero)));
-                contentStream.newLineAtOffset(-200, -30);
+                contentStream.newLineAtOffset(-630, -60);
             }
-            
-            
             
             contentStream.newLineAtOffset(-400, -50);
             contentStream.showText("Step Signature");
