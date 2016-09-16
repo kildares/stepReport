@@ -5,8 +5,10 @@
  */
 package stepReport.Util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -74,6 +76,35 @@ public final class FuncionarioHorasSemana implements Comparable{
         return list;
     }
     
+    public static Map<String,List<FuncionarioHorasSemana>> orderMap(Map<String,List<FuncionarioHorasSemana>> map){
+        
+        for(String i : map.keySet()){
+            Collections.sort(map.get(i));
+        }
+        return map;
+    }
+    
+    
+    public static List<String> obtainDatasSemana(Map<String,List<FuncionarioHorasSemana>> func){
+        List<String> lista = new ArrayList<String>();
+        for(String i : func.keySet())
+        {
+            for(FuncionarioHorasSemana horaFunc : func.get(i))
+            {
+                if(!lista.contains(horaFunc.getDataSemana()))
+                    lista.add(horaFunc.getDataSemana());
+            }
+        }
+        return lista;
+    }
+    
+    public static String getFormattedDataSemana(String dataSemana) {
+            char[] c = dataSemana.toCharArray();
+            String str =  dataSemana.substring(6, 8)+"/"+ dataSemana.substring(4, 6)
+                + "/" + dataSemana.substring(2, 4);
+        return str;
+    }
+    
     
     public String getNumHoras() {
         return numHoras;
@@ -97,8 +128,8 @@ public final class FuncionarioHorasSemana implements Comparable{
     
     
         public Object getFormattedDataSemana() {
-        char[] c = this.getDataSemana().toCharArray();
-        String str =  this.getDataSemana().substring(6, 8)+"/"+ this.getDataSemana().substring(4, 6)
+            char[] c = this.getDataSemana().toCharArray();
+            String str =  this.getDataSemana().substring(6, 8)+"/"+ this.getDataSemana().substring(4, 6)
                 + "/" + this.getDataSemana().substring(2, 4);
         
         return str;
