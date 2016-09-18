@@ -6,6 +6,8 @@
 package stepReport.control;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import stepReport.model.PeriodoModel;
 import stepReport.view.PeriodoView;
 import stepReport.view.mainScreen;
@@ -82,10 +84,9 @@ public final class PeriodoControl {
         return false;
     }
     
-    public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
-                                String hrSex, String hrSab) {
-        //return this.getModel().createCadastro(idFunc, dataSemana, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab);
-        return false;
+    public boolean createCadastro(String idFunc, String dataSemana, Map<String,List<String>> horas) {
+        return this.getModel().createCadastro(idFunc,dataSemana,horas);
+        
     }
     
 }

@@ -151,6 +151,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                     this.nomeTextField.setText(funcInfo.get(0));
                     this.nacionalidadeCombo.setSelectedItem(funcInfo.get(1));
                     this.profissaoTextField.setText(funcInfo.get(2));
+                    this.nacionalidadeCombo.setVisible(true);
                     FuncionarioView.state = FuncionarioView.EDIT;
                     
                 }catch(java.lang.IndexOutOfBoundsException ex){

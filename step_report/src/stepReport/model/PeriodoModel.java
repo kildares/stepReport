@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
@@ -37,11 +38,18 @@ public class PeriodoModel {
         return conn.update(idCadastro,Integer.parseInt(horas),taskNum,NAM,BSP, unidade);
     
     }
-    public boolean createCadastro(String dataSemana, String diaSemana, int horas, String taskNumber, String nam, String bsp, String unidade, String idFunc) {
+    public boolean createCadastro(String idFunc,String dataSemana,Map<String,List<String>> horas) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        List<FuncionarioHoras> lista = conn.findCadastro(idFunc, dataSemana);
-        if(lista!=null || lista.size()>0){
-            conn.create(dataSemana,diaSemana,horas,taskNumber,nam,bsp,unidade,idFunc);
+        
+        String nDataSemana = this.fmtDataSemana(dataSemana);
+        
+        List<FuncionarioHoras> lista = conn.findCadastro(idFunc, nDataSemana);
+        if(lista== null || lista.isEmpty())
+        {
+            for(String dia : horas.keySet()){
+                List<String> atributos = horas.get(dia);
+                conn.create(nDataSemana,dia,Integer.parseInt(atributos.get(0)),atributos.get(1),atributos.get(2),atributos.get(3),atributos.get(4),idFunc);
+            }
             return true;
         }
         return false;
@@ -274,6 +282,12 @@ public class PeriodoModel {
         //TODO obter consulta
         //List<FuncionarioHoras> horas = conn.hrsTrabSemana(periodo1,periodo2);
         return null;
+    }
+
+    private String fmtDataSemana(String dataSemana) {
+        String fmtIni = dataSemana.substring(6, 10) + dataSemana.substring(3, 5) + dataSemana.substring(0, 2);
+        return fmtIni;
+        
     }
     
     
