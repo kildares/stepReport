@@ -28,7 +28,7 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "SELECT * from cadastra_horas" +
+            String sql = "SELECT * from cadastra_horas " +
                          "WHERE data_semana >= ? "+
                          "AND data_semana <= ?";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);

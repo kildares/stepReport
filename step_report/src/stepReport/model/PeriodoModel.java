@@ -15,10 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.DAO.CadastraHorasDAO;
+import stepReport.DAO.FuncionarioDAO;
 import stepReport.DAO.RelatoriosDAO;
 import stepReport.DAOJDBCImpl.CadastraHorasDAOJDBCImpl;
+import stepReport.DAOJDBCImpl.FuncionarioDAOJDBCImpl;
 import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 
 /**
  *
@@ -275,13 +278,13 @@ public class PeriodoModel {
         //return horas;
     }
 
-    public List<String> getHorasTotaisSemanal(String dataIni, String dataFim) {
+    public List<FuncionarioHoras> getHorasTotaisSemanal(String dataIni, String dataFim) {
        String periodo1 = this.calcPeriodoCustom(dataIni);
        String periodo2 = this.calcPeriodoCustom(dataFim);
        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
         //TODO obter consulta
-        //List<FuncionarioHoras> horas = conn.hrsTrabSemana(periodo1,periodo2);
-        return null;
+        List<FuncionarioHoras> horas = conn.hrsPeriodo(periodo1,periodo2);
+        return horas;
     }
 
     private String fmtDataSemana(String dataSemana) {
@@ -289,7 +292,15 @@ public class PeriodoModel {
         return fmtIni;
         
     }
-    
-    
-    
+
+    public List<FuncionarioHorasSemana> setHoras(List<FuncionarioHorasSemana> horasSemana) 
+    {
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();    
+        for(FuncionarioHorasSemana func : horasSemana)
+        {
+            func.setNome(conn.findNomeByID(func.getIdFunc()));
+            func.setProfissao(conn.findProfissaoByID(func.getIdFunc()));
+        }
+        return horasSemana;
+    }
 }

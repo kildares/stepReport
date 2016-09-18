@@ -131,8 +131,9 @@ public final class ReportBSPView extends javax.swing.JPanel {
                     String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
                     String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                     List<FuncionarioHoras> func = this.getControl().getHorasBSPCustom(bsp,dataIni,dataFim);
-                    if(func.size()>0)
-                        this.loadTable(func,"");
+                    if(func.size()>0){
+                        this.loadTable(this.getHorasSemana(func));
+                    }
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
                 }
@@ -190,13 +191,13 @@ public final class ReportBSPView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-    private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
+    private void loadTable(List<FuncionarioHorasSemana> horas ) {
         String[] str = {"Funcionário","Horas","Período"};
         DefaultTableModel model = new DefaultTableModel(str,horas.size());
         this.reportTable.setModel(model);
         int cont=0;
-        for(FuncionarioHoras x : horas){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
+        for(FuncionarioHorasSemana x : horas){
+           // this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
             //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
             this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
             cont++;
@@ -249,5 +250,15 @@ public final class ReportBSPView extends javax.swing.JPanel {
     public Map<String, List<FuncionarioHorasSemana>> getPDFData() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
+
+    private List<FuncionarioHorasSemana> getHorasSemana(List<FuncionarioHoras> func) {
+       
+      //return FuncionarioHorasSemana.getInstances(func);
+        return null;
+    }
+
+
     
 }

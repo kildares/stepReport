@@ -15,7 +15,10 @@ import java.util.Map;
  * @author Kildare
  */
 public final class FuncionarioHorasSemana implements Comparable{
-    
+
+
+    private String idFunc;
+
     private String nome;
     private String profissao;
     private String dataSemana;
@@ -30,6 +33,15 @@ public final class FuncionarioHorasSemana implements Comparable{
         this.numHoras= this.getTotalHorasSemana(horas);
     }
     
+    public FuncionarioHorasSemana(String idFunc,String dataSemana)
+    {
+        this.idFunc = idFunc;
+        this.dataSemana=dataSemana;
+        this.numHoras= "0";
+    }
+    
+    
+    
     public String getTotalHorasSemana(List<FuncionarioHoras> horas) {
         double totHoras=0.0;
         for(FuncionarioHoras dia : horas){
@@ -37,6 +49,12 @@ public final class FuncionarioHorasSemana implements Comparable{
         }
         
         return Double.toString(totHoras);
+    }
+    
+    public void addNumHoras(String numHoras)
+    {
+        int horasSemana = Integer.parseInt(this.getNumHoras());
+        this.setNumHoras(Integer.toString(horasSemana + Integer.parseInt(numHoras)));
     }
     
     public String getNome() {
@@ -61,6 +79,15 @@ public final class FuncionarioHorasSemana implements Comparable{
 
     public void setDataSemana(String dataSemana) {
         this.dataSemana = dataSemana;
+    }
+    
+    
+    public String getIdFunc() {
+        return idFunc;
+    }
+
+    public void setIdFunc(String idFunc) {
+        this.idFunc = idFunc;
     }
 
     public static String getTotalHorasSemanais(List<FuncionarioHorasSemana> list){
@@ -134,6 +161,32 @@ public final class FuncionarioHorasSemana implements Comparable{
         
         return str;
     }
-    
+        
+    public static List<FuncionarioHorasSemana> parseFuncionarioHorasSemana(List<FuncionarioHoras> horas) {
+        
+        List<FuncionarioHorasSemana> list = new ArrayList<FuncionarioHorasSemana>();
+        FuncionarioHorasSemana actual = null;
+        
+        for(FuncionarioHoras hora : horas){
+            boolean isFound = false;
+            for(FuncionarioHorasSemana func : list)
+            {
+                if(hora.getIdFunc().equals(func.getIdFunc())&&hora.getDataSemana().equals(func.getDataSemana()))
+                {
+                    func.addNumHoras(hora.getHoras());
+                    isFound=true;
+                    break;
+                }
+                
+            }
+            if(!isFound){
+                actual = new FuncionarioHorasSemana(hora.getIdFunc(),hora.getDataSemana());
+                list.add(actual);
+            }
+        }
+        
+        
+        return list;
+    }
 
 }

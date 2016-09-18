@@ -5,13 +5,10 @@
  */
 package stepReport.control;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
-import stepReport.DAO.RelatoriosDAO;
-import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.model.PeriodoModel;
@@ -248,8 +245,12 @@ public final class ReportControl {
         this.getScreen().isPrintable(option);
     }
 
-    public List<String> getHorasTotaisSemanal(java.lang.String dataIni, java.lang.String dataFim) {
+    public List<FuncionarioHoras> getHorasTotaisSemanal(String dataIni, String dataFim) {
         return this.getPeriodoModel().getHorasTotaisSemanal(dataIni,dataFim);
+    }
+
+    public List<FuncionarioHorasSemana> setHoras(List<FuncionarioHorasSemana> horasSemana) {
+        return this.getPeriodoModel().setHoras(horasSemana);
     }
 
 

@@ -9,7 +9,7 @@ package stepReport.Util;
  *
  * @author Kildare
  */
-public class FuncionarioHoras {
+public class FuncionarioHoras implements Comparable{
     private String idHoras;
     private String idFunc;
     private String nomeFunc;
@@ -130,6 +130,11 @@ public class FuncionarioHoras {
                 + "/" + this.getDataSemana().substring(0, 4);
         
         return str;
+    }
+
+    @Override
+    public int compareTo(Object outroDia) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

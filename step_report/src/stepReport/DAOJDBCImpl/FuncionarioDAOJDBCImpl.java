@@ -147,6 +147,29 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
         return null;
     }
     
+    @Override
+    public String findProfissaoByID(String id) {
+       try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String sql = "SELECT profissao FROM funcionario "+
+                               "WHERE id=?";
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+            prepStatement.setString(1, id);
+            ResultSet rs = prepStatement.executeQuery();
+            
+            if(rs.next()){
+                String nFunc = rs.getString("profissao");
+                conexao.close();
+                return nFunc;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     
     
 }

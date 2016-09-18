@@ -8,6 +8,7 @@ package stepReport.reports.view;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -59,6 +60,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         reportScrollPane = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
         confirmarButton = new javax.swing.JButton();
+        totalHorasLabel = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -98,9 +100,14 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        reportTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportTableMouseClicked(evt);
+            }
+        });
         reportScrollPane.setViewportView(reportTable);
 
-        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 670, 220));
+        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 670, 220));
 
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         confirmarButton.setText("CONFIRMAR");
@@ -109,7 +116,11 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, -1, 45));
+
+        totalHorasLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        totalHorasLabel.setText("Funcionário:");
+        add(totalHorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 260, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
@@ -119,17 +130,34 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
             {
                 String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
                 String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
-                /*List<FuncionarioHoras> func = this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
+                List<FuncionarioHoras> func = this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
                 if(func.size()>0)
-                    this.loadTable(func,"");
+                    this.loadTable(func);
                 else
-                    JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");*/
+                    JOptionPane.showMessageDialog(new JFrame(), "Nenhum funcionário encontrado");
             }
             else
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Datas fornecidas são inválidas");
             
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
+
+    private void reportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportTableMouseClicked
+        // TODO add your handling code here:
+        String nome = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 0);
+        String profissao = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 1);
+        
+        int cont=0;
+        for(int i=0;i<this.reportTable.getRowCount();i++){
+            if(this.reportTable.getValueAt(i, 0).equals(nome) && this.reportTable.getValueAt(i, 1).equals(profissao)){
+                cont+= Integer.parseInt((String) this.reportTable.getValueAt(i, 3));
+            }
+        }
+        
+        String text = "<html>Funcionário: "+ nome +"<br/>Total de horas: " + Integer.toString(cont)+"</html>";
+        this.totalHorasLabel.setText(text);
+        this.totalHorasLabel.setVisible(true);
+    }//GEN-LAST:event_reportTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -139,6 +167,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
     private javax.swing.JLabel semana1Label;
     private javax.swing.JLabel semana2Label;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel totalHorasLabel;
     // End of variables declaration//GEN-END:variables
 
     public ReportControl getControl() {
@@ -167,18 +196,22 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
     }
     
     
-      private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
-        String[] str = {"Funcionário","Profissão","Horas","Total"};
-        DefaultTableModel model = new DefaultTableModel(str,horas.size());
+    private void loadTable(List<FuncionarioHoras> horas) {
+          
+        List<FuncionarioHorasSemana> horasSemana = FuncionarioHorasSemana.parseFuncionarioHorasSemana(horas);
+        horasSemana = this.getControl().setHoras(horasSemana);
+        String[] str = {"Funcionário","Profissão","Semana","Horas"};
+        DefaultTableModel model = new DefaultTableModel(str,horasSemana.size());
         this.reportTable.setModel(model);
         int cont=0;
-        for(FuncionarioHoras x : horas){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
+        for(FuncionarioHorasSemana x : horasSemana){
+            this.reportTable.setValueAt(x.getNome(), cont, 0);
+            this.reportTable.setValueAt(x.getProfissao(), cont, 1);
+            this.reportTable.setValueAt(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana()), cont, 2);
+            this.reportTable.setValueAt(x.getNumHoras(), cont, 3);
             cont++;
         }
-        this.reportTable.setEnabled(false);
+        this.reportTable.setEnabled(true);
         this.reportScrollPane.setVisible(true);
     }
 
@@ -192,6 +225,8 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         
         this.FimDatePicker.getJFormattedTextField().setText("");
         this.FimDatePicker.getJFormattedTextField().setEditable(true);
+        this.totalHorasLabel.setText("");
+        this.totalHorasLabel.setVisible(false);
         
         ReportHorasSemanal.state = ReportHorasSemanal.BUSCA;
     }
@@ -220,7 +255,8 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         
     }
 
-    public Map<String,List<FuncionarioHorasSemana>> getPDFData() {
+    public Map<String,List<FuncionarioHorasSemana>> getPDFData() 
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
