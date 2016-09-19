@@ -31,7 +31,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private static int state;
     
     private static final int BUSCA = 1;        
-    
+    private static List<FuncionarioHoras> horasFuncionarios;
     
     /**
      * Creates new form reportHora
@@ -62,6 +62,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         reportTable = new javax.swing.JTable();
         semana1Label = new javax.swing.JLabel();
         semana2Label = new javax.swing.JLabel();
+        totalHorasLabel = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -80,7 +81,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 500, -1, 45));
 
         nacionalidadeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -109,9 +110,14 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        reportTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportTableMouseClicked(evt);
+            }
+        });
         reportScrollPane.setViewportView(reportTable);
 
-        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 670, 110));
+        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 670, 110));
 
         semana1Label.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         semana1Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -122,19 +128,25 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         semana2Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         semana2Label.setText("Semana Final:");
         add(semana2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, -1));
+
+        totalHorasLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        totalHorasLabel.setText("Funcionário:");
+        add(totalHorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 260, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
        
-        if(ReportNacionalidadeView.state == ReportNacionalidadeView.BUSCA){
+        if(ReportNacionalidadeView.state == ReportNacionalidadeView.BUSCA)
+        {
         
             if(this.validDate())              
             {
                 String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
                 String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
-                List<FuncionarioHoras> func = this.getControl().getHorasNationCustom((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
+                List<FuncionarioHoras> func = this.getControl().getHorasNation((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
+                ReportNacionalidadeView.horasFuncionarios = func;
                 if(func.size()>0)
-                    this.loadTable(func,"");
+                    this.loadTable();
                 else
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
             }
@@ -144,6 +156,25 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_confirmarButtonActionPerformed
+
+    private void reportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportTableMouseClicked
+        // TODO add your handling code here:
+        String nome = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 0);
+        String profissao = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 1);
+        
+        int cont=0;
+        for(int i=0;i<this.reportTable.getRowCount();i++){
+            if(this.reportTable.getValueAt(i, 0).equals(nome) && this.reportTable.getValueAt(i, 1).equals(profissao)){
+                cont+= Integer.parseInt((String) this.reportTable.getValueAt(i, 3));
+            }
+        }
+        
+        String text = "<html>Funcionário: "+ nome +"<br/>Total de horas: " + Integer.toString(cont)+"</html>";
+        this.totalHorasLabel.setText(text);
+        this.totalHorasLabel.setVisible(true);
+        
+        
+    }//GEN-LAST:event_reportTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -156,6 +187,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JLabel semana1Label;
     private javax.swing.JLabel semana2Label;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel totalHorasLabel;
     // End of variables declaration//GEN-END:variables
     
     public void insertDatePicker(){
@@ -185,7 +217,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
 
     public void loadNationReport() {
         this.titleLabel.setText("Relatório de Nacionalidade");
-        this.confirmarButton.setText("Gerar");
+        this.confirmarButton.setText("CONFIRMAR");
         this.InitDatePicker.getJFormattedTextField().setText("");
         this.InitDatePicker.getJFormattedTextField().setEditable(true);
         
@@ -195,21 +227,29 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         this.InitDatePicker.setVisible(true);
         this.FimDatePicker.setVisible(true);
         this.reportScrollPane.setVisible(false);
+        
+        this.totalHorasLabel.setText("");
+        this.totalHorasLabel.setVisible(false);
         ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
     }
 
-    private void loadTable(List<FuncionarioHoras> func,String dataBusca) {
-        String[] str = {"Funcionário","Horas","Período"};
-        DefaultTableModel model = new DefaultTableModel(str,func.size());
+    private void loadTable() {
+        
+        List<FuncionarioHorasSemana> horasSemana = FuncionarioHorasSemana.parseFuncionarioHorasSemana(ReportNacionalidadeView.horasFuncionarios);
+        horasSemana = this.getControl().setHoras(horasSemana);
+    
+        String[] str = {"Funcionário","Profissão","Semana","Horas"};
+        DefaultTableModel model = new DefaultTableModel(str,horasSemana.size());
         this.reportTable.setModel(model);
         int cont=0;
-        for(FuncionarioHoras x : func){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
+        for(FuncionarioHorasSemana x : horasSemana){
+            this.reportTable.setValueAt(x.getNome(), cont, 0);
+            this.reportTable.setValueAt(x.getProfissao(), cont, 1);
+            this.reportTable.setValueAt(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana()), cont, 2);
+            this.reportTable.setValueAt(x.getNumHoras(), cont, 3);
             cont++;
         }
-        this.reportTable.setEnabled(false);
+        this.reportTable.setEnabled(true);
         this.reportScrollPane.setVisible(true);
     }
 

@@ -148,32 +148,17 @@ public class PeriodoModel {
         return fmtData;
     }
 
-    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade,String Ano) {
-        String periodo[] = this.calcPeriodoAno(Ano);
+
+
+    public List<FuncionarioHoras> getHorasNation(String Nacionalidade, String dataIni,String dataFim) {
         
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
-        //return horas;
-        return null;
-    }
-
-
-    public List<FuncionarioHoras> getHorasNationMes(String Nacionalidade, String Mes) {
-        String periodo[] = this.calcPeriodoMes(Mes);
-        
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
-        //return horas;
-        return null;
-    }
-
-    public List<FuncionarioHoras> getNationCustom(String Nacionalidade, String dataIni, String dataFim) {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
+        
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo1,periodo2);
-        //return horas;
-        return null;
+        
+       List<FuncionarioHoras> horas = conn.hrsPeriodoByNacionalidade(Nacionalidade, periodo1,periodo2);
+       return horas;
     }
 
     public List<FuncionarioHoras> getHorasBSPAno(String Bsp, String Ano) {

@@ -128,22 +128,10 @@ public final class ReportControl {
         this.getReportNacionalidadeView().setVisible(true);
     }
 
-    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade, String Ano) {
-        
-        return this.getPeriodoModel().getHorasNationAno(Nacionalidade,Ano);
-    }
-    
-    public List<FuncionarioHoras> getHorasNationMes(String nacionalidade, String mes) 
-    {
-        
-        return this.getPeriodoModel().getHorasNationMes(nacionalidade,mes);
-    }
-    
-    
-    public List<FuncionarioHoras> getHorasNationCustom(String Nacionalidade,String dataIni,String dataFim) {
+    public List<FuncionarioHoras> getHorasNation(String Nacionalidade,String dataIni,String dataFim) {
     
         
-        return this.getPeriodoModel().getNationCustom(Nacionalidade,dataIni,dataFim);
+        return this.getPeriodoModel().getHorasNation(Nacionalidade,dataIni,dataFim);
         
     }
     
