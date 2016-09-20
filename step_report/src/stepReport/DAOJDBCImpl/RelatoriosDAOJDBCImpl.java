@@ -61,7 +61,35 @@ public class RelatoriosDAOJDBCImpl implements RelatoriosDAO {
 
     @Override
     public List<FuncionarioHoras> hrsPeriodoByTaskNumber(String taskNumber, String dataSemIni, String dataSemFim) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String sql = "SELECT * from cadastra_horas " +
+                         "WHERE data_semana >= ? "+
+                         "AND data_semana <= ? "+
+                         "AND task_number = ? ";
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+            prepStatement.setString(1,dataSemIni);
+            prepStatement.setString(2, dataSemFim);
+            prepStatement.setString(3,taskNumber);
+            ResultSet rs = prepStatement.executeQuery();
+            List<FuncionarioHoras> list = new ArrayList<FuncionarioHoras>();
+            while(rs.next()){
+                FuncionarioHoras info = new FuncionarioHoras(rs.getString("id"),rs.getString("id_func"),
+                                        rs.getString("data_semana"),rs.getString("dia_semana"),rs.getString("horas"),
+                                        rs.getString("task_number"),rs.getString("nam"),rs.getString("bsp"),
+                                        rs.getString("unidade"));
+                list.add(info);
+            }
+            conexao.close();
+
+            return list;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override

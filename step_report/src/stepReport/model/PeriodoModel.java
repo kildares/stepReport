@@ -208,9 +208,9 @@ public class PeriodoModel {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo1,periodo2);
-        //return horas;
-        return null;
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByTaskNumber(task, periodo1,periodo2);
+        return horas;
+        
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {

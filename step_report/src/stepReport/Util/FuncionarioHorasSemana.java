@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 public final class FuncionarioHorasSemana implements Comparable{
 
+   
 
     private String idFunc;
 
@@ -181,12 +183,23 @@ public final class FuncionarioHorasSemana implements Comparable{
             }
             if(!isFound){
                 actual = new FuncionarioHorasSemana(hora.getIdFunc(),hora.getDataSemana());
+                actual.addNumHoras(hora.getHoras());
                 list.add(actual);
             }
         }
-        
-        
         return list;
     }
+    
+     public static Vector getSemanas(List<FuncionarioHorasSemana> horasSemana) {
+         Vector<String> datas = new Vector<String>();
+         
+         for(FuncionarioHorasSemana func : horasSemana){
+             if(!datas.contains(FuncionarioHorasSemana.getFormattedDataSemana(func.getDataSemana())))
+                 datas.add(FuncionarioHorasSemana.getFormattedDataSemana(func.getDataSemana()));
+         }
+             
+         return datas;
+    }
+
 
 }

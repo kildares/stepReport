@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -62,9 +63,6 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         reportTable = new javax.swing.JTable();
         semana1Label = new javax.swing.JLabel();
         semana2Label = new javax.swing.JLabel();
-        totalHorasLabel = new javax.swing.JLabel();
-        diasScrollPane = new javax.swing.JScrollPane();
-        diasTable = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -83,7 +81,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 530, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, -1, 45));
 
         nacionalidadeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nacionalidadeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -119,7 +117,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         });
         reportScrollPane.setViewportView(reportTable);
 
-        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 670, 110));
+        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 670, 210));
 
         semana1Label.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         semana1Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -130,22 +128,6 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         semana2Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         semana2Label.setText("Semana Final:");
         add(semana2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, -1));
-
-        totalHorasLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        totalHorasLabel.setText("Funcionário:");
-        add(totalHorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 630, 60));
-
-        diasTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Horas", "Task", "NAM", "BSP", "Unidade"
-            }
-        ));
-        diasScrollPane.setViewportView(diasTable);
-
-        add(diasScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 490, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
@@ -172,84 +154,13 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
     private void reportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportTableMouseClicked
-        // TODO add your handling code here:
-         String nome = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 1);
-        String profissao = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 2);
-        
-        int cont=0;
-        for(int i=0;i<this.reportTable.getRowCount();i++){
-            if(this.reportTable.getValueAt(i, 1).equals(nome) && this.reportTable.getValueAt(i, 2).equals(profissao)){
-                cont+= Integer.parseInt((String) this.reportTable.getValueAt(i, 4));
-            }
-        }
-        
-        String text = "Funcionário: "+ nome +"          Total de horas: " + Integer.toString(cont);
-        this.totalHorasLabel.setText(text);
-        this.totalHorasLabel.setVisible(true);
-        
-        String titulo[] = {"Horas","Task","NAM","BSP","Unidade"};
-        DefaultTableModel model = new DefaultTableModel(titulo,7);
-        this.diasTable.setModel(model);
-        cont=0;
-        
-        for(FuncionarioHoras x : ReportNacionalidadeView.horasFuncionarios)
-        {
-            String dataX = FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana());
-            String dataTable = (String) this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 3);
-            
-            if(x.getIdFunc().equals(this.reportTable.getValueAt(this.reportTable.getSelectedRow(), 0))
-             && dataX.equals(dataTable))
-            {
-                if(x.getDiaSemana().equals("seg")){
-                    cont=0;
-                    this.diasTable.setValueAt("Segunda",cont, 0);
-                }
-                if(x.getDiaSemana().equals("ter")){
-                    cont=1;
-                    this.diasTable.setValueAt("Terça",cont, 0);
-                }
-                if(x.getDiaSemana().equals("qua")){
-                    cont=2;
-                    this.diasTable.setValueAt("Quarta",cont, 0);
-                }
-                if(x.getDiaSemana().equals("qui")){
-                    cont=3;
-                    this.diasTable.setValueAt("Quinta",cont, 0);
-                }
-                if(x.getDiaSemana().equals("sex")){
-                    cont=4;
-                    this.diasTable.setValueAt("Sexta",cont, 0);
-                }
-                if(x.getDiaSemana().equals("sab")){
-                    cont=5;
-                    this.diasTable.setValueAt("Sabado",cont, 0);
-                }
-                if(x.getDiaSemana().equals("dom")){
-                    cont=6;
-                    this.diasTable.setValueAt("Domingo",cont, 0);
-                }
-                
-                this.diasTable.setValueAt(x.getTaskNumber(), cont, 1);
-                this.diasTable.setValueAt(x.getNam(), cont, 2);
-                this.diasTable.setValueAt(x.getBsp(), cont, 3);
-                this.diasTable.setValueAt(x.getUnidade(), cont, 4);
-            }        
-        }
-        
-        this.diasScrollPane.setVisible(true);
-        this.diasTable.setEnabled(false);
-        
-        this.reportTable.setEnabled(true);
-        this.reportScrollPane.setVisible(true);
-        
+     
     }//GEN-LAST:event_reportTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton confirmarButton;
-    private javax.swing.JScrollPane diasScrollPane;
-    private javax.swing.JTable diasTable;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel1;
     private javax.swing.JScrollPane reportScrollPane;
@@ -257,7 +168,6 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
     private javax.swing.JLabel semana1Label;
     private javax.swing.JLabel semana2Label;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel totalHorasLabel;
     // End of variables declaration//GEN-END:variables
     
     public void insertDatePicker(){
@@ -298,10 +208,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         this.FimDatePicker.setVisible(true);
         this.reportScrollPane.setVisible(false);
         
-        this.totalHorasLabel.setText("");
-        this.totalHorasLabel.setVisible(false);
-        
-        this.diasScrollPane.setVisible(false);
+       
         ReportNacionalidadeView.state = ReportNacionalidadeView.BUSCA;
     }
 
@@ -309,20 +216,56 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         
         List<FuncionarioHorasSemana> horasSemana = FuncionarioHorasSemana.parseFuncionarioHorasSemana(ReportNacionalidadeView.horasFuncionarios);
         horasSemana = this.getControl().setHoras(horasSemana);
-        String[] str = {"Numero","Nome","Profissão","Semana","Horas"};
-        DefaultTableModel model = new DefaultTableModel(str,horasSemana.size());
+        Vector colunas = FuncionarioHorasSemana.getSemanas(horasSemana);
+        
+        colunas.add(0, "Profissão");
+        colunas.add(0,"Nome");
+        colunas.add(0,"Número");
+        colunas.add("Total");
+        
+        DefaultTableModel model = new DefaultTableModel(colunas,horasSemana.size());
         this.reportTable.setModel(model);
-        int cont=0;
+        int nextRow =0;
         for(FuncionarioHorasSemana x : horasSemana){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getNome(), cont, 1);
-            this.reportTable.setValueAt(x.getProfissao(), cont, 2);
-            this.reportTable.setValueAt(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana()), cont, 3);
-            this.reportTable.setValueAt(x.getNumHoras(), cont, 4);
-            cont++;
+            boolean isFound=false;
+            int num=0;
+            int rowCount =this.reportTable.getRowCount(); 
+            for(int i=0;i<rowCount;i++)
+            {
+                String valueAt =(String) this.reportTable.getValueAt(i, 0);
+                String idFunc = x.getIdFunc();
+                String valueAt2 = (String) this.reportTable.getValueAt(i, 1);
+                String nome = x.getNome();
+                if(!(valueAt==null&&valueAt2==null)&&valueAt.equals(idFunc) && valueAt2.equals(nome)){
+                    num=i;
+                    isFound=true;
+                }
+            }
+            if(!isFound)
+            {
+                this.reportTable.setValueAt(x.getIdFunc(), nextRow, 0);
+                this.reportTable.setValueAt(x.getNome(), nextRow, 1);
+                this.reportTable.setValueAt(x.getProfissao(), nextRow, 2);
+                String fmtDataSemana = FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana());
+                int indexOf = colunas.indexOf(fmtDataSemana);
+                this.reportTable.setValueAt(x.getNumHoras(), nextRow, indexOf);
+                nextRow++;
+            }
+            else
+                this.reportTable.setValueAt(x.getNumHoras(),num,colunas.indexOf(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana())));
         }
         this.reportTable.setEnabled(true);
         this.reportScrollPane.setVisible(true);
+        
+        for(int i=0;i<this.reportTable.getRowCount();i++)
+        {
+            int horas=0;
+            for(int j=3;j<colunas.size()-1;j++){
+                if(this.reportTable.getValueAt(i, j)!=null)
+                    horas+= Integer.parseInt((String) this.reportTable.getValueAt(i, j));
+            }
+            this.reportTable.setValueAt(Integer.toString(horas), i, colunas.size()-1);
+        }
     }
 
     public Map<String,List<FuncionarioHorasSemana>> getPDFData() {

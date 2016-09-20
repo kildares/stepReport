@@ -65,6 +65,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         totalHorasLabel = new javax.swing.JLabel();
         diasScrollPane = new javax.swing.JScrollPane();
         diasTable = new javax.swing.JTable();
+        funcionarioLabel = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -111,7 +112,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         });
         reportScrollPane.setViewportView(reportTable);
 
-        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 670, 130));
+        add(reportScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 670, 130));
 
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         confirmarButton.setText("CONFIRMAR");
@@ -120,11 +121,11 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
                 confirmarButtonActionPerformed(evt);
             }
         });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, -1, 45));
+        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 470, -1, 45));
 
         totalHorasLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        totalHorasLabel.setText("Funcionário:");
-        add(totalHorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 260, 60));
+        totalHorasLabel.setText("Total de Horas:");
+        add(totalHorasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 490, 30));
 
         diasTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,7 +137,11 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         ));
         diasScrollPane.setViewportView(diasTable);
 
-        add(diasScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 490, 150));
+        add(diasScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 490, 150));
+
+        funcionarioLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        funcionarioLabel.setText("Funcionário:");
+        add(funcionarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 490, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
@@ -171,8 +176,10 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
             }
         }
         
-        String text = "<html>Funcionário: "+ nome +"<br/>Total de horas: " + Integer.toString(cont)+"</html>";
-        this.totalHorasLabel.setText(text);
+         
+        this.funcionarioLabel.setText("Funcionário: "+ nome +"");
+        this.funcionarioLabel.setVisible(true);
+        this.totalHorasLabel.setText("Total de Horas: "+Integer.toString(cont));
         this.totalHorasLabel.setVisible(true);
         
         String titulo[] = {"Horas","Task","NAM","BSP","Unidade"};
@@ -239,6 +246,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
     private javax.swing.JButton confirmarButton;
     private javax.swing.JScrollPane diasScrollPane;
     private javax.swing.JTable diasTable;
+    private javax.swing.JLabel funcionarioLabel;
     private javax.swing.JScrollPane reportScrollPane;
     private javax.swing.JTable reportTable;
     private javax.swing.JLabel semana1Label;
@@ -305,6 +313,7 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         this.FimDatePicker.getJFormattedTextField().setEditable(true);
         this.totalHorasLabel.setText("");
         this.totalHorasLabel.setVisible(false);
+        this.funcionarioLabel.setVisible(false);
         
         this.diasScrollPane.setVisible(false);
         ReportHorasSemanal.state = ReportHorasSemanal.BUSCA;
