@@ -198,7 +198,7 @@ public final class ReportControl {
     {
         Map<String,List<FuncionarioHorasSemana>> list = null;
         if(active instanceof ReportBSPView){
-            list = this.getReportBSPView().getPDFData();
+           // list = this.getReportBSPView().getPDFData();
         }
         else if(active instanceof ReportNacionalidadeView){
             list = this.getReportNacionalidadeView().getPDFData();
@@ -213,7 +213,7 @@ public final class ReportControl {
             list = this.getReportHorasMensal().getPDFData();
         }
         
-        this.getSaverPDF().savePDFSemanal(file,list);
+        //this.getSavePDF().savePDFSemanal(file,list);
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {

@@ -182,9 +182,9 @@ public class PeriodoModel {
        String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByBsp(bsp, periodo1,periodo2);
-        //return horas;
-        return null;
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByBsp(bsp, periodo1,periodo2);
+        return horas;
+        
     }
 
     public List<FuncionarioHoras> getHorasTaskAno(String task, String Ano) {
@@ -233,9 +233,8 @@ public class PeriodoModel {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        //List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo1,periodo2);
-        //return horas;
-        return null;
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByUnidade(Unidade, periodo1,periodo2);
+        return horas;
     }
 
     public List<FuncionarioHoras> getHorasUnidadeMes(String mes) {

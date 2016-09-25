@@ -8,12 +8,12 @@ package stepReport.reports.view;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
@@ -24,6 +24,8 @@ import stepReport.control.ReportControl;
  */
 public final class ReportUnidadeView extends javax.swing.JPanel {
 
+   
+
     private ReportControl Control;
     private JDatePickerImpl InitDatePicker;
     private JDatePickerImpl FimDatePicker;
@@ -31,6 +33,7 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
     private static int state;
     
     private static final int BUSCA = 1;  
+    private static List<FuncionarioHoras> horasFuncionarios;
     
     /**
      * Creates new form ReportBSPView
@@ -66,7 +69,7 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
 
         taskLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         taskLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        taskLabel.setText("Task Number:");
+        taskLabel.setText("Unidade:");
         add(taskLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 170, -1));
 
         titleLabel.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
@@ -130,8 +133,9 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
                 String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
                 String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                 List<FuncionarioHoras> func = this.getControl().getHorasUnidadeCustom(task,dataIni,dataFim);
+                ReportUnidadeView.horasFuncionarios = func;
                 if(func.size()>0)
-                    this.loadTable(func,"");
+                    this.loadTable();
                 else
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
             }
@@ -181,19 +185,60 @@ public final class ReportUnidadeView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-      private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
-        String[] str = {"Funcionário","Horas","Período"};
-        DefaultTableModel model = new DefaultTableModel(str,horas.size());
+        private void loadTable() {
+        
+        List<FuncionarioHorasSemana> horasSemana = FuncionarioHorasSemana.parseFuncionarioHorasSemana(ReportUnidadeView.horasFuncionarios);
+        horasSemana = this.getControl().setHoras(horasSemana);
+        Vector colunas = FuncionarioHorasSemana.getSemanas(horasSemana);
+        
+        colunas.add(0, "Profissão");
+        colunas.add(0,"Nome");
+        colunas.add(0,"Número");
+        colunas.add("Total");
+        
+        DefaultTableModel model = new DefaultTableModel(colunas,horasSemana.size());
         this.reportTable.setModel(model);
-        int cont=0;
-        for(FuncionarioHoras x : horas){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            //this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
-            cont++;
+        int nextRow =0;
+        for(FuncionarioHorasSemana x : horasSemana){
+            boolean isFound=false;
+            int num=0;
+            int rowCount =this.reportTable.getRowCount(); 
+            for(int i=0;i<rowCount;i++)
+            {
+                String valueAt =(String) this.reportTable.getValueAt(i, 0);
+                String idFunc = x.getIdFunc();
+                String valueAt2 = (String) this.reportTable.getValueAt(i, 1);
+                String nome = x.getNome();
+                if(!(valueAt==null&&valueAt2==null)&&valueAt.equals(idFunc) && valueAt2.equals(nome)){
+                    num=i;
+                    isFound=true;
+                }
+            }
+            if(!isFound)
+            {
+                this.reportTable.setValueAt(x.getIdFunc(), nextRow, 0);
+                this.reportTable.setValueAt(x.getNome(), nextRow, 1);
+                this.reportTable.setValueAt(x.getProfissao(), nextRow, 2);
+                String fmtDataSemana = FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana());
+                int indexOf = colunas.indexOf(fmtDataSemana);
+                this.reportTable.setValueAt(x.getNumHoras(), nextRow, indexOf);
+                nextRow++;
+            }
+            else
+                this.reportTable.setValueAt(x.getNumHoras(),num,colunas.indexOf(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana())));
         }
-        this.reportTable.setEnabled(false);
+        this.reportTable.setEnabled(true);
         this.reportScrollPane.setVisible(true);
+        
+        for(int i=0;i<this.reportTable.getRowCount();i++)
+        {
+            int horas=0;
+            for(int j=3;j<colunas.size()-1;j++){
+                if(this.reportTable.getValueAt(i, j)!=null)
+                    horas+= Integer.parseInt((String) this.reportTable.getValueAt(i, j));
+            }
+            this.reportTable.setValueAt(Integer.toString(horas), i, colunas.size()-1);
+        }
     }
 
     public void loadUnidadeReport() {
