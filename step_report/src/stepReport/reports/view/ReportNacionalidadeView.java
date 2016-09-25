@@ -142,7 +142,10 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
                 List<FuncionarioHoras> func = this.getControl().getHorasNation((String)this.nacionalidadeCombo.getSelectedItem(),dataIni,dataFim);
                 ReportNacionalidadeView.horasFuncionarios = func;
                 if(func.size()>0)
+                {
                     this.loadTable();
+                    this.getControl().isPrintable(true);
+                }
                 else
                     JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
             }
@@ -223,7 +226,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         colunas.add(0,"Número");
         colunas.add("Total");
         
-        DefaultTableModel model = new DefaultTableModel(colunas,horasSemana.size());
+        DefaultTableModel model = new DefaultTableModel(colunas,FuncionarioHorasSemana.obtainIdFuncionarios(horasSemana).size());
         this.reportTable.setModel(model);
         int nextRow =0;
         for(FuncionarioHorasSemana x : horasSemana){
@@ -268,15 +271,21 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         }
     }
 
-    public Map<String,List<FuncionarioHorasSemana>> getPDFData() {
+    public String[][] getPDFData() 
+    {
+        int rows = this.reportTable.getRowCount()+1;
+        int column = this.reportTable.getColumnCount();
+        String[][] table= new String[rows][column-1];
+        for(int i=1;i<column;i++)
+            table[0][i-1] = this.reportTable.getColumnName(i);
         
-        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
-        
-        int numRow = this.reportTable.getRowCount();
-        for(int i=0;i<numRow;i++){
-            //func.add(new FuncionarioHoras((String)this.reportTable.getValueAt(i, 0),(String)this.reportTable.getValueAt(i, 1),(String)this.reportTable.getValueAt(i, 2)));
+        for(int i=1;i<rows;i++){
+            for(int j=1;j<column;j++){
+                String val = (String) this.reportTable.getValueAt(i-1, j);
+                table[i][j-1] = (val==null) ? "" : val;
+            }
         }
-        return null;
+        return table;
     }
 
        private boolean validDate() {
@@ -300,5 +309,35 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
             return false;
 
         return true;
+    }
+
+     public int getNumWeeks() {
+        Calendar c1 = Calendar.getInstance();
+        String origem = this.InitDatePicker.getJFormattedTextField().getText();
+        c1.set(Integer.parseInt(origem.substring(6, 10)), Integer.parseInt(origem.substring(3, 5)), Integer.parseInt(origem.substring(0, 2)));
+        
+        Calendar c2 = Calendar.getInstance();
+        String destino = this.FimDatePicker.getJFormattedTextField().getText();
+        c2.set(Integer.parseInt(destino.substring(6, 10)), Integer.parseInt(destino.substring(3, 5)), Integer.parseInt(destino.substring(0, 2)));
+        
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        int nbJours = 0;
+        for (Calendar c = c1 ; c.before(c2) ; c.add(Calendar.DATE, +1))
+        {
+            nbJours++;
+        }
+        for (Calendar c = c1 ; c.after(c2) ; c.add(Calendar.DATE, -1))
+        {
+            nbJours--;
+        }
+        nbJours = nbJours/7;
+       return nbJours;
     }
 }

@@ -13,6 +13,8 @@ import java.io.InputStream;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -80,10 +82,12 @@ public class savePDFModel {
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
                 //Gira a pagina em 90 graus
                 contentStream.transform(new Matrix(0,1,-1,0,pageWidth,0));
-                
+
                 PDImageXObject pdImage = PDImageXObject.createFromFile("./step2.png", document);
+                
                 contentStream.drawImage(pdImage, 30, 520);
                 
+               
                 
                 //Define a cor da letra
                 contentStream.setNonStrokingColor(Color.BLACK);
@@ -136,7 +140,7 @@ public class savePDFModel {
                     String profissao = this.formatProfissao(matrizDados[i+k][1]);
                     String linha = nome + profissao;
                     for(int j=2;j<matrizDados[i].length;j++)
-                        linha += StringUtils.rightPad(matrizDados[i+k][j],12);
+                        linha += StringUtils.rightPad(matrizDados[i+k][j],10);
                     
                     contentStream.showText(linha);
                     contentStream.newLine();
@@ -161,7 +165,7 @@ public class savePDFModel {
                     }
                     String linhaTot = StringUtils.rightPad("Totais",36);
                     for(int i=0;i<totais.length;i++){
-                        linhaTot +=StringUtils.rightPad(totais[i].toString(),12);
+                        linhaTot +=StringUtils.rightPad(totais[i].toString(),10);
                     }
                     contentStream.showText(linhaTot);
                     //Imprime a linha de assinatura
@@ -172,6 +176,11 @@ public class savePDFModel {
                 
 
             } 
+            catch(javax.imageio.IIOException ex)
+            {
+                JOptionPane.showMessageDialog(new JFrame(), "Imagem step2.png não encontrada");
+                return;
+            }
             catch (IOException ex) 
             {
                 Logger.getLogger(savePDFModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,14 +193,14 @@ public class savePDFModel {
         } catch (IOException ex) {
             Logger.getLogger(savePDFModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
-        
     }
 
     //Formata um nome para ser exibido no relatorio, caso seja maior que 25 caracteres.
-    private String formatName(String nome) {
+    private String formatName(String nome) 
+    {
+        if(nome==null){
+            return StringUtils.rightPad("",20);
+        }
         if(nome.length()>20){
             String[] divNome = nome.split(" ");
             nome = "";
@@ -207,11 +216,13 @@ public class savePDFModel {
                 nome = nome.substring(0, 17) + "...";
         }
         nome = StringUtils.rightPad(nome, 20);
-        int tam = nome.length();
         return nome;
     }
 
     private String formatProfissao(String profissao) {
+        if(profissao==null){
+            return StringUtils.rightPad("",16);
+        }
         profissao = profissao.toLowerCase();
         if(profissao.length()>15)
             profissao = profissao.substring(0, 12) + "...";

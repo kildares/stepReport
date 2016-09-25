@@ -5,7 +5,9 @@
  */
 package stepReport.reports.view;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -153,8 +155,10 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
                 String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                 List<FuncionarioHoras> func = this.getControl().getHorasTotaisSemanal(dataIni,dataFim);
                 ReportHorasSemanal.horasFuncionarios = func;
-                if(func.size()>0)
+                if(func.size()>0){
                     this.loadTable();
+                    this.getControl().isPrintable(true);
+                }
                 else
                     JOptionPane.showMessageDialog(new JFrame(), "Nenhum funcionário encontrado");
             }
@@ -343,9 +347,112 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
         
     }
 
-    public Map<String,List<FuncionarioHorasSemana>> getPDFData() 
+    public String[][] getPDFData() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = this.reportTable.getRowCount();
+        int column = this.reportTable.getColumnCount();
+        Map<String,List<String>> funcs = new HashMap<String,List<String>>();
+        
+        //Separa a tabela em um hash map, onde a chave e composta de nome e profissao
+        //o conteudo e uma lista, onde cada indice e composta da semana e da hora, sempre separados por ';'
+        List<String> semanas = new ArrayList<String>();
+        for(int i=0;i<rows;i++)
+        {
+            String name = null;
+            String prof = null;
+            name = (String) this.reportTable.getValueAt(i,1);
+            prof = (String) this.reportTable.getValueAt(i,2);
+            List<String> data;
+            if(!funcs.containsKey(name+";"+prof))
+                data = new ArrayList<String>();
+            else
+                data = funcs.get(name+";"+prof);
+            String week = (String) this.reportTable.getValueAt(i,3);
+            week = week ==null? "" : week;
+            String hours = (String) this.reportTable.getValueAt(i,4);
+            hours = hours ==null? "" : hours;
+            
+            if(!week.equals("")&&!semanas.contains(week))
+                semanas.add(week);
+            
+            data.add(week + ";" + hours);
+            funcs.put(name+";"+prof, data);
+        }
+        
+        //Carrega o numero de linhas e colunas a partir da lista obtida anteriormente
+        rows =funcs.keySet().size(); 
+        column = semanas.size()+3;
+        String[][] table = new String[rows+1][column];
+        //carrega os campos de cabecalho
+        table[0][0] = "Nome";
+        table[0][1] = "Profissão";
+        table[0][semanas.size()+2] = "Total";
+        for(int i=2;i<semanas.size()+2;i++)
+            table[0][i] = semanas.get(i-2).split(";")[0];
+        
+        //Carrega o conteudo das tabelas
+        int i=1;
+        for(String key : funcs.keySet())
+        {
+            String[] str =key.split(";"); 
+            table[i][0] = str[0];
+            table[i][1] = str[1];
+            for(String semanaHora : funcs.get(key))
+            {
+                String semana = semanaHora.split(";")[0];
+                String hora = semanaHora.split(";")[1];
+                for(int j=0;j<column;j++)
+                {
+                    if(table[0][j].equals(semana))
+                        table[i][j] = hora;
+                    else if(table[i][j]==null&& j!=0 && j!=1)
+                        table[i][j]= "0";
+                }
+            }
+            i++;
+        }
+        
+        //Define o valor total
+        for(i=1;i<rows;i++)
+        {
+            Double cont=0.0;
+            for(int j=2;j<column-1;j++){
+                cont+= Double.parseDouble(table[i][j]);
+            }
+            table[i][column-1] = Double.toString(cont);
+        }
+        
+        return  table;
+    }
+
+     public int getNumWeeks() {
+        Calendar c1 = Calendar.getInstance();
+        String origem = this.InitDatePicker.getJFormattedTextField().getText();
+        c1.set(Integer.parseInt(origem.substring(6, 10)), Integer.parseInt(origem.substring(3, 5)), Integer.parseInt(origem.substring(0, 2)));
+        
+        Calendar c2 = Calendar.getInstance();
+        String destino = this.FimDatePicker.getJFormattedTextField().getText();
+        c2.set(Integer.parseInt(destino.substring(6, 10)), Integer.parseInt(destino.substring(3, 5)), Integer.parseInt(destino.substring(0, 2)));
+        
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        int nbJours = 0;
+        for (Calendar c = c1 ; c.before(c2) ; c.add(Calendar.DATE, +1))
+        {
+            nbJours++;
+        }
+        for (Calendar c = c1 ; c.after(c2) ; c.add(Calendar.DATE, -1))
+        {
+            nbJours--;
+        }
+        nbJours = nbJours/7;
+       return nbJours;
     }
 }
 

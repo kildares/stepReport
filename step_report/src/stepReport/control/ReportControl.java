@@ -32,13 +32,13 @@ public final class ReportControl {
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
     private ReportHorasSemanal reportHorasMensal;
-    private savePDFModel saverPDF;
+    private savePDFModel savePDF;
     private PeriodoModel periodoModel;
     
     
     public ReportControl(mainScreen screen)
     {
-        this.setSaverPDF(new savePDFModel(this));
+        this.setSavePDF(new savePDFModel(this));
         this.setPeriodoModel(new PeriodoModel());
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
@@ -95,12 +95,12 @@ public final class ReportControl {
     }
 
     
-    public savePDFModel getSaverPDF() {
-        return saverPDF;
+    public savePDFModel getSavePDF() {
+        return savePDF;
     }
 
-    public void setSaverPDF(savePDFModel saverPDF) {
-        this.saverPDF = saverPDF;
+    public void setSavePDF(savePDFModel saverPDF) {
+        this.savePDF = saverPDF;
     }
     
        public PeriodoModel getPeriodoModel() {
@@ -196,24 +196,24 @@ public final class ReportControl {
 
     public void savePDF(File file,JPanel active) 
     {
-        Map<String,List<FuncionarioHorasSemana>> list = null;
+        String[][] dadosMatriz = null;
         if(active instanceof ReportBSPView){
-           // list = this.getReportBSPView().getPDFData();
+            dadosMatriz = this.getReportBSPView().getPDFData();
         }
         else if(active instanceof ReportNacionalidadeView){
-            list = this.getReportNacionalidadeView().getPDFData();
+            dadosMatriz = this.getReportNacionalidadeView().getPDFData();
         }
         else if(active instanceof ReportUnidadeView){
-            list = this.getReportUnidadeView().getPDFData();
+            dadosMatriz = this.getReportUnidadeView().getPDFData();
         }
         else if(active instanceof ReportTaskView){
-            list = this.getReportTaskView().getPDFData();
+            dadosMatriz = this.getReportTaskView().getPDFData();
         }
         else if(active instanceof ReportHorasSemanal){
-            list = this.getReportHorasMensal().getPDFData();
+            dadosMatriz = this.getReportHorasMensal().getPDFData();
         }
         
-        //this.getSavePDF().savePDFSemanal(file,list);
+        this.getSavePDF().savePDFSemanal(file, dadosMatriz);
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
@@ -239,6 +239,30 @@ public final class ReportControl {
 
     public List<FuncionarioHorasSemana> setHoras(List<FuncionarioHorasSemana> horasSemana) {
         return this.getPeriodoModel().setHoras(horasSemana);
+    }
+
+    public boolean isValidPeriod(JPanel active) 
+    {
+        int numWeeks=0;
+        if(active instanceof ReportBSPView){
+            numWeeks = this.getReportBSPView().getNumWeeks();
+        }
+        if(active instanceof ReportHorasSemanal){
+            numWeeks = this.getReportHorasMensal().getNumWeeks();
+        }
+        if(active instanceof ReportTaskView){
+            numWeeks = this.getReportTaskView().getNumWeeks();
+        }
+        if(active instanceof ReportUnidadeView){
+            numWeeks = this.getReportUnidadeView().getNumWeeks();
+        }
+        if(active instanceof ReportNacionalidadeView){
+            numWeeks = this.getReportNacionalidadeView().getNumWeeks();
+        }
+        
+        
+        return numWeeks < 5;
+            
     }
 
 

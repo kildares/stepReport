@@ -7,6 +7,7 @@ package stepReport.view;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
 import stepReport.control.FuncionarioControl;
@@ -61,7 +62,7 @@ public final class mainScreen extends javax.swing.JFrame {
         
         mainScreen.setActive(this.getReport().getReportHorasMensal());
         this.isPrintable(false);
-        this.getReport().getReportHorasMensal().setVisible(true);
+        this.getReport().initMensalReport();
     }
 
     /**
@@ -77,7 +78,6 @@ public final class mainScreen extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         configMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
-        printMenuItem = new javax.swing.JMenuItem();
         sairMenuItem = new javax.swing.JMenuItem();
         funcMenu = new javax.swing.JMenu();
         buscarFuncMenuItem = new javax.swing.JMenuItem();
@@ -113,9 +113,6 @@ public final class mainScreen extends javax.swing.JFrame {
             }
         });
         jMenu1.add(saveMenuItem);
-
-        printMenuItem.setText("Imprimir");
-        jMenu1.add(printMenuItem);
 
         sairMenuItem.setText("Sair");
         sairMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -327,20 +324,28 @@ public final class mainScreen extends javax.swing.JFrame {
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
         // TODO add your handling code here:
-        int ret = 999;
-        boolean accepted = false;
-        while(!accepted)
+        if(this.getReport().isValidPeriod(mainScreen.active))
         {
-            ret = mainScreen.FILECHOOSER.showSaveDialog(this);
-            if(ret == JFileChooser.APPROVE_OPTION)
+            int ret = 999;
+            boolean accepted = false;
+            while(!accepted)
             {
-                File file = mainScreen.FILECHOOSER.getSelectedFile();
-                this.getReport().savePDF(file,mainScreen.active);
-                accepted = true;   
+                ret = mainScreen.FILECHOOSER.showSaveDialog(this);
+                if(ret == JFileChooser.APPROVE_OPTION)
+                {
+                    File file = mainScreen.FILECHOOSER.getSelectedFile();
+                    accepted = true;   
+                    this.getReport().savePDF(file,mainScreen.active);
+                    
+                }
+                else if(ret == JFileChooser.CANCEL_OPTION)
+                    accepted=true; 
             }
-            else if(ret == JFileChooser.CANCEL_OPTION)
-                accepted=true; 
         }
+        else{
+            JOptionPane.showMessageDialog(this, "O período limite deve ser de no máximo 5 semanas");
+        }
+        
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void relatorioSemanalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioSemanalMenuItemActionPerformed
@@ -410,7 +415,6 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem newUserMenuItem;
-    private javax.swing.JMenuItem printMenuItem;
     private javax.swing.JMenuItem relatorioBSPMenuItem;
     private javax.swing.JMenu relatorioMenu;
     private javax.swing.JMenuItem relatorioNacMenuItem;
@@ -512,7 +516,6 @@ public final class mainScreen extends javax.swing.JFrame {
    
     public void isPrintable(boolean Printable) {
         this.saveMenuItem.setVisible(Printable);
-        this.printMenuItem.setVisible(Printable);
     }
     
 }

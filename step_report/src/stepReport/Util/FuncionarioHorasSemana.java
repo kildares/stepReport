@@ -114,18 +114,29 @@ public final class FuncionarioHorasSemana implements Comparable{
     }
     
     
-    public static List<String> obtainDatasSemana(Map<String,List<FuncionarioHorasSemana>> func){
+    public static List<String> obtainDatasSemana(List<FuncionarioHorasSemana> semanas){
         List<String> lista = new ArrayList<String>();
-        for(String i : func.keySet())
+        
+        for(FuncionarioHorasSemana horaFunc : semanas)
         {
-            for(FuncionarioHorasSemana horaFunc : func.get(i))
-            {
-                if(!lista.contains(horaFunc.getDataSemana()))
-                    lista.add(horaFunc.getDataSemana());
-            }
+            if(!lista.contains(horaFunc.getDataSemana()))
+                lista.add(horaFunc.getDataSemana());
         }
         return lista;
     }
+    public static List<String> obtainIdFuncionarios(List<FuncionarioHorasSemana> semanas){
+        List<String> lista = new ArrayList<String>();
+        
+        for(FuncionarioHorasSemana horaFunc : semanas)
+        {
+            if(!lista.contains(horaFunc.getIdFunc()))
+                lista.add(horaFunc.getIdFunc());
+        }
+        return lista;
+    }
+    
+    
+    
     
     public static String getFormattedDataSemana(String dataSemana) {
             char[] c = dataSemana.toCharArray();

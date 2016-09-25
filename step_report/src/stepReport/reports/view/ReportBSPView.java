@@ -133,8 +133,10 @@ public final class ReportBSPView extends javax.swing.JPanel {
                     String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
                     List<FuncionarioHoras> func = this.getControl().getHorasBSPCustom(bsp,dataIni,dataFim);
                     ReportBSPView.horasFuncionarios = func;
-                    if(func.size()>0){
+                    if(func.size()>0)
+                    {
                         this.loadTable();
+                        this.getControl().isPrintable(true);
                     }
                     else
                         JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
@@ -288,13 +290,49 @@ public final class ReportBSPView extends javax.swing.JPanel {
 
     public String[][] getPDFData() 
     {
-        int rows = this.reportTable.getRowCount();
+        int rows = this.reportTable.getRowCount()+1;
         int column = this.reportTable.getColumnCount();
-        String[][] table= new String[rows][column];
-        for(int i=0;i<rows;i++)
-            for(int j=0;j<column;j++)
-                table[i][j]=(String) this.reportTable.getValueAt(i, j);
+        String[][] table= new String[rows][column-1];
+        for(int i=1;i<column;i++)
+            table[0][i-1] = this.reportTable.getColumnName(i);
+        
+        for(int i=1;i<rows;i++){
+            for(int j=1;j<column;j++){
+                String val = (String) this.reportTable.getValueAt(i-1, j);
+                table[i][j-1] = (val==null) ? "" : val;
+            }
+        }
         return table;
+    }
+
+    public int getNumWeeks() {
+        Calendar c1 = Calendar.getInstance();
+        String origem = this.InitDatePicker.getJFormattedTextField().getText();
+        c1.set(Integer.parseInt(origem.substring(6, 10)), Integer.parseInt(origem.substring(3, 5)), Integer.parseInt(origem.substring(0, 2)));
+        
+        Calendar c2 = Calendar.getInstance();
+        String destino = this.FimDatePicker.getJFormattedTextField().getText();
+        c2.set(Integer.parseInt(destino.substring(6, 10)), Integer.parseInt(destino.substring(3, 5)), Integer.parseInt(destino.substring(0, 2)));
+        
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        int nbJours = 0;
+        for (Calendar c = c1 ; c.before(c2) ; c.add(Calendar.DATE, +1))
+        {
+            nbJours++;
+        }
+        for (Calendar c = c1 ; c.after(c2) ; c.add(Calendar.DATE, -1))
+        {
+            nbJours--;
+        }
+        nbJours = nbJours/7;
+       return nbJours;
     }
     
 }

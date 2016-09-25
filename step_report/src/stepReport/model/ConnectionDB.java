@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,25 +43,32 @@ public class ConnectionDB {
     
     
     public void loadValues() throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("config.cfg"));
-        try{
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            while(line != null){
-                sb.append(line);
-                sb.append(lineSeparator());
-                line = br.readLine();
-            }
-            
-            String[] separated = StringUtils.splitByWholeSeparator(sb.toString(), " ");
-            ConnectionDB.serverName = separated[0];
-            ConnectionDB.user = separated[1];
-            ConnectionDB.password = separated[2];
-            
-            
-        }finally
+        try
         {
-            br.close();
+            BufferedReader br = new BufferedReader(new FileReader("config.cfg"));
+            try{
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+                while(line != null){
+                    sb.append(line);
+                    sb.append(lineSeparator());
+                    line = br.readLine();
+                }
+
+                String[] separated = StringUtils.splitByWholeSeparator(sb.toString(), " ");
+                ConnectionDB.serverName = separated[0];
+                ConnectionDB.user = separated[1];
+                ConnectionDB.password = separated[2];
+
+
+            }
+            finally
+            {
+                br.close();
+            }
+        }catch(java.io.FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Erro: Configurar os dados do Servidor antes de realizar a busca");
         }
         
     }
