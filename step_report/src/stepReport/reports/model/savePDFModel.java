@@ -7,9 +7,10 @@ package stepReport.reports.model;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +20,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.util.Matrix;
-import stepReport.Util.FuncionarioHoras;
-import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
 
 
@@ -57,8 +57,11 @@ public class savePDFModel {
        //O valor de k vai ser atualizado durante o loop de impressao de registros,
        //assim como o loop de impressao de registro comeca a partir do valor de k
        int k=1;
+       int pagina=0;
        while(k<matrizDados.length)
        {
+            //Variavel com o numero da pagina
+            pagina++;
             //Adiciona uma pagina
             PDPage page = new PDPage();
             //Configura o padrao de tamanho da pagina
@@ -67,8 +70,7 @@ public class savePDFModel {
             page.setRotation(90);
             //Adiciona a pagina ao documento
             document.addPage(page);
-            //Define a fonte do cabecalho
-            PDFont font = PDType1Font.COURIER_BOLD;
+            PDFont font;
             //Obtem a largura da pagina
             float pageWidth = page.getMediaBox().getWidth();
            
@@ -78,15 +80,36 @@ public class savePDFModel {
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
                 //Gira a pagina em 90 graus
                 contentStream.transform(new Matrix(0,1,-1,0,pageWidth,0));
+                
+                PDImageXObject pdImage = PDImageXObject.createFromFile("./step2.png", document);
+                contentStream.drawImage(pdImage, 30, 520);
+                
+                
                 //Define a cor da letra
                 contentStream.setNonStrokingColor(Color.BLACK);
                 //Abre pra edicao escrita
                 contentStream.beginText();
-                //Configura a fonte e o tamanho no buffer
-                contentStream.setFont(font, 12);
+                
+                //Configura a fonte de titulo e o tamanho no buffer
+                font = PDType1Font.COURIER_BOLD;
+                contentStream.setFont(font, 18);
                 contentStream.setLeading(14.5f);
+                
+                contentStream.newLineAtOffset(250, 530);
+                contentStream.showText("Resumo de Horas semanais");
+                
+                //Imprime o numero da pagina
+                font = PDType1Font.COURIER;
+                contentStream.setFont(font, 12);
+                
+                contentStream.newLineAtOffset(490,0);
+                contentStream.showText("Pag "+Integer.toString(pagina));
+                
                 //Define o ponto de partida em X e Y
-                contentStream.newLineAtOffset(50, 500);
+                contentStream.newLineAtOffset(-700, -50);
+                //Define a fonte do cabecalho
+                font = PDType1Font.COURIER_BOLD;
+                contentStream.setFont(font, 12);
                 //carrega o cabecalho com nome, profissao, itera pra cada data da semana e depois o total
                 String titulo = StringUtils.rightPad("Nome", 20) + StringUtils.rightPad("Profissao", 16);
                 for(int i=2;i<matrizDados[0].length;i++)
@@ -99,7 +122,7 @@ public class savePDFModel {
                 contentStream.setFont(font, 12);
                 //TODO criar loop duplo para criar pagina e depois imprimir o dado enquanto houver dados a serem impressos
                 contentStream.newLine();
-                Double totals=0.0;
+                
                 //Para cada linha da matriz recebida, vou formatar os campos nome, profissao, cada data da semana e o total pra imprimir na linha
                 //Tenho que comecar a partir de k porque pode nao ser a primeira pagina. 
                 
@@ -113,28 +136,38 @@ public class savePDFModel {
                     String profissao = this.formatProfissao(matrizDados[i+k][1]);
                     String linha = nome + profissao;
                     for(int j=2;j<matrizDados[i].length;j++)
-                    {
-                        //Para cada total calculado, vou somar na linha final de total de horas
-                        if(j==matrizDados[i+k].length-1)
-                            totals += Double.parseDouble(matrizDados[i+k][j]);
                         linha += StringUtils.rightPad(matrizDados[i+k][j],12);
-                    }
+                    
                     contentStream.showText(linha);
                     contentStream.newLine();
                 }
                 k+=limite;
                 
-                //Imprime o total em negrito
-                font = PDType1Font.COURIER_BOLD;
-                contentStream.setFont(font, 12);
-                String linhaTot = StringUtils.rightPad("Total", 36+((matrizDados[0].length-3)*12)) + Double.toString(totals);
-                contentStream.showText(linhaTot);
-
-                //Imprime a linha de assinatura
-                this.signatureLine(contentStream);
-
+                //Imprime o total em negrito quando chega no final
+                System.out.println(k);
+                if(k>=matrizDados.length)
+                {
+                    font = PDType1Font.COURIER_BOLD;
+                    contentStream.setFont(font, 12);
+                    Double[] totais = new Double[matrizDados[0].length-2];
+                    for(int i=0;i<totais.length;i++)
+                        totais[i]=0.0;
+                    
+                    for(int i=1;i<matrizDados.length;i++){
+                        for(int j=2;j<matrizDados[i].length;j++){
+                            if(!matrizDados[i][j].equals(""))
+                                totais[j-2] += Double.parseDouble(matrizDados[i][j]);
+                        }
+                    }
+                    String linhaTot = StringUtils.rightPad("Totais",36);
+                    for(int i=0;i<totais.length;i++){
+                        linhaTot +=StringUtils.rightPad(totais[i].toString(),12);
+                    }
+                    contentStream.showText(linhaTot);
+                    //Imprime a linha de assinatura
+                    this.signatureLine(contentStream);
+                }
                 contentStream.endText();
-
                 contentStream.close();
                 
 
@@ -195,7 +228,6 @@ public class savePDFModel {
         PDType1Font font = PDType1Font.COURIER;
         contentStream.setFont(font, 12);
           
-        contentStream.newLine();
         contentStream.newLine();
         contentStream.newLine();
         contentStream.showText("Step Signature");
