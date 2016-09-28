@@ -83,13 +83,19 @@ public class AdminModel {
     }
     
     
-    public boolean isValidPassword(String oldPass) {
-        return this.getSenha().equals(oldPass);
+    public boolean isValidPassword(String user,String oldPass) {
+        AdminDAO adm = new AdminDAOJDBCImpl();
+        List<String> credent = adm.findByUser(user);
+        return credent.get(1).equals(oldPass);
     }
 
     public boolean updatePassword(String user, String pass) {
         AdminDAO conn = new AdminDAOJDBCImpl();
-        return conn.updatePassword(user, pass);
+        if(conn.updatePassword(user, pass)){
+            logModel log = new logModel("login");
+            log.logData("Alter User: "+user);
+        }
+        return true;
     }
     
     public String getUsuario() {

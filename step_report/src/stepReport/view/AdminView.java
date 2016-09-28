@@ -225,7 +225,7 @@ public class AdminView extends javax.swing.JPanel {
         
         else if(AdminView.state == AdminView.EDIT){
             String oldPass = new String(this.passwordTextField.getPassword());
-            if(this.getControl().isValidPassword(oldPass)){
+            if(this.getControl().isValidPassword(this.userTextField.getText(),oldPass)){
                 String pass1 = new String(this.confirmTextField.getPassword());
                 String pass2 = new String(this.confirmTextField2.getPassword());
                 if(!pass1.equals("")&&pass1.length()>3&&pass1.equals(pass2)){

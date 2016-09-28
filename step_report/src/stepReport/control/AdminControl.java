@@ -12,6 +12,7 @@ import java.util.List;
 import stepReport.DAO.AdminDAO;
 import stepReport.DAOJDBCImpl.AdminDAOJDBCImpl;
 import stepReport.model.AdminModel;
+import stepReport.model.logModel;
 import stepReport.view.AdminView;
 import stepReport.view.mainScreen;
 
@@ -77,8 +78,13 @@ public final class AdminControl{
     {
         AdminDAO conn = new AdminDAOJDBCImpl();
         List<String> data = conn.findByUser(user);
-        if(data == null)
-            conn.create(user, pass);
+        if(data == null){
+            //Se conseguiu criar o usuario, loga o registro
+            if(conn.create(user, pass)){
+                logModel log = new logModel("login");
+                log.logData("Register User: " +user);
+            }
+        }
         else
             throw new alreadyExistsException("Usuario já existe");
     }
@@ -93,8 +99,8 @@ public final class AdminControl{
         }
     }
 
-    public boolean isValidPassword(String oldPass) {
-        return this.getModel().isValidPassword(oldPass);
+    public boolean isValidPassword(String user,String oldPass) {
+        return this.getModel().isValidPassword(user,oldPass);
     }
     
     public boolean updatePassword(String user,String pass){

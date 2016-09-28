@@ -13,4 +13,5 @@ import stepReport.Util.InfoLog;
 public interface LogDAO {
     public boolean create(String usuario, String nomeTabela, String idTabela, String dados, String data);
     public ArrayList<InfoLog> findBtwData(String dataIni, String dataFim);
+
 }

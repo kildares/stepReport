@@ -33,7 +33,7 @@ public class LogDAOJDBCImpl implements LogDAO{
             prepStatement.setString(2, nomeTabela);
             prepStatement.setString(3, idTabela);
             prepStatement.setString(4, dados);
-            prepStatement.setString(4, data);
+            prepStatement.setString(5, data);
             
             prepStatement.executeUpdate();
             conexao.close();
