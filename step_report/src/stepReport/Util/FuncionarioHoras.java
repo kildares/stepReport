@@ -9,7 +9,7 @@ package stepReport.Util;
  *
  * @author Kildare
  */
-public class FuncionarioHoras {
+public class FuncionarioHoras implements Comparable{
     private String idHoras;
     private String idFunc;
     private String nomeFunc;
@@ -22,10 +22,12 @@ public class FuncionarioHoras {
     private String unidade;
 
 
+
     public FuncionarioHoras(String idHoras, String idFunc, String dataSemana, String diaSemana, String horas,
-                            String taskNumber,String nam,String bsp, String unidade){
+        String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
             this.idFunc=idFunc;
+            this.nomeFunc=nomeFunc;
             this.dataSemana=dataSemana;
             this.diaSemana=diaSemana;
             this.horas=horas;
@@ -35,6 +37,7 @@ public class FuncionarioHoras {
             this.unidade=unidade;
     }
     
+
     public FuncionarioHoras(String idHoras, String idFunc, String nomeFunc, String dataSemana, String diaSemana, 
                             String horas, String taskNumber,String nam,String bsp, String unidade){
             this.idHoras = idHoras;
@@ -48,7 +51,7 @@ public class FuncionarioHoras {
             this.bsp=bsp;
             this.unidade=unidade;
     }
-    
+
     public String getIdFunc() {
         return idFunc;
     }
@@ -127,6 +130,11 @@ public class FuncionarioHoras {
                 + "/" + this.getDataSemana().substring(0, 4);
         
         return str;
+    }
+
+    @Override
+    public int compareTo(Object outroDia) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

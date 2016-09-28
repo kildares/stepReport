@@ -5,13 +5,12 @@
  */
 package stepReport.control;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JPanel;
-import stepReport.DAO.RelatoriosDAO;
-import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.model.PeriodoModel;
 import stepReport.reports.model.savePDFModel;
 import stepReport.reports.view.ReportBSPView;
@@ -33,13 +32,13 @@ public final class ReportControl {
     private ReportTaskView reportTaskView;
     private ReportUnidadeView reportUnidadeView;
     private ReportHorasSemanal reportHorasMensal;
-    private savePDFModel saverPDF;
+    private savePDFModel savePDF;
     private PeriodoModel periodoModel;
     
     
     public ReportControl(mainScreen screen)
     {
-        this.setSaverPDF(new savePDFModel(this));
+        this.setSavePDF(new savePDFModel(this));
         this.setPeriodoModel(new PeriodoModel());
         this.setScreen(screen);
         this.setReportNacionalidadeView(new ReportNacionalidadeView(this));
@@ -96,12 +95,12 @@ public final class ReportControl {
     }
 
     
-    public savePDFModel getSaverPDF() {
-        return saverPDF;
+    public savePDFModel getSavePDF() {
+        return savePDF;
     }
 
-    public void setSaverPDF(savePDFModel saverPDF) {
-        this.saverPDF = saverPDF;
+    public void setSavePDF(savePDFModel saverPDF) {
+        this.savePDF = saverPDF;
     }
     
        public PeriodoModel getPeriodoModel() {
@@ -129,22 +128,10 @@ public final class ReportControl {
         this.getReportNacionalidadeView().setVisible(true);
     }
 
-    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade, String Ano) {
-        
-        return this.getPeriodoModel().getHorasNationAno(Nacionalidade,Ano);
-    }
-    
-    public List<FuncionarioHoras> getHorasNationMes(String nacionalidade, String mes) 
-    {
-        
-        return this.getPeriodoModel().getHorasNationMes(nacionalidade,mes);
-    }
-    
-    
-    public List<FuncionarioHoras> getHorasNationCustom(String Nacionalidade,String dataIni,String dataFim) {
+    public List<FuncionarioHoras> getHorasNation(String Nacionalidade,String dataIni,String dataFim) {
     
         
-        return this.getPeriodoModel().getNationCustom(Nacionalidade,dataIni,dataFim);
+        return this.getPeriodoModel().getHorasNation(Nacionalidade,dataIni,dataFim);
         
     }
     
@@ -209,24 +196,24 @@ public final class ReportControl {
 
     public void savePDF(File file,JPanel active) 
     {
-        List<FuncionarioHoras> list = null;
+        String[][] dadosMatriz = null;
         if(active instanceof ReportBSPView){
-            list = this.getReportBSPView().getListaPrint();
+            dadosMatriz = this.getReportBSPView().getPDFData();
         }
         else if(active instanceof ReportNacionalidadeView){
-            list = this.getReportNacionalidadeView().getPDFData();
+            dadosMatriz = this.getReportNacionalidadeView().getPDFData();
         }
         else if(active instanceof ReportUnidadeView){
-            list = this.getReportUnidadeView().getPDFData();
+            dadosMatriz = this.getReportUnidadeView().getPDFData();
         }
         else if(active instanceof ReportTaskView){
-            list = this.getReportTaskView().getPDFData();
+            dadosMatriz = this.getReportTaskView().getPDFData();
         }
         else if(active instanceof ReportHorasSemanal){
-            list = this.getReportHorasMensal().getPDFData();
+            dadosMatriz = this.getReportHorasMensal().getPDFData();
         }
         
-        this.getSaverPDF().savePDF(file,list);
+        this.getSavePDF().savePDFSemanal(file, dadosMatriz);
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
@@ -246,8 +233,36 @@ public final class ReportControl {
         this.getScreen().isPrintable(option);
     }
 
-    public List<String> getHorasTotaisSemanal(java.lang.String dataIni, java.lang.String dataFim) {
+    public List<FuncionarioHoras> getHorasTotaisSemanal(String dataIni, String dataFim) {
         return this.getPeriodoModel().getHorasTotaisSemanal(dataIni,dataFim);
+    }
+
+    public List<FuncionarioHorasSemana> setHoras(List<FuncionarioHorasSemana> horasSemana) {
+        return this.getPeriodoModel().setHoras(horasSemana);
+    }
+
+    public boolean isValidPeriod(JPanel active) 
+    {
+        int numWeeks=0;
+        if(active instanceof ReportBSPView){
+            numWeeks = this.getReportBSPView().getNumWeeks();
+        }
+        if(active instanceof ReportHorasSemanal){
+            numWeeks = this.getReportHorasMensal().getNumWeeks();
+        }
+        if(active instanceof ReportTaskView){
+            numWeeks = this.getReportTaskView().getNumWeeks();
+        }
+        if(active instanceof ReportUnidadeView){
+            numWeeks = this.getReportUnidadeView().getNumWeeks();
+        }
+        if(active instanceof ReportNacionalidadeView){
+            numWeeks = this.getReportNacionalidadeView().getNumWeeks();
+        }
+        
+        
+        return numWeeks < 5;
+            
     }
 
 

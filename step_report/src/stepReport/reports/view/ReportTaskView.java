@@ -8,13 +8,15 @@ package stepReport.reports.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import org.apache.commons.lang3.StringUtils;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 
 import stepReport.control.ReportControl;
 
@@ -24,13 +26,15 @@ import stepReport.control.ReportControl;
  */
 public final class ReportTaskView extends javax.swing.JPanel {
 
+   
+
     private ReportControl Control;
     private JDatePickerImpl InitDatePicker;
     private JDatePickerImpl FimDatePicker;
     private static int state;
     private static List<FuncionarioHoras> listaConsulta;
     private static final int BUSCA = 1;  
-    
+     private static List<FuncionarioHoras> horasFuncionarios;
     /**
      * Creates new form ReportBSPView
      * @param Control
@@ -122,15 +126,20 @@ public final class ReportTaskView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
-     if(ReportTaskView.state == ReportTaskView.BUSCA){
+     if(ReportTaskView.state == ReportTaskView.BUSCA)
+     {
         String task = this.taskTextField.getText();
         if(this.validDate() && !task.equals(""))              
         {
             String dataIni = this.InitDatePicker.getJFormattedTextField().getText();
             String dataFim = this.FimDatePicker.getJFormattedTextField().getText();
             List<FuncionarioHoras> func = this.getControl().getHorasTaskCustom(task,dataIni,dataFim);
+            ReportTaskView.horasFuncionarios = func;
             if(func.size()>0)
-                this.loadTable(func,"");
+            {
+                this.loadTable();
+                this.getControl().isPrintable(true);
+            }
             else
                 JOptionPane.showMessageDialog(this.getControl().getScreen(), "Nenhum funcionário encontrado");
         }
@@ -183,19 +192,60 @@ public final class ReportTaskView extends javax.swing.JPanel {
         this.Control = Control;
     }    
 
-      private void loadTable(List<FuncionarioHoras> horas,String dataBusca) {
-        String[] str = {"Funcionário","Horas","Período"};
-        DefaultTableModel model = new DefaultTableModel(str,horas.size());
+        private void loadTable() {
+        
+        List<FuncionarioHorasSemana> horasSemana = FuncionarioHorasSemana.parseFuncionarioHorasSemana(ReportTaskView.horasFuncionarios);
+        horasSemana = this.getControl().setHoras(horasSemana);
+        Vector colunas = FuncionarioHorasSemana.getSemanas(horasSemana);
+        
+        colunas.add(0, "Profissão");
+        colunas.add(0,"Nome");
+        colunas.add(0,"Número");
+        colunas.add("Total");
+        
+        DefaultTableModel model = new DefaultTableModel(colunas,horasSemana.size());
         this.reportTable.setModel(model);
-        int cont=0;
-        for(FuncionarioHoras x : horas){
-            this.reportTable.setValueAt(x.getIdFunc(), cont, 0);
-            this.reportTable.setValueAt(x.getTotalHoras(dataBusca), cont, 1);
-            this.reportTable.setValueAt(x.getFormattedDataSemana(), cont, 2);
-            cont++;
+        int nextRow =0;
+        for(FuncionarioHorasSemana x : horasSemana){
+            boolean isFound=false;
+            int num=0;
+            int rowCount =this.reportTable.getRowCount(); 
+            for(int i=0;i<rowCount;i++)
+            {
+                String valueAt =(String) this.reportTable.getValueAt(i, 0);
+                String idFunc = x.getIdFunc();
+                String valueAt2 = (String) this.reportTable.getValueAt(i, 1);
+                String nome = x.getNome();
+                if(!(valueAt==null&&valueAt2==null)&&valueAt.equals(idFunc) && valueAt2.equals(nome)){
+                    num=i;
+                    isFound=true;
+                }
+            }
+            if(!isFound)
+            {
+                this.reportTable.setValueAt(x.getIdFunc(), nextRow, 0);
+                this.reportTable.setValueAt(x.getNome(), nextRow, 1);
+                this.reportTable.setValueAt(x.getProfissao(), nextRow, 2);
+                String fmtDataSemana = FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana());
+                int indexOf = colunas.indexOf(fmtDataSemana);
+                this.reportTable.setValueAt(x.getNumHoras(), nextRow, indexOf);
+                nextRow++;
+            }
+            else
+                this.reportTable.setValueAt(x.getNumHoras(),num,colunas.indexOf(FuncionarioHorasSemana.getFormattedDataSemana(x.getDataSemana())));
         }
-        this.reportTable.setEnabled(false);
+        this.reportTable.setEnabled(true);
         this.reportScrollPane.setVisible(true);
+        
+        for(int i=0;i<this.reportTable.getRowCount();i++)
+        {
+            int horas=0;
+            for(int j=3;j<colunas.size()-1;j++){
+                if(this.reportTable.getValueAt(i, j)!=null)
+                    horas+= Integer.parseInt((String) this.reportTable.getValueAt(i, j));
+            }
+            this.reportTable.setValueAt(Integer.toString(horas), i, colunas.size()-1);
+        }
     }
 
     public void loadTaskReport() {
@@ -213,14 +263,21 @@ public final class ReportTaskView extends javax.swing.JPanel {
         ReportTaskView.state = ReportTaskView.BUSCA;
     }
 
-    public List<FuncionarioHoras> getPDFData() {
+    public String[][] getPDFData() 
+    {
+        int rows = this.reportTable.getRowCount()+1;
+        int column = this.reportTable.getColumnCount();
+        String[][] table= new String[rows][column-1];
+        for(int i=1;i<column;i++)
+            table[0][i-1] = this.reportTable.getColumnName(i);
         
-        List<FuncionarioHoras> func = new ArrayList<FuncionarioHoras>();
-        
-        int numRow = this.reportTable.getRowCount();
-        for(int i=0;i<numRow;i++){
+        for(int i=1;i<rows;i++){
+            for(int j=1;j<column;j++){
+                String val = (String) this.reportTable.getValueAt(i-1, j);
+                table[i][j-1] = (val==null) ? "" : val;
+            }
         }
-        return func;
+        return table;
     }
     
     private boolean validDate() {
@@ -244,6 +301,36 @@ public final class ReportTaskView extends javax.swing.JPanel {
             return false;
 
         return true;
+    }
+
+     public int getNumWeeks() {
+        Calendar c1 = Calendar.getInstance();
+        String origem = this.InitDatePicker.getJFormattedTextField().getText();
+        c1.set(Integer.parseInt(origem.substring(6, 10)), Integer.parseInt(origem.substring(3, 5)), Integer.parseInt(origem.substring(0, 2)));
+        
+        Calendar c2 = Calendar.getInstance();
+        String destino = this.FimDatePicker.getJFormattedTextField().getText();
+        c2.set(Integer.parseInt(destino.substring(6, 10)), Integer.parseInt(destino.substring(3, 5)), Integer.parseInt(destino.substring(0, 2)));
+        
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        int nbJours = 0;
+        for (Calendar c = c1 ; c.before(c2) ; c.add(Calendar.DATE, +1))
+        {
+            nbJours++;
+        }
+        for (Calendar c = c1 ; c.after(c2) ; c.add(Calendar.DATE, -1))
+        {
+            nbJours--;
+        }
+        nbJours = nbJours/7;
+       return nbJours;
     }
     
 }

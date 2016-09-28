@@ -10,16 +10,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 import stepReport.DAO.CadastraHorasDAO;
+import stepReport.DAO.FuncionarioDAO;
 import stepReport.DAO.RelatoriosDAO;
-import stepReport.DAO.TarefasDAO;
 import stepReport.DAOJDBCImpl.CadastraHorasDAOJDBCImpl;
+import stepReport.DAOJDBCImpl.FuncionarioDAOJDBCImpl;
 import stepReport.DAOJDBCImpl.RelatoriosDAOJDBCImpl;
-import stepReport.DAOJDBCImpl.TarefasDAOJDBCImpl;
 import stepReport.Util.FuncionarioHoras;
+import stepReport.Util.FuncionarioHorasSemana;
 
 /**
  *
@@ -27,34 +29,33 @@ import stepReport.Util.FuncionarioHoras;
  */
 public class PeriodoModel {
 
-    public ArrayList<String> searchTarefa(String numeroFunc, String dataSemana) {
+    public ArrayList<FuncionarioHoras> searchTarefa(String numeroFunc, String dataSemana) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
         
         return conn.findCadastro(numeroFunc, dataSemana);
     }
     
-    public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
-                                  String hrSex, String hrSab) {
+    public boolean updateCadastro(String idCadastro, String horas, String taskNum, String NAM, String BSP, String unidade){
         
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        return conn.update(idCadastro,Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
-                           Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), Integer.parseInt(hrSab));
+        return conn.update(idCadastro,Integer.parseInt(horas),taskNum,NAM,BSP, unidade);
     
     }
-    public boolean createCadastro(String idFunc, String dataSemana, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
-                                  String hrSex, String hrSab) {
+    public boolean createCadastro(String idFunc,String dataSemana,Map<String,List<String>> horas) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        TarefasDAO conn2 = new TarefasDAOJDBCImpl();
-        String idTarefa = conn2.findCurrentByIdFunc(idFunc);
-        if(idTarefa != null){
-            return conn.create(dataSemana, Integer.parseInt(hrDom),Integer.parseInt(hrSeg),Integer.parseInt(hrTer),
-                               Integer.parseInt(hrQua), Integer.parseInt(hrQui),Integer.parseInt(hrSex), 
-                               Integer.parseInt(hrSab),idFunc, idTarefa);
+        
+        String nDataSemana = this.fmtDataSemana(dataSemana);
+        
+        List<FuncionarioHoras> lista = conn.findCadastro(idFunc, nDataSemana);
+        if(lista== null || lista.isEmpty())
+        {
+            for(String dia : horas.keySet()){
+                List<String> atributos = horas.get(dia);
+                conn.create(nDataSemana,dia,Integer.parseInt(atributos.get(0)),atributos.get(1),atributos.get(2),atributos.get(3),atributos.get(4),idFunc);
+            }
+            return true;
         }
-        else{
-            JOptionPane.showMessageDialog(new JFrame(), "Funcionario não possui nenhuma tarefa associada");
-            return false;
-        }
+        return false;
     }
     
     
@@ -147,96 +148,92 @@ public class PeriodoModel {
         return fmtData;
     }
 
-    public List<FuncionarioHoras> getHorasNationAno(String Nacionalidade,String Ano) {
-        String periodo[] = this.calcPeriodoAno(Ano);
+
+
+    public List<FuncionarioHoras> getHorasNation(String Nacionalidade, String dataIni,String dataFim) {
         
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
-        return horas;
-    }
-
-
-    public List<FuncionarioHoras> getHorasNationMes(String Nacionalidade, String Mes) {
-        String periodo[] = this.calcPeriodoMes(Mes);
-        
-        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo[0],periodo[1]);
-        return horas;
-    }
-
-    public List<FuncionarioHoras> getNationCustom(String Nacionalidade, String dataIni, String dataFim) {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
+        
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNacionalidade(Nacionalidade, periodo1,periodo2);
-        return horas;
+        
+       List<FuncionarioHoras> horas = conn.hrsPeriodoByNacionalidade(Nacionalidade, periodo1,periodo2);
+       return horas;
     }
 
     public List<FuncionarioHoras> getHorasBSPAno(String Bsp, String Ano) {
         String periodo[] = this.calcPeriodoAno(Ano);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByBsp(Bsp, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByBsp(Bsp, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getHorasBSPMes(String Bsp, String mes) {
         String periodo[] = this.calcPeriodoMes(mes);
         
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByBsp(Bsp, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByBsp(Bsp, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getBSPCustom(String bsp, String dataIni, String dataFim) {
        String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByBsp(bsp, periodo1,periodo2);
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByBsp(bsp, periodo1,periodo2);
         return horas;
+        
     }
 
     public List<FuncionarioHoras> getHorasTaskAno(String task, String Ano) {
         String periodo[] = this.calcPeriodoAno(Ano);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getHorasTaskMes(String task, String mes) {
         String periodo[] = this.calcPeriodoMes(mes);
         
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getTaskCustom(String task, String dataIni, String dataFim) {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByTaskNumber(task, periodo1,periodo2);
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByTaskNumber(task, periodo1,periodo2);
         return horas;
+        
     }
 
     public List<FuncionarioHoras> getHorasUnidadeAno(String Unidade, String Ano) {
         String periodo[] = this.calcPeriodoAno(Ano);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getHorasUnidadeMes(String Unidade, String mes) {   
         String periodo[] = this.calcPeriodoMes(mes);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
-        return horas;
+        //List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo[0],periodo[1]);
+        //return horas;
+        return null;
     }
 
     public List<FuncionarioHoras> getUnidadeCustom(String Unidade, String dataIni, String dataFim) {
         String periodo1 = this.calcPeriodoCustom(dataIni);
         String periodo2 = this.calcPeriodoCustom(dataFim);
         RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
-        List<FuncionarioHoras> horas = conn.hrsTrabByNavio(Unidade, periodo1,periodo2);
+        List<FuncionarioHoras> horas = conn.hrsPeriodoByUnidade(Unidade, periodo1,periodo2);
         return horas;
     }
 
@@ -253,27 +250,41 @@ public class PeriodoModel {
        List<FuncionarioHoras> horas = null;
        if(mesIni.equals("12")){
            dataFim = Integer.toString(Integer.parseInt(anoIni)+1) + "0106";
-           horas = conn.totalHorasMensal(dataIni,dataFim);
+           //horas = conn.totalHorasMensal(dataIni,dataFim);
        }
        else{
            dataFim = anoIni + StringUtils.leftPad(Integer.toString(Integer.parseInt(mesIni)+1),2,"0")+"06";
-           horas = conn.totalHorasMensal(dataIni,dataFim);
+           //horas = conn.totalHorasMensal(dataIni,dataFim);
        }
         
        
-       
-        return horas;
+       return null;
+        //return horas;
     }
 
-    public List<String> getHorasTotaisSemanal(String dataIni, String dataFim) {
+    public List<FuncionarioHoras> getHorasTotaisSemanal(String dataIni, String dataFim) {
        String periodo1 = this.calcPeriodoCustom(dataIni);
        String periodo2 = this.calcPeriodoCustom(dataFim);
        RelatoriosDAO conn = new RelatoriosDAOJDBCImpl();
         //TODO obter consulta
-        //List<FuncionarioHoras> horas = conn.hrsTrabSemana(periodo1,periodo2);
-        return null;
+        List<FuncionarioHoras> horas = conn.hrsPeriodo(periodo1,periodo2);
+        return horas;
     }
-    
-    
-    
+
+    private String fmtDataSemana(String dataSemana) {
+        String fmtIni = dataSemana.substring(6, 10) + dataSemana.substring(3, 5) + dataSemana.substring(0, 2);
+        return fmtIni;
+        
+    }
+
+    public List<FuncionarioHorasSemana> setHoras(List<FuncionarioHorasSemana> horasSemana) 
+    {
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();    
+        for(FuncionarioHorasSemana func : horasSemana)
+        {
+            func.setNome(conn.findNomeByID(func.getIdFunc()));
+            func.setProfissao(conn.findProfissaoByID(func.getIdFunc()));
+        }
+        return horasSemana;
+    }
 }

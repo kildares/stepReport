@@ -8,6 +8,9 @@ package stepReport.view;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -315,71 +318,24 @@ public final class PeriodoView extends javax.swing.JPanel {
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
+    
+        if(!this.isValidDataSemana(this.DatePicker.getJFormattedTextField().getText()))
+            JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
+        else if(this.numeroTextField.getText().equals(""))
+            JOptionPane.showMessageDialog(new JFrame(), "Informe o numero do trabalhador");
         
-        if(PeriodoView.state == PeriodoView.BUSCA){
-            String numeroFunc = this.numeroTextField.getText();
-            String data = this.DatePicker.getJFormattedTextField().getText();
-            String hrDom = this.DomingoHorasTextField.getText();
-            String hrSeg = this.SegundaHorasTextField.getText();
-            String hrTer = this.TercaHorasTextField.getText();
-            String hrQua = this.QuartaHorasTextField.getText();
-            String hrQui= this.QuintaHorasTextField.getText();
-            String hrSex = this.SextaHorasTextField.getText();
-            String hrSab = this.SabadoHorasTextField.getText();
-            
-            if(numeroFunc.equals("")){
-                JOptionPane.showMessageDialog(new JFrame(), "Fornecer número do funcionário");
-            }
-            else if(data.equals("")){
-                JOptionPane.showMessageDialog(new JFrame(), "Fornecer data da semana");
-            }
-            else{ 
-                //TODO fazer tratamento da data
-                //Calendar c = Calendar.getInstance();
-                //c.
-                if(!this.isValidDataSemana(data))
-                    JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
-                else{
-                    String str = data.replace("/", "");
-                    str = str.substring(4, 8) + str.substring(2, 4) + str.substring(0, 2);
-                    ArrayList<String> resultado = this.Control.searchTarefa(numeroFunc,str);
-                    if(resultado == null)
-                    {
-                        if(this.Control.createCadastro(numeroFunc, str, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab))
-                            JOptionPane.showMessageDialog(new JFrame(), "Cadastrao realizado com sucesso");
-                        else
-                        {
-                            JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");
-                        } 
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas ja existente");
-                    }
-                }
-            }
+        else if(this.isValidAlocacao()) 
+        {
+           int resp =  JOptionPane.showConfirmDialog(new JFrame(), "Confirma cadastro de horas?");
+           if (resp == JOptionPane.YES_OPTION)
+           {
+               if(this.getControl().createCadastro(this.numeroTextField.getText(),this.DatePicker.getJFormattedTextField().getText(),this.getAlocacao()))
+                    JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");
+               else
+                   JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");   
+           }
         }
-        
-        else if(PeriodoView.state == PeriodoView.CADASTRO){
-            String numeroFunc = this.numeroTextField.getText();
-            String data = this.DatePicker.getJFormattedTextField().getText();
-            String hrDom = this.DomingoHorasTextField.getText();
-            String hrSeg = this.SegundaHorasTextField.getText();
-            String hrTer = this.TercaHorasTextField.getText();
-            String hrQua = this.QuartaHorasTextField.getText();
-            String hrQui= this.QuintaHorasTextField.getText();
-            String hrSex = this.SextaHorasTextField.getText();
-            String hrSab = this.SabadoHorasTextField.getText();
-            
-            if(!this.isValidDataSemana(data))
-                JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
-            
-            else if(this.getControl().createCadastro(numeroFunc, data, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab)){
-                JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");   
-            }
-            else{
-                JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");   
-            }
-        }
+       // }
         
         
     }//GEN-LAST:event_confirmarButtonActionPerformed
@@ -453,6 +409,10 @@ public final class PeriodoView extends javax.swing.JPanel {
     
     
     public boolean isValidDataSemana(String dataSemana){
+        
+        if(dataSemana.equals(""))
+            return false;
+        
         Calendar c = Calendar.getInstance();
         String ano =dataSemana.substring(6, 10); 
         String mes = dataSemana.substring(3, 5);
@@ -533,6 +493,111 @@ public final class PeriodoView extends javax.swing.JPanel {
 
     public void setControl(PeriodoControl Control) {
         this.Control = Control;
+    }
+
+    private Map<String, List<String>> getAlocacao() 
+    {
+        Map<String,List<String>> horas = new HashMap<String,List<String>>();
+        
+        List<String> segunda = new ArrayList<String>();
+        segunda.add(this.SegundaHorasTextField.getText());
+        segunda.add(this.segundaTaskTextField.getText());
+        segunda.add(this.segundaNAMTextField.getText());
+        segunda.add(this.segundaBSPTextField.getText());
+        segunda.add(this.segundaUnidadeTextField.getText());
+        horas.put("seg", segunda);
+        List<String> terca = new ArrayList<String>();
+        terca.add(this.TercaHorasTextField.getText());
+        terca.add(this.tercaTaskTextField.getText());
+        terca.add(this.tercaNAMTextField.getText());
+        terca.add(this.tercaBSPTextField.getText());
+        terca.add(this.tercaUnidadeTextField.getText());
+        horas.put("ter", terca);
+        List<String> quarta = new ArrayList<String>();
+        quarta.add(this.QuartaHorasTextField.getText());
+        quarta.add(this.quartaTaskTextField.getText());
+        quarta.add(this.quartaNAMTextField.getText());
+        quarta.add(this.quartaBSPTextField.getText());
+        quarta.add(this.quartaUnidadeTextField.getText());
+        horas.put("qua", quarta);
+        List<String> quinta = new ArrayList<String>();
+        quinta.add(this.QuintaHorasTextField.getText());
+        quinta.add(this.quintaTaskTextField.getText());
+        quinta.add(this.quintaNAMTextField.getText());
+        quinta.add(this.quintaBSPTextField.getText());
+        quinta.add(this.quintaUnidadeTextField.getText());
+        horas.put("qui", quinta);
+        List<String> sexta = new ArrayList<String>();
+        sexta.add(this.SextaHorasTextField.getText());
+        sexta.add(this.sextaTaskTextField.getText());
+        sexta.add(this.sextaNAMTextField.getText());
+        sexta.add(this.sextaBSPTextField.getText());
+        sexta.add(this.sextaUnidadeTextField.getText());
+        horas.put("sex", sexta);
+        List<String> sabado = new ArrayList<String>();
+        sabado.add(this.SabadoHorasTextField.getText());
+        sabado.add(this.sabadoTaskTextField.getText());
+        sabado.add(this.sabadoNAMTextField.getText());
+        sabado.add(this.sabadoBSPTextField.getText());
+        sabado.add(this.sabadoUnidadeTextField.getText());
+        horas.put("sab", sabado);
+        List<String> domingo = new ArrayList<String>();
+        domingo.add(this.DomingoHorasTextField.getText());
+        domingo.add(this.domingoTaskTextField.getText());
+        domingo.add(this.domingoNAMTextField.getText());
+        domingo.add(this.domingoBSPTextField.getText());
+        domingo.add(this.domingoUnidadeTextField.getText());
+        horas.put("dom", domingo);
+        
+        return horas;
+    }
+
+    private boolean isValidAlocacao() {
+        
+        int horas;
+        horas = Integer.parseInt(this.SegundaHorasTextField.getText());
+        if(horas<0||horas>24 || (this.segundaNAMTextField.getText().equals("") && this.segundaTaskTextField.getText().equals(""))){
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Segunda Inválida");
+            return false;
+        }
+        horas = Integer.parseInt(this.TercaHorasTextField.getText());
+        if(horas<0||horas>24  || (this.tercaNAMTextField.getText().equals("") && this.tercaTaskTextField.getText().equals("")))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Terca Inválida");
+            return false;
+        }
+        horas = Integer.parseInt(this.QuartaHorasTextField.getText());
+        if(horas<0||horas>24 || (this.quartaNAMTextField.getText().equals("") && this.quartaTaskTextField.getText().equals("")))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Quarta Inválida");
+            return false;
+        }
+        horas = Integer.parseInt(this.QuintaHorasTextField.getText());
+        if(horas<0||horas>24 || (this.quintaNAMTextField.getText().equals("") && this.quintaTaskTextField.getText().equals("")))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Quinta Inválida");
+            return false;
+        }
+            
+        horas = Integer.parseInt(this.SextaHorasTextField.getText());
+        if(horas<0||horas>24 || (this.sextaNAMTextField.getText().equals("") && this.sextaTaskTextField.getText().equals(""))){
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Sexta Inválida");
+            return false;
+        }
+        horas = Integer.parseInt(this.SabadoHorasTextField.getText());
+        if(horas<0||horas>24 || (this.sabadoNAMTextField.getText().equals("") && this.sabadoTaskTextField.getText().equals(""))){
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Sabado Inválida");
+            return false;
+        }
+        horas = Integer.parseInt(this.DomingoHorasTextField.getText());
+        if(horas<0||horas>24 || (this.domingoNAMTextField.getText().equals("") && this.domingoTaskTextField.getText().equals("")))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Domingo Inválida");
+            return false;
+        }
+        
+        return true;
+        
     }
 
     
