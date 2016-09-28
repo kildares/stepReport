@@ -53,6 +53,9 @@ public class PeriodoModel {
                 List<String> atributos = horas.get(dia);
                 conn.create(nDataSemana,dia,Integer.parseInt(atributos.get(0)),atributos.get(1),atributos.get(2),atributos.get(3),atributos.get(4),idFunc);
             }
+            //Loga o cadastro
+            logModel log = new logModel("cadastra_horas");
+            log.logData("DataSemana: "+nDataSemana + " idFunc: " +idFunc);
             return true;
         }
         return false;

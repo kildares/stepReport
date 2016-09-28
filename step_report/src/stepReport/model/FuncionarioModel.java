@@ -111,7 +111,12 @@ public final class FuncionarioModel {
             return false;
         }
         else{
-            return conn.update(funcInfo.get(0), funcInfo.get(1), funcInfo.get(2), funcInfo.get(3));
+            boolean res = conn.update(funcInfo.get(0), funcInfo.get(1), funcInfo.get(2), funcInfo.get(3)); 
+            if(res){
+                logModel log = new logModel("funcionario");
+                log.logData("Alt func: "+funcInfo.get(1));
+            }
+            return res;
         }
     }
 
@@ -123,6 +128,11 @@ public final class FuncionarioModel {
     public int registerFuncionaro(ArrayList<String> funcInfo) {
         FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
         int result = conn.create(funcInfo.get(1),funcInfo.get(2), funcInfo.get(3));
+        if(result>=0)
+        {
+            logModel log = new logModel("funcionario");
+            log.logData("Reg func: "+funcInfo.get(1));
+        }
         return result;
     }
 
