@@ -276,8 +276,8 @@ public class AdminView extends javax.swing.JPanel {
 
     public void loadNewView() {
         this.titleLabel.setText("Cadastrar Usuário");
-        this.userTextField.setEnabled(true);
         this.userTextField.setText("");
+        this.userTextField.setEditable(true);
         this.cancelButton.setText("Cancelar");
         this.passwordLabel.setText("Senha:");
         this.passwordLabel.setVisible(true);
@@ -287,13 +287,12 @@ public class AdminView extends javax.swing.JPanel {
         this.confirmLabel.setVisible(true);
         this.confirmTextField.setVisible(true);
         this.confirmLabel2.setVisible(false);
-        this.confirmTextField2.setVisible(false);
-        
+        this.confirmTextField2.setVisible(false);        
         AdminView.state = AdminView.CADASTRO;
     }
     
      private void loadEditView() {
-         this.titleLabel.setText("Editar Usuário");
+        this.titleLabel.setText("Editar Usuário");
         this.userTextField.setEditable(false);
         this.cancelButton.setText("Cancelar");
         this.passwordLabel.setText("Senha antiga");

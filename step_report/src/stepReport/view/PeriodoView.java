@@ -54,7 +54,6 @@ public final class PeriodoView extends javax.swing.JPanel {
         jFormattedTextField5 = new javax.swing.JFormattedTextField();
         titleLabel = new javax.swing.JLabel();
         dataLabel = new javax.swing.JLabel();
-        confirmarButton = new javax.swing.JButton();
         nomeLabel1 = new javax.swing.JLabel();
         diasPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -105,7 +104,11 @@ public final class PeriodoView extends javax.swing.JPanel {
         sabadoUnidadeTextField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        nomeLabel2 = new javax.swing.JLabel();
         numeroTextField = new javax.swing.JFormattedTextField();
+        nomeTextField = new javax.swing.JTextField();
+        buscarButton = new javax.swing.JButton();
+        confirmarButton2 = new javax.swing.JButton();
 
         jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -119,21 +122,12 @@ public final class PeriodoView extends javax.swing.JPanel {
         dataLabel.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         dataLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         dataLabel.setText("Data da semana:");
-        add(dataLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 219, -1));
-
-        confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        confirmarButton.setText("Registrar");
-        confirmarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmarButtonActionPerformed(evt);
-            }
-        });
-        add(confirmarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 540, -1, 40));
+        add(dataLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 219, -1));
 
         nomeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nomeLabel1.setText("Número do trabalhador:");
-        add(nomeLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 219, -1));
+        nomeLabel1.setText("Nome do trabalhador:");
+        add(nomeLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 219, -1));
 
         diasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         diasPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -309,36 +303,46 @@ public final class PeriodoView extends javax.swing.JPanel {
         jLabel13.setText("Horas");
         diasPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
 
-        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 770, 350));
+        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 770, 340));
+
+        nomeLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        nomeLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nomeLabel2.setText("Número do trabalhador:");
+        add(nomeLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 219, -1));
 
         numeroTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         add(numeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 420, -1));
+
+        nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 420, -1));
+
+        buscarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        buscarButton.setText("Buscar");
+        buscarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButtonActionPerformed(evt);
+            }
+        });
+        add(buscarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 100, 30));
+
+        confirmarButton2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        confirmarButton2.setText("Registrar");
+        confirmarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarButton2ActionPerformed(evt);
+            }
+        });
+        add(confirmarButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, -1, 40));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
+    private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         // TODO add your handling code here:
-    
-        if(!this.isValidDataSemana(this.DatePicker.getJFormattedTextField().getText()))
-            JOptionPane.showMessageDialog(new JFrame(), "Escolha um domingo para data da semana");
-        else if(this.numeroTextField.getText().equals(""))
-            JOptionPane.showMessageDialog(new JFrame(), "Informe o numero do trabalhador");
-        
-        else if(this.isValidAlocacao()) 
-        {
-           int resp =  JOptionPane.showConfirmDialog(new JFrame(), "Confirma cadastro de horas?");
-           if (resp == JOptionPane.YES_OPTION)
-           {
-               if(this.getControl().createCadastro(this.numeroTextField.getText(),this.DatePicker.getJFormattedTextField().getText(),this.getAlocacao()))
-                    JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");
-               else
-                   JOptionPane.showMessageDialog(new JFrame(), "Erro no cadastro de horas");   
-           }
-        }
-       // }
-        
-        
-    }//GEN-LAST:event_confirmarButtonActionPerformed
+    }//GEN-LAST:event_buscarButtonActionPerformed
+
+    private void confirmarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmarButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -349,7 +353,8 @@ public final class PeriodoView extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField SegundaHorasTextField;
     private javax.swing.JFormattedTextField SextaHorasTextField;
     private javax.swing.JFormattedTextField TercaHorasTextField;
-    private javax.swing.JButton confirmarButton;
+    private javax.swing.JButton buscarButton;
+    private javax.swing.JButton confirmarButton2;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JPanel diasPanel;
     private javax.swing.JTextField domingoBSPTextField;
@@ -371,6 +376,8 @@ public final class PeriodoView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel nomeLabel1;
+    private javax.swing.JLabel nomeLabel2;
+    private javax.swing.JTextField nomeTextField;
     private javax.swing.JFormattedTextField numeroTextField;
     private javax.swing.JTextField quartaBSPTextField;
     private javax.swing.JTextField quartaNAMTextField;
@@ -404,7 +411,7 @@ public final class PeriodoView extends javax.swing.JPanel {
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         this.DatePicker = new JDatePickerImpl(datePanel);
         this.DatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
-        this.add(DatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140));
+        this.add(DatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160));
     }
     
     
@@ -427,17 +434,18 @@ public final class PeriodoView extends javax.swing.JPanel {
             return true;
     }
 
-    public void initSearchView() {
+    public void initSearchView() 
+    {
         
         this.DatePicker.getJFormattedTextField().setText("");
         this.DatePicker.setVisible(true);
         this.titleLabel.setText("Ver Hora");
+        this.nomeTextField.setText("");
+        this.nomeTextField.setEditable(false);
         this.numeroTextField.setText("");
         this.numeroTextField.setEditable(true);
         this.diasPanel.setVisible(false);
         PeriodoView.state = PeriodoView.BUSCA;
-        
-        
     }
     
     public void initRegisterView() {
