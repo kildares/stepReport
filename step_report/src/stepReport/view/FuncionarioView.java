@@ -142,7 +142,8 @@ public class FuncionarioView extends javax.swing.JPanel {
                 ArrayList<String> funcInfo = new ArrayList<String>();
                 try {
                     funcInfo = this.getControl().searchFuncionario(numero);
-                } catch (notFoundException ex) {
+                } 
+                catch (notFoundException ex) {
                     Logger.getLogger(FuncionarioView.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(new JFrame(), "Funcionário não encontrado");
                 }
@@ -153,13 +154,15 @@ public class FuncionarioView extends javax.swing.JPanel {
                     this.profissaoTextField.setText(funcInfo.get(2));
                     this.nacionalidadeCombo.setVisible(true);
                     FuncionarioView.state = FuncionarioView.EDIT;
-                    
+                    this.loadEditView();
                 }catch(java.lang.IndexOutOfBoundsException ex){
                     String stack="";
                     for(StackTraceElement s : ex.getStackTrace()){
                         stack+="\n"+s;
                     }
                     JOptionPane.showMessageDialog(new JFrame(), "Erro interno do sistema" + "\n"+stack);
+                }catch(java.lang.NullPointerException ex2){
+                    JOptionPane.showMessageDialog(new JFrame(),"Nenhum funcionário encontrado");
                 }
             }
         }
@@ -238,6 +241,11 @@ public class FuncionarioView extends javax.swing.JPanel {
 
     public void setControl(FuncionarioControl Control) {
         this.Control = Control;
+    }
+
+    private void loadEditView() {
+        this.nomeTextField.setEditable(true);
+        this.profissaoTextField.setEditable(true);
     }
 
 }

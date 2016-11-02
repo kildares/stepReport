@@ -61,8 +61,6 @@ public class PeriodoModel {
         return false;
     }
     
-    
-    
     /**
      * Retorna a data da semana no periodo de 1 ano
      * @param Ano
@@ -289,5 +287,14 @@ public class PeriodoModel {
             func.setProfissao(conn.findProfissaoByID(func.getIdFunc()));
         }
         return horasSemana;
+    }
+
+    public String getUserName(String Id) 
+    {
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
+        List<String> list = conn.findByID(Id);
+        if(list==null)
+            return null;
+        return list.get(0);
     }
 }

@@ -88,5 +88,9 @@ public final class PeriodoControl {
         return this.getModel().createCadastro(idFunc,dataSemana,horas);
         
     }
+
+    public String getUserName(String Id) {
+        return this.getModel().getUserName(Id);
+    }
     
 }

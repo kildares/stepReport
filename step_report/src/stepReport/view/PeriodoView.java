@@ -104,11 +104,11 @@ public final class PeriodoView extends javax.swing.JPanel {
         sabadoUnidadeTextField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        confirmarButton2 = new javax.swing.JButton();
         nomeLabel2 = new javax.swing.JLabel();
         numeroTextField = new javax.swing.JFormattedTextField();
         nomeTextField = new javax.swing.JTextField();
         buscarButton = new javax.swing.JButton();
-        confirmarButton2 = new javax.swing.JButton();
 
         jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -303,7 +303,16 @@ public final class PeriodoView extends javax.swing.JPanel {
         jLabel13.setText("Horas");
         diasPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
 
-        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 770, 340));
+        confirmarButton2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        confirmarButton2.setText("Registrar");
+        confirmarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarButton2ActionPerformed(evt);
+            }
+        });
+        diasPanel.add(confirmarButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 340, -1, 40));
+
+        add(diasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 770, 390));
 
         nomeLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -325,23 +334,40 @@ public final class PeriodoView extends javax.swing.JPanel {
             }
         });
         add(buscarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 100, 30));
-
-        confirmarButton2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        confirmarButton2.setText("Registrar");
-        confirmarButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmarButton2ActionPerformed(evt);
-            }
-        });
-        add(confirmarButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, -1, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         // TODO add your handling code here:
+        String Id = this.numeroTextField.getText();
+        if(Id.equals(""))
+        {
+            JOptionPane.showMessageDialog(new JFrame(),"O número do funcionário não pode ser vazio");
+            this.diasPanel.setVisible(false);
+        }
+        else
+        {
+            String nome = this.getControl().getUserName(Id);
+            if(nome!=null && !nome.equals("")){
+               this.nomeTextField.setText(nome);
+               this.nomeTextField.setEditable(false);
+               this.diasPanel.setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(new JFrame(),"Funcionário não encontrado");
+                this.diasPanel.setVisible(false);
+            }
+        }
     }//GEN-LAST:event_buscarButtonActionPerformed
 
     private void confirmarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButton2ActionPerformed
         // TODO add your handling code here:
+        if(this.isValidAlocacao()){
+            if(this.getControl().createCadastro(this.numeroTextField.getText(), this.DatePicker.getJFormattedTextField().getText(), this.getAlocacao()))
+                JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");
+            else
+                JOptionPane.showMessageDialog(new JFrame(),"Erro no cadastro das horas");
+        }
     }//GEN-LAST:event_confirmarButton2ActionPerformed
 
 
@@ -563,6 +589,12 @@ public final class PeriodoView extends javax.swing.JPanel {
     private boolean isValidAlocacao() {
         
         int horas;
+        
+        if(this.DatePicker.getJFormattedTextField().getText().equals("")){
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhuma data selecionada");
+            return false;
+        }
+        
         horas = Integer.parseInt(this.SegundaHorasTextField.getText());
         if(horas<0||horas>24 || (this.segundaNAMTextField.getText().equals("") && this.segundaTaskTextField.getText().equals(""))){
             JOptionPane.showMessageDialog(new JFrame(), "Alocação de Segunda Inválida");
@@ -571,7 +603,7 @@ public final class PeriodoView extends javax.swing.JPanel {
         horas = Integer.parseInt(this.TercaHorasTextField.getText());
         if(horas<0||horas>24  || (this.tercaNAMTextField.getText().equals("") && this.tercaTaskTextField.getText().equals("")))
         {
-            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Terca Inválida");
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Terça Inválida");
             return false;
         }
         horas = Integer.parseInt(this.QuartaHorasTextField.getText());
@@ -594,7 +626,7 @@ public final class PeriodoView extends javax.swing.JPanel {
         }
         horas = Integer.parseInt(this.SabadoHorasTextField.getText());
         if(horas<0||horas>24 || (this.sabadoNAMTextField.getText().equals("") && this.sabadoTaskTextField.getText().equals(""))){
-            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Sabado Inválida");
+            JOptionPane.showMessageDialog(new JFrame(), "Alocação de Sábado Inválida");
             return false;
         }
         horas = Integer.parseInt(this.DomingoHorasTextField.getText());
