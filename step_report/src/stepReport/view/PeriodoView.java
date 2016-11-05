@@ -6,8 +6,10 @@
 package stepReport.view;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import stepReport.Util.DateLabelFormatter;
 import stepReport.control.PeriodoControl;
 
 
@@ -363,7 +366,10 @@ public final class PeriodoView extends javax.swing.JPanel {
     private void confirmarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButton2ActionPerformed
         // TODO add your handling code here:
         if(this.isValidAlocacao()){
-            if(this.getControl().createCadastro(this.numeroTextField.getText(), this.DatePicker.getJFormattedTextField().getText(), this.getAlocacao()))
+            //Preciso ajustar a hora caso o formato do mes esteja em caracteres de 3 letras ao inves de 2 numeros
+            String data = this.DatePicker.getJFormattedTextField().getText();
+            System.out.println("Log da data: "+data); 
+            if(this.getControl().createCadastro(this.numeroTextField.getText(), data, this.getAlocacao()))
                 JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");
             else
                 JOptionPane.showMessageDialog(new JFrame(),"Erro no cadastro das horas");
@@ -435,7 +441,7 @@ public final class PeriodoView extends javax.swing.JPanel {
     public void insertDatePicker(){
         UtilDateModel model = new UtilDateModel();
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
-        this.DatePicker = new JDatePickerImpl(datePanel);
+        this.DatePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter());
         this.DatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         this.add(DatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160));
     }

@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import stepReport.Util.DateLabelFormatter;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.Util.FuncionarioHorasSemana;
 import stepReport.control.ReportControl;
@@ -177,12 +178,12 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         
         UtilDateModel model = new UtilDateModel();
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
-        this.InitDatePicker = new JDatePickerImpl(datePanel);
+        this.InitDatePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter());
         this.InitDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         
         UtilDateModel model2 = new UtilDateModel();
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
-        this.FimDatePicker = new JDatePickerImpl(datePanel2);
+        this.FimDatePicker = new JDatePickerImpl(datePanel2,new DateLabelFormatter());
         this.FimDatePicker.getJFormattedTextField().setFont(new java.awt.Font("Verdana",0,18));
         
         this.add(InitDatePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150));
