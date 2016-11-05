@@ -71,8 +71,8 @@ public class AdminDAOJDBCImpl implements AdminDAO {
             PreparedStatement prepStatement = conexao.prepareStatement(updateSQL);
             prepStatement.setString(1, user);
             ResultSet rs = prepStatement.executeQuery();
-            if(rs.next()){
-                
+            if(rs.next())
+            {    
                 ArrayList<String> md = new ArrayList<String>();
                 md.add(rs.getString("usuario"));
                 md.add(rs.getString("senha"));

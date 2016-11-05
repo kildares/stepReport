@@ -244,6 +244,7 @@ public class FuncionarioView extends javax.swing.JPanel {
     }
 
     private void loadEditView() {
+        this.confirmarButton.setText("Atualizar");
         this.nomeTextField.setEditable(true);
         this.profissaoTextField.setEditable(true);
     }
