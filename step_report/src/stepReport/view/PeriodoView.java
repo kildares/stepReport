@@ -38,6 +38,7 @@ public final class PeriodoView extends javax.swing.JPanel {
     private static final int CADASTRO = 1;        
     private static final int BUSCA = 2;
     
+    private static Map<String,String> funcs;
     
     public PeriodoView(PeriodoControl control) {
         initComponents();
@@ -109,9 +110,8 @@ public final class PeriodoView extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         confirmarButton2 = new javax.swing.JButton();
         nomeLabel2 = new javax.swing.JLabel();
-        numeroTextField = new javax.swing.JFormattedTextField();
-        nomeTextField = new javax.swing.JTextField();
-        buscarButton = new javax.swing.JButton();
+        NumeroTextField = new javax.swing.JTextField();
+        NomeCombo = new javax.swing.JComboBox<>();
 
         jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -129,7 +129,7 @@ public final class PeriodoView extends javax.swing.JPanel {
 
         nomeLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nomeLabel1.setText("Nome do trabalhador:");
+        nomeLabel1.setText("Numero do trabalhador:");
         add(nomeLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 219, -1));
 
         diasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -319,49 +319,20 @@ public final class PeriodoView extends javax.swing.JPanel {
 
         nomeLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         nomeLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nomeLabel2.setText("Número do trabalhador:");
+        nomeLabel2.setText("Nome do trabalhador:");
         add(nomeLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 219, -1));
 
-        numeroTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        numeroTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(numeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 420, -1));
+        NumeroTextField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        add(NumeroTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 380, -1));
 
-        nomeTextField.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        add(nomeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 420, -1));
-
-        buscarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        buscarButton.setText("Buscar");
-        buscarButton.addActionListener(new java.awt.event.ActionListener() {
+        NomeCombo.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        NomeCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarButtonActionPerformed(evt);
+                NomeComboActionPerformed(evt);
             }
         });
-        add(buscarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 100, 30));
+        add(NomeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 380, -1));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
-        // TODO add your handling code here:
-        String Id = this.numeroTextField.getText();
-        if(Id.equals(""))
-        {
-            JOptionPane.showMessageDialog(new JFrame(),"O número do funcionário não pode ser vazio");
-            this.diasPanel.setVisible(false);
-        }
-        else
-        {
-            String nome = this.getControl().getUserName(Id);
-            if(nome!=null && !nome.equals("")){
-               this.nomeTextField.setText(nome);
-               this.nomeTextField.setEditable(false);
-               this.diasPanel.setVisible(true);
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(new JFrame(),"Funcionário não encontrado");
-                this.diasPanel.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_buscarButtonActionPerformed
 
     private void confirmarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButton2ActionPerformed
         // TODO add your handling code here:
@@ -369,23 +340,28 @@ public final class PeriodoView extends javax.swing.JPanel {
             //Preciso ajustar a hora caso o formato do mes esteja em caracteres de 3 letras ao inves de 2 numeros
             String data = this.DatePicker.getJFormattedTextField().getText();
             System.out.println("Log da data: "+data); 
-            if(this.getControl().createCadastro(this.numeroTextField.getText(), data, this.getAlocacao()))
+            if(this.getControl().createCadastro(this.NumeroTextField.getText(), data, this.getAlocacao()))
                 JOptionPane.showMessageDialog(new JFrame(), "Cadastro de horas realizado com sucesso");
             else
                 JOptionPane.showMessageDialog(new JFrame(),"Erro no cadastro das horas");
         }
     }//GEN-LAST:event_confirmarButton2ActionPerformed
 
+    private void NomeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeComboActionPerformed
+        this.NumeroTextField.setText(PeriodoView.funcs.get((String)this.NomeCombo.getSelectedItem()));
+    }//GEN-LAST:event_NomeComboActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField DomingoHorasTextField;
+    private javax.swing.JComboBox<String> NomeCombo;
+    private javax.swing.JTextField NumeroTextField;
     private javax.swing.JFormattedTextField QuartaHorasTextField;
     private javax.swing.JFormattedTextField QuintaHorasTextField;
     private javax.swing.JFormattedTextField SabadoHorasTextField;
     private javax.swing.JFormattedTextField SegundaHorasTextField;
     private javax.swing.JFormattedTextField SextaHorasTextField;
     private javax.swing.JFormattedTextField TercaHorasTextField;
-    private javax.swing.JButton buscarButton;
     private javax.swing.JButton confirmarButton2;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JPanel diasPanel;
@@ -409,8 +385,6 @@ public final class PeriodoView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel nomeLabel1;
     private javax.swing.JLabel nomeLabel2;
-    private javax.swing.JTextField nomeTextField;
-    private javax.swing.JFormattedTextField numeroTextField;
     private javax.swing.JTextField quartaBSPTextField;
     private javax.swing.JTextField quartaNAMTextField;
     private javax.swing.JTextField quartaTaskTextField;
@@ -466,26 +440,29 @@ public final class PeriodoView extends javax.swing.JPanel {
             return true;
     }
 
-    public void initSearchView() 
+    public boolean initSearchView() 
     {
-        
-        this.DatePicker.getJFormattedTextField().setText("");
-        this.DatePicker.setVisible(true);
-        this.titleLabel.setText("Ver Hora");
-        this.nomeTextField.setText("");
-        this.nomeTextField.setEditable(false);
-        this.numeroTextField.setText("");
-        this.numeroTextField.setEditable(true);
-        this.diasPanel.setVisible(false);
-        PeriodoView.state = PeriodoView.BUSCA;
+        if(!this.loadComboNames())
+        {
+            return false;
+        }
+        else
+        {
+            this.DatePicker.getJFormattedTextField().setText("");
+            this.DatePicker.setVisible(true);
+            this.titleLabel.setText("Ver Hora");
+            this.NumeroTextField.setEditable(false);
+            this.diasPanel.setVisible(false);
+            this.diasPanel.setVisible(true);
+            PeriodoView.state = PeriodoView.BUSCA;
+        }
+        return true;
     }
     
     public void initRegisterView() {
         this.DatePicker.getJFormattedTextField().setText("");
         this.DatePicker.setVisible(true);
         this.titleLabel.setText("Registrar hora");
-        this.numeroTextField.setText("");
-        this.numeroTextField.setEditable(true);
         this.diasPanel.setVisible(true);
         this.DomingoHorasTextField.setText("");
         this.SabadoHorasTextField.setText("");
@@ -600,6 +577,12 @@ public final class PeriodoView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(new JFrame(), "Nenhuma data selecionada");
             return false;
         }
+        if(!validDate())
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Data selecionada Invalida");
+            return false;
+        }
+            
         
         horas = Integer.parseInt(this.SegundaHorasTextField.getText());
         if(horas<0||horas>24 || (this.segundaNAMTextField.getText().equals("") && this.segundaTaskTextField.getText().equals(""))){
@@ -644,6 +627,37 @@ public final class PeriodoView extends javax.swing.JPanel {
         
         return true;
         
+    }
+
+    private boolean loadComboNames() {
+        
+        this.NomeCombo.removeAllItems();
+        
+        PeriodoView.funcs = this.getControl().getFuncNameNumber();
+        if(PeriodoView.funcs.isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(), "Nao ha funcionarios para cadastrar");
+            return false;
+        }
+        else
+        {
+            for(String str : PeriodoView.funcs.keySet())
+                this.NomeCombo.addItem(str);
+            return true;
+        }
+        
+    }
+    
+    private boolean validDate() {
+         String ini = this.DatePicker.getJFormattedTextField().getText();
+        if(ini.equals(""))
+            return false;
+        
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(ini.substring(6, 10)), Integer.parseInt(ini.substring(3, 5))-1, Integer.parseInt(ini.substring(0, 2)));
+        if(c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+            return false;
+       
+        return true;
     }
 
     

@@ -21,6 +21,10 @@ import stepReport.control.loginControl;
  */
 public final class mainScreen extends javax.swing.JFrame {
 
+    public static void setActiveVisible(boolean b) {
+        mainScreen.active.setVisible(b);
+    }
+
     /**
      * Creates new form mainScreenView
      */
@@ -41,7 +45,7 @@ public final class mainScreen extends javax.swing.JFrame {
         this.setLogin(new loginControl(this));
         this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
-        this.setPeriodo(new PeriodoControl(this));
+        this.setPeriodo(new PeriodoControl(this,this.getFuncionario()));
         this.setReport(new ReportControl(this));
         
         this.add(this.getLogin().getView());
@@ -496,6 +500,11 @@ public final class mainScreen extends javax.swing.JFrame {
     
     public static void setActive(JPanel panel){
         mainScreen.active = panel;
+    }
+    
+    public static void DeactivateScreen(){
+        mainScreen.active.setVisible(false);
+        mainScreen.active = null;
     }
     
     public void setPeriodo(PeriodoControl control){

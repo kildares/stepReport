@@ -7,7 +7,6 @@ package stepReport.control;
 
 import Exceptions.notFoundException;
 import java.util.ArrayList;
-import stepReport.model.AdminModel;
 import stepReport.view.FuncionarioView;
 import stepReport.view.mainScreen;
 import stepReport.model.FuncionarioModel;
@@ -73,8 +72,6 @@ public final class FuncionarioControl {
     public void setView(FuncionarioView view) {
         this.View = view;
     }
-
-    
 
     /**
      *

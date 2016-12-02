@@ -297,4 +297,9 @@ public class PeriodoModel {
             return null;
         return list.get(0);
     }
+
+    public Map<String, String> getFuncNameNumber() {
+       FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
+       return conn.getAllNomeID();
+    }
 }

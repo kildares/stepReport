@@ -20,16 +20,16 @@ public final class PeriodoControl {
     
     private mainScreen Screen;
     private PeriodoView View;
-
+    private FuncionarioControl FuncControl;
    
     private PeriodoModel Model;
     
-    public PeriodoControl(mainScreen screen){
+    public PeriodoControl(mainScreen screen,FuncionarioControl funcControl){
         
         this.Screen = screen;
         this.View = new PeriodoView(this);
         this.Model = new PeriodoModel();
-        
+        this.FuncControl = funcControl;
         this.getView().insertDatePicker();
         
         this.getView().setVisible(false);
@@ -37,10 +37,15 @@ public final class PeriodoControl {
 
     public void initSearchView() {
         
-        this.getView().initSearchView();
-        mainScreen.setActive(this.getView());
-        this.getView().setBounds(0, 0, 800, 500);
-        this.getView().setVisible(true);
+        if(!this.getView().initSearchView())
+        {
+            this.loadFuncionarioView();
+        }
+        else{
+            mainScreen.setActive(this.getView());
+            this.getView().setBounds(0, 0, 800, 500);
+            this.getView().setVisible(true);
+        }
     }
     
     public void initRegisterView() {
@@ -91,6 +96,14 @@ public final class PeriodoControl {
 
     public String getUserName(String Id) {
         return this.getModel().getUserName(Id);
+    }
+
+    public Map<String, String> getFuncNameNumber() {
+        return this.getModel().getFuncNameNumber();
+    }
+
+    public void loadFuncionarioView() {
+        this.FuncControl.initSearchView();
     }
     
 }

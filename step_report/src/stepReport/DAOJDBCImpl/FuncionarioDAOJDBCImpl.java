@@ -7,6 +7,8 @@ package stepReport.DAOJDBCImpl;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -170,6 +172,27 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
         return null;
     }
     
-    
+    public Map<String,String> getAllNomeID(){
+         try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String sql = "SELECT nome,id FROM funcionario";
+            PreparedStatement prepStatement = conexao.prepareStatement(sql);
+
+            ResultSet rs = prepStatement.executeQuery();
+            Map<String,String> map = new HashMap<String,String>();
+            while(rs.next())
+            {
+                map.put(rs.getString("nome"), rs.getString("id"));
+            }
+            rs.close();
+            return map;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
 }

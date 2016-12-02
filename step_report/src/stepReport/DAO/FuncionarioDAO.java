@@ -6,6 +6,7 @@
 package stepReport.DAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import stepReport.model.FuncionarioModel;
 /**
  *
@@ -20,6 +21,7 @@ public interface FuncionarioDAO {
     public ArrayList<String> findByID(String id);
     public String findNomeByID(String id);
     public String findProfissaoByID(String id);
-    
     public List<FuncionarioModel> findAll();
+    
+    public Map<String,String> getAllNomeID();
 }
