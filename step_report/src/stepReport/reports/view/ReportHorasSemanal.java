@@ -424,6 +424,14 @@ public final class ReportHorasSemanal extends javax.swing.JPanel {
             table[i][column-1] = Double.toString(cont);
         }
         
+        double iTot =0.0;
+        for(int j=1;j<rows+1;j++)
+        {
+            for(i=2;i<column-1;i++)
+                iTot +=Double.parseDouble(table[j][i]);
+            table[j][column-1]=Double.toString(iTot);
+        }
+        
         return  table;
     }
 

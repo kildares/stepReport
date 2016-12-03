@@ -7,6 +7,7 @@ package stepReport.view;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stepReport.control.AdminControl;
@@ -335,12 +336,39 @@ public final class mainScreen extends javax.swing.JFrame {
             while(!accepted)
             {
                 ret = mainScreen.FILECHOOSER.showSaveDialog(this);
+                        
                 if(ret == JFileChooser.APPROVE_OPTION)
                 {
                     File file = mainScreen.FILECHOOSER.getSelectedFile();
-                    accepted = true;   
-                    this.getReport().savePDF(file,mainScreen.active);
-                    
+                    if(file.exists())
+                    {
+                        int ret2 = JOptionPane.showConfirmDialog(new JFrame(),"Arquivo ja Existe. Gostaria de sobrescrever?");
+                        if(ret2==JOptionPane.OK_OPTION)
+                        {
+                            String name = file.getPath();
+                            if(!file.delete())
+                                JOptionPane.showMessageDialog(new JFrame(),"Erro ao salvar arquivo");
+                            else
+                            {
+                                file = new File(name);
+                            }
+                            accepted = true;
+                            this.getReport().savePDF(file,mainScreen.active);
+                        }
+                    }
+                    else
+                    {
+                        
+                        if(!file.getName().contains(".pdf"))
+                        {
+                            File f2 = new File(file.getPath()+".pdf");
+                            file.delete();
+                            file = f2;
+                        }
+                        
+                        accepted = true;   
+                        this.getReport().savePDF(file,mainScreen.active);
+                    }
                 }
                 else if(ret == JFileChooser.CANCEL_OPTION)
                     accepted=true; 
@@ -404,6 +432,7 @@ public final class mainScreen extends javax.swing.JFrame {
                 mainScreen ms = new mainScreen();
                 ms.setVisible(true);
                 ms.setBounds(300, 300, 1280, 768);
+                ms.setTitle("Relatorio de Funcionarios");
                 
               
             }
