@@ -194,5 +194,25 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
         }
         return null;
     }
+
+    @Override
+    public boolean removeFuncionario(String idUser) 
+    {
+        try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String createSQL = "DELETE FROM funcionario "+
+                               "WHERE id =?";
+            PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
+            prepStatement.setInt(1, Integer.parseInt(idUser));
+            prepStatement.executeUpdate();
+            conexao.close();
+            return true;  
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     
 }

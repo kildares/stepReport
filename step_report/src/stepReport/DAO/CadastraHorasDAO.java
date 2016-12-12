@@ -17,4 +17,6 @@ public interface CadastraHorasDAO {
     //public boolean create(String dataSemana, int hrDom, int hrSeg, int hrTer, int hrQua, int hrQui, int hrSex, int hrSab,String idFunc, String idTarefa);
     public ArrayList<FuncionarioHoras> findCadastro (String idFunc, String dataSemana);
     public boolean update(String id, int horas, String taskNumber, String nam, String bsp, String unidade);
+
+    public boolean removeHoras(String idUser);
 }

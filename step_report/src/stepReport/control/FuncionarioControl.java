@@ -21,7 +21,7 @@ public final class FuncionarioControl {
     private FuncionarioView View;
     private FuncionarioModel Model;
     private loginControl login;
-
+    private PeriodoControl periodoControl;
     
     public FuncionarioModel getModel() {
         return Model;
@@ -39,8 +39,16 @@ public final class FuncionarioControl {
         this.login = login;
     }
     
-    public FuncionarioControl(mainScreen Screen){
+    public void setPeriodoControl(PeriodoControl periodoControl){
+        this.periodoControl=periodoControl;
+    }
+    public PeriodoControl getPeriodoControl(){
+        return this.periodoControl;
+    }
+    
+    public FuncionarioControl(mainScreen Screen,PeriodoControl periodoControl){
         this.setModel(new FuncionarioModel());
+        this.setPeriodoControl(periodoControl);
         this.setScreen(Screen);
         this.setView(new FuncionarioView(this));
         this.getView().setVisible(false);
@@ -104,6 +112,14 @@ public final class FuncionarioControl {
         
         return this.getModel().registerFuncionaro(funcInfo);
         
+    }
+
+    public boolean removeUser(String idUser) 
+    {
+        if(this.getPeriodoControl().removeHoras(idUser))
+            if(this.getModel().removeUser(idUser))
+                return true;
+        return false;
     }
 
     

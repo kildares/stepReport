@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import stepReport.DAO.CadastraHorasDAO;
 import stepReport.Util.FuncionarioHoras;
 import stepReport.model.ConnectionDB;
@@ -100,6 +98,25 @@ public class CadastraHorasDAOJDBCImpl implements CadastraHorasDAO{
             prepStatement.executeUpdate();
             conexao.close();
             
+            return true;  
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeHoras(String idUser) 
+    {
+         try {
+            ConnectionDB conn = new ConnectionDB();
+            Connection conexao = conn.getConnection();
+            
+            String createSQL = "DELETE FROM db_report.cadastra_horas  WHERE id_func =?";
+            PreparedStatement prepStatement = conexao.prepareStatement(createSQL);
+            prepStatement.setInt(1, Integer.parseInt(idUser));
+            prepStatement.executeUpdate();
+            conexao.close();
             return true;  
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOJDBCImpl.class.getName()).log(Level.SEVERE, null, ex);

@@ -32,7 +32,8 @@ public class FuncionarioView extends javax.swing.JPanel {
     private static final int EDIT = 3;
     private static final int REMOVE = 4; 
             
-    public FuncionarioView(FuncionarioControl Control) {
+    public FuncionarioView(FuncionarioControl Control) 
+    {
         initComponents();
         this.Control = Control;
         FuncionarioView.state = FuncionarioView.BUSCA;
@@ -55,6 +56,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         nomeTextField = new javax.swing.JTextField();
         profissaoTextField = new javax.swing.JTextField();
         nacionalidadeCombo = new javax.swing.JComboBox<>();
+        deleteButton = new javax.swing.JButton();
         confirmarButton = new javax.swing.JButton();
         numeroFormattedField = new javax.swing.JFormattedTextField();
 
@@ -95,8 +97,17 @@ public class FuncionarioView extends javax.swing.JPanel {
         nacionalidadeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Portugal", "Romenia", "India", "Espanha", "Outros" }));
         add(nacionalidadeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 172, 393, -1));
 
+        deleteButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        deleteButton.setText("Remover");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+        add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, 45));
+
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        confirmarButton.setText("CONFIRMAR");
+        confirmarButton.setText("Confirmar");
         confirmarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmarButtonActionPerformed(evt);
@@ -111,10 +122,13 @@ public class FuncionarioView extends javax.swing.JPanel {
 
     private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
         // TODO add your handling code here:
-        if(FuncionarioView.state == FuncionarioView.EDIT){
+        if(FuncionarioView.state == FuncionarioView.EDIT)
+        {
             ArrayList<String> funcInfo = new ArrayList<String>();
-            
-            try{
+            //Pede a confirmacao pro usuario
+            if(JOptionPane.showConfirmDialog(new JFrame(), "Confirmar atualizacao?") == JOptionPane.OK_OPTION)
+            {
+             try{
                 funcInfo.add(this.numeroFormattedField.getText());
                 funcInfo.add(this.nomeTextField.getText());
                 funcInfo.add((String)this.nacionalidadeCombo.getSelectedItem());
@@ -129,10 +143,12 @@ public class FuncionarioView extends javax.swing.JPanel {
             
                 FuncionarioView.state = FuncionarioView.BUSCA;
                 this.loadSearchView();
-            }catch(java.lang.IndexOutOfBoundsException ex){
-                JOptionPane.showMessageDialog(new JFrame(), "Campos Obrigatórios ausentes");
+                }catch(java.lang.IndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(new JFrame(), "Campos Obrigatórios ausentes");
                 
+                }
             }
+            
             
         }
         if(FuncionarioView.state == FuncionarioView.BUSCA){
@@ -153,6 +169,7 @@ public class FuncionarioView extends javax.swing.JPanel {
                     this.nacionalidadeCombo.setSelectedItem(funcInfo.get(1));
                     this.profissaoTextField.setText(funcInfo.get(2));
                     this.nacionalidadeCombo.setVisible(true);
+                    this.deleteButton.setVisible(true);
                     FuncionarioView.state = FuncionarioView.EDIT;
                     this.loadEditView();
                 }catch(java.lang.IndexOutOfBoundsException ex){
@@ -190,9 +207,26 @@ public class FuncionarioView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_confirmarButtonActionPerformed
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(new JFrame(), "Confirma a remoção do usuário"+ this.nomeTextField.getText()) == JOptionPane.OK_OPTION)
+        {
+            if(this.getControl().removeUser(this.numeroFormattedField.getText())){
+                JOptionPane.showMessageDialog(new JFrame(), "Usuário removido com sucesso");
+                this.loadSearchView();
+            }
+            else
+                JOptionPane.showMessageDialog(new JFrame(), "Erro ao Remover Funcionario");
+        }
+        
+        
+        
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmarButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JComboBox<String> nacionalidadeCombo;
     private javax.swing.JLabel nacionalidadeLabel;
     private javax.swing.JLabel nomeLabel;
@@ -216,6 +250,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.nacionalidadeCombo.setVisible(false);
         this.profissaoTextField.setText("");
         this.profissaoTextField.setEditable(false);
+        this.deleteButton.setVisible(false);
 
         FuncionarioView.state = FuncionarioView.BUSCA;
     }
@@ -247,6 +282,7 @@ public class FuncionarioView extends javax.swing.JPanel {
         this.confirmarButton.setText("Atualizar");
         this.nomeTextField.setEditable(true);
         this.profissaoTextField.setEditable(true);
+        this.numeroFormattedField.setEditable(false);
     }
 
 }

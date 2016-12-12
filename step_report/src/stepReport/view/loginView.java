@@ -75,7 +75,7 @@ public final class loginView extends javax.swing.JPanel {
         add(passTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 150, -1));
 
         loginButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        loginButton1.setText("ENTRAR");
+        loginButton1.setText("Entrar");
         loginButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButton1ActionPerformed(evt);

@@ -44,9 +44,9 @@ public final class mainScreen extends javax.swing.JFrame {
     public mainScreen() {
         initComponents();
         this.setLogin(new loginControl(this));
-        this.setFuncionario(new FuncionarioControl(this));
         this.setAdmin(new AdminControl(this));
         this.setPeriodo(new PeriodoControl(this,this.getFuncionario()));
+        this.setFuncionario(new FuncionarioControl(this,this.getPeriodo()));
         this.setReport(new ReportControl(this));
         
         this.add(this.getLogin().getView());
@@ -247,7 +247,7 @@ public final class mainScreen extends javax.swing.JFrame {
         mainScreen.nextScreen = "registraHora";
         this.isPrintable(false);
         if(this.getLogin().userLogged())
-            this.getPeriodo().initSearchView();
+            this.getPeriodo().initRegisterView();
         else
             this.getLogin().renderLoginScreen();
     }//GEN-LAST:event_RegistroMenuItemActionPerformed
@@ -480,7 +480,7 @@ public final class mainScreen extends javax.swing.JFrame {
         else if(mainScreen.nextScreen.equals("registraHora")){
             mainScreen.active.setVisible(false);
             mainScreen.active = this.getPeriodo().getView();
-            this.getPeriodo().initSearchView();
+            this.getPeriodo().initRegisterView();
         }
         else if(mainScreen.nextScreen.equals("mudaUsuario")){
             mainScreen.active.setVisible(false);

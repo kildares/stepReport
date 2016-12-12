@@ -302,4 +302,20 @@ public class PeriodoModel {
        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();
        return conn.getAllNomeID();
     }
+
+    public boolean isAvailableWeek(String num,String date) 
+    {
+        CadastraHorasDAO hora = new CadastraHorasDAOJDBCImpl();
+        List<FuncionarioHoras> func = hora.findCadastro(num, date);
+        if(func==null)
+            return true;
+        if(func.isEmpty())
+            return true;
+        return false;
+    }
+
+    public boolean removeHoras(String idUser) {
+        CadastraHorasDAO hora = new CadastraHorasDAOJDBCImpl();
+        return hora.removeHoras(idUser);
+    }
 }

@@ -76,7 +76,7 @@ public final class ReportNacionalidadeView extends javax.swing.JPanel {
         add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 13, -1, -1));
 
         confirmarButton.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        confirmarButton.setText("CONFIRMAR");
+        confirmarButton.setText("Confirmar");
         confirmarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmarButtonActionPerformed(evt);

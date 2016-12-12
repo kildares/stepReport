@@ -136,6 +136,12 @@ public final class FuncionarioModel {
         return result;
     }
 
+    public boolean removeUser(String idUser) 
+    {
+        FuncionarioDAO conn = new FuncionarioDAOJDBCImpl();   
+        return conn.removeFuncionario(idUser);
+    }
+
     
     
 }

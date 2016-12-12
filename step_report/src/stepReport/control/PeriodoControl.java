@@ -34,21 +34,9 @@ public final class PeriodoControl {
         
         this.getView().setVisible(false);
     }
-
-    public void initSearchView() {
-        
-        if(!this.getView().initSearchView())
-        {
-            this.loadFuncionarioView();
-        }
-        else{
-            mainScreen.setActive(this.getView());
-            this.getView().setBounds(0, 0, 800, 500);
-            this.getView().setVisible(true);
-        }
-    }
     
-    public void initRegisterView() {
+    public void initRegisterView() 
+    {
         this.getView().initRegisterView();
         mainScreen.setActive(this.getView());
         this.getView().setBounds(0, 0, 800, 500);
@@ -104,6 +92,16 @@ public final class PeriodoControl {
 
     public void loadFuncionarioView() {
         this.FuncControl.initSearchView();
+    }
+
+    public boolean isAvailableWeek(String num,String date) 
+    {
+        return this.getModel().isAvailableWeek(num,date);
+    }
+
+    public boolean removeHoras(String idUser) 
+    {
+        return this.getModel().removeHoras(idUser);
     }
     
 }

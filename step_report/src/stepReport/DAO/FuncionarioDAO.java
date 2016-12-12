@@ -24,4 +24,6 @@ public interface FuncionarioDAO {
     public List<FuncionarioModel> findAll();
     
     public Map<String,String> getAllNomeID();
+
+    public boolean removeFuncionario(String idUser);
 }
