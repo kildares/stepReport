@@ -93,6 +93,8 @@ public final class PeriodoControl {
     public void loadFuncionarioView() {
         this.FuncControl.initSearchView();
     }
+    
+    
 
     public boolean isAvailableWeek(String num,String date) 
     {

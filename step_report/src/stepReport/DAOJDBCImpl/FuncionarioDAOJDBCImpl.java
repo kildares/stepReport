@@ -8,6 +8,7 @@ import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -177,11 +178,11 @@ public class FuncionarioDAOJDBCImpl implements FuncionarioDAO{
             ConnectionDB conn = new ConnectionDB();
             Connection conexao = conn.getConnection();
             
-            String sql = "SELECT nome,id FROM funcionario";
+            String sql = "SELECT f.nome, f.id FROM funcionario as f ORDER BY f.nome ASC";
             PreparedStatement prepStatement = conexao.prepareStatement(sql);
 
             ResultSet rs = prepStatement.executeQuery();
-            Map<String,String> map = new HashMap<String,String>();
+            Map<String,String> map = new LinkedHashMap<String,String>();
             while(rs.next())
             {
                 map.put(rs.getString("nome"), rs.getString("id"));

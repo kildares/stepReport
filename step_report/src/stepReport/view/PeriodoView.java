@@ -116,6 +116,8 @@ public final class PeriodoView extends javax.swing.JPanel {
         NumeroTextField = new javax.swing.JTextField();
         NomeCombo = new javax.swing.JComboBox<>();
         initRegButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -350,6 +352,22 @@ public final class PeriodoView extends javax.swing.JPanel {
             }
         });
         add(initRegButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 160, -1));
+
+        jButton1.setText("Buscar por Numero");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
+
+        jButton2.setText("Buscar Nomes");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButton2ActionPerformed
@@ -386,11 +404,16 @@ public final class PeriodoView extends javax.swing.JPanel {
     }//GEN-LAST:event_confirmarButton2ActionPerformed
 
     private void NomeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeComboActionPerformed
-        this.NumeroTextField.setText(PeriodoView.funcs.get((String)this.NomeCombo.getSelectedItem()));
+        setNummeroDoNome();
     }//GEN-LAST:event_NomeComboActionPerformed
-
+    
+    public void setNummeroDoNome(){
+        this.NumeroTextField.setText(PeriodoView.funcs.get((String)this.NomeCombo.getSelectedItem()));
+    }
+    
     private void initRegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initRegButtonActionPerformed
         // TODO add your handling code here:
+        setNummeroDoNome();
         if(this.DatePicker.getJFormattedTextField().getText().isEmpty())
             JOptionPane.showMessageDialog(new JFrame(), "Nenhuma data selecionada.");
         
@@ -399,6 +422,9 @@ public final class PeriodoView extends javax.swing.JPanel {
             String[] date = this.DatePicker.getJFormattedTextField().getText().split("/");
             if(this.getControl().isAvailableWeek(this.NumeroTextField.getText(),date[2]+date[1]+date[0])){
                 this.NomeCombo.setVisible(false);
+                this.NumeroTextField.setEditable(false);
+                this.jButton1.setEnabled(false);
+                this.jButton2.setEnabled(false);
                 this.selectedNomeLabel.setText((String)this.NomeCombo.getSelectedItem());
                 this.selectedNomeLabel.setVisible(true);
                 PeriodoView.DATA=this.DatePicker.getJFormattedTextField().getText();
@@ -416,6 +442,37 @@ public final class PeriodoView extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_initRegButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.NomeCombo.setVisible(true);
+        String nomeFuncionario = null;
+        if(this.NumeroTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhum numero digitado");
+        }else{
+            nomeFuncionario = this.getControl().getUserName(this.NumeroTextField.getText());
+        }
+
+        if(nomeFuncionario != null){
+            this.NomeCombo.removeAllItems();
+            this.NomeCombo.addItem(nomeFuncionario);
+            iniciandoComponentes();
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhum funcionario com esse numero");
+        }
+        
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.NumeroTextField.setText("");
+        if(!this.loadComboNames())
+        {
+            this.getControl().loadFuncionarioView();
+        }
+        initRegisterView();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -436,6 +493,8 @@ public final class PeriodoView extends javax.swing.JPanel {
     private javax.swing.JTextField domingoTaskTextField;
     private javax.swing.JTextField domingoUnidadeTextField;
     private javax.swing.JButton initRegButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -479,7 +538,9 @@ public final class PeriodoView extends javax.swing.JPanel {
     private javax.swing.JTextField tercaUnidadeTextField;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-
+    
+    
+    
     public void insertDatePicker(){
         UtilDateModel model = new UtilDateModel();
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
@@ -511,15 +572,20 @@ public final class PeriodoView extends javax.swing.JPanel {
     
     public void initRegisterView() {
         
-        if(!this.loadComboNames())
-        {
-            this.getControl().loadFuncionarioView();
-        }
         PeriodoView.DATA="";
         this.selectedNomeLabel.setVisible(false);
         this.NomeCombo.setVisible(true);
+        this.NumeroTextField.setEditable(true);
+        
+        iniciandoComponentes();
+        
+    }
+    
+    protected void iniciandoComponentes(){
+        
+        this.jButton1.setEnabled(true);
+        this.jButton2.setEnabled(true);
         this.DatePicker.setButtonFocusable(true);
-        this.NumeroTextField.setEditable(false);
         this.DatePicker.getJFormattedTextField().setText("");
         this.DatePicker.setVisible(true);
         this.titleLabel.setText("Registrar hora");
