@@ -88,6 +88,7 @@ public final class mainScreen extends javax.swing.JFrame {
         buscarFuncMenuItem = new javax.swing.JMenuItem();
         CadastroFuncMenuItem = new javax.swing.JMenuItem();
         RegistroMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         relatorioMenu = new javax.swing.JMenu();
         relatorioSemanalMenuItem = new javax.swing.JMenuItem();
         relatorioNacMenuItem = new javax.swing.JMenuItem();
@@ -159,6 +160,14 @@ public final class mainScreen extends javax.swing.JFrame {
             }
         });
         funcMenu.add(RegistroMenuItem);
+
+        jMenuItem1.setText("Editar Registro de horas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarRegistroHorasActionPerformed(evt);
+            }
+        });
+        funcMenu.add(jMenuItem1);
 
         Toolbar.add(funcMenu);
 
@@ -395,6 +404,16 @@ public final class mainScreen extends javax.swing.JFrame {
         mainScreen.active = this.getConfigPanel();        
     }//GEN-LAST:event_configMenuItemActionPerformed
 
+    private void editarRegistroHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRegistroHorasActionPerformed
+        mainScreen.active.setVisible(false);
+        mainScreen.nextScreen = "editaHora";
+        this.isPrintable(false);
+        if(this.getLogin().userLogged())
+            this.getPeriodo().initEditView();
+        else
+            this.getLogin().renderLoginScreen();
+    }//GEN-LAST:event_editarRegistroHorasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +466,7 @@ public final class mainScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem configMenuItem;
     private javax.swing.JMenu funcMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem newUserMenuItem;
     private javax.swing.JMenuItem relatorioBSPMenuItem;
     private javax.swing.JMenu relatorioMenu;
@@ -481,6 +501,11 @@ public final class mainScreen extends javax.swing.JFrame {
             mainScreen.active.setVisible(false);
             mainScreen.active = this.getPeriodo().getView();
             this.getPeriodo().initRegisterView();
+        }
+        else if(mainScreen.nextScreen.equals("editaHora")){
+            mainScreen.active.setVisible(false);
+            mainScreen.active = this.getPeriodo().getView();
+            this.getPeriodo().initEditView();
         }
         else if(mainScreen.nextScreen.equals("mudaUsuario")){
             mainScreen.active.setVisible(false);
