@@ -35,12 +35,12 @@ public class PeriodoModel {
         return conn.findCadastro(numeroFunc, dataSemana);
     }
     
-    public boolean updateCadastro(String idCadastro, String horas, String taskNum, String NAM, String BSP, String unidade){
-        
-        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
-        return conn.update(idCadastro,Integer.parseInt(horas),taskNum,NAM,BSP, unidade);
-    
-    }
+//    public boolean updateCadastro(String idCadastro, String horas, String taskNum, String NAM, String BSP, String unidade){
+//        
+//        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+//        return conn.update(idCadastro,Integer.parseInt(horas),taskNum,NAM,BSP, unidade);
+//    
+//    }
     public boolean createCadastro(String idFunc,String dataSemana,Map<String,List<String>> horas) {
         CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
         
@@ -59,6 +59,23 @@ public class PeriodoModel {
             return true;
         }
         return false;
+    }
+    
+    public boolean updateCadastro(String idFunc,String dataSemana,Map<String,List<String>> horas) {
+        CadastraHorasDAO conn = new CadastraHorasDAOJDBCImpl();
+        
+        String nDataSemana = this.fmtDataSemana(dataSemana);
+        
+            for(String dia : horas.keySet()){
+                List<String> atributos = horas.get(dia);
+                if(!conn.updateCad(nDataSemana,dia,Integer.parseInt(atributos.get(0)),atributos.get(1),atributos.get(2),atributos.get(3),atributos.get(4),idFunc)){
+                    return false;
+                }
+            }
+            //Loga o cadastro
+            logModel log = new logModel("editar_horas");
+            log.logData("DataSemana: "+nDataSemana + " idFunc: " +idFunc);
+            return true;
     }
     
     /**
@@ -317,5 +334,10 @@ public class PeriodoModel {
     public boolean removeHoras(String idUser) {
         CadastraHorasDAO hora = new CadastraHorasDAOJDBCImpl();
         return hora.removeHoras(idUser);
+    }
+    
+    public boolean removeHorasSemanais(String idUser, String dataSemana){
+        CadastraHorasDAO hora = new CadastraHorasDAOJDBCImpl();
+        return hora.removeHorasSemanais(idUser, dataSemana);
     }
 }

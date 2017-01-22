@@ -8,6 +8,7 @@ package stepReport.control;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import stepReport.Util.FuncionarioHoras;
 import stepReport.model.PeriodoModel;
 import stepReport.view.PeriodoView;
 import stepReport.view.mainScreen;
@@ -43,6 +44,14 @@ public final class PeriodoControl {
         this.getView().setVisible(true);    
     }
     
+    public void initEditView(){
+        this.getView().initEditView();
+        mainScreen.setActive(this.getView());
+        this.getView().setBounds(0, 0, 800, 500);
+        this.getView().setVisible(true);    
+    }
+
+    
      public mainScreen getScreen() {
         return Screen;
     }
@@ -67,18 +76,24 @@ public final class PeriodoControl {
         this.Model = Model;
     }
 
-    public ArrayList<String> searchTarefa(String numeroFunc, String replace) {
-        //return this.getModel().searchTarefa(numeroFunc,replace);
-        return null;
+    public ArrayList<FuncionarioHoras>  searchTarefa(String numeroFunc, String replace) {
+        return this.getModel().searchTarefa(numeroFunc, replace);
+        
     }
-    public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
-                                String hrSex, String hrSab) {
-        //return this.getModel().updateCadastro(idCadastro, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab);
-        return false;
-    }
+    
+//    public boolean updateCadastro(String idCadastro, String hrDom, String hrSeg, String hrTer, String hrQua, String hrQui,
+//                                String hrSex, String hrSab) {
+//        //return this.getModel().updateCadastro(idCadastro, hrDom, hrSeg, hrTer, hrQua, hrQui, hrSex, hrSab);
+//        return false;
+//    }
     
     public boolean createCadastro(String idFunc, String dataSemana, Map<String,List<String>> horas) {
         return this.getModel().createCadastro(idFunc,dataSemana,horas);
+        
+    }
+    
+    public boolean updateCadastro(String idFunc, String dataSemana, Map<String,List<String>> horas) {
+        return this.getModel().updateCadastro(idFunc,dataSemana,horas);
         
     }
 
@@ -93,6 +108,8 @@ public final class PeriodoControl {
     public void loadFuncionarioView() {
         this.FuncControl.initSearchView();
     }
+    
+    
 
     public boolean isAvailableWeek(String num,String date) 
     {
@@ -102,6 +119,11 @@ public final class PeriodoControl {
     public boolean removeHoras(String idUser) 
     {
         return this.getModel().removeHoras(idUser);
+    }
+    
+    public boolean removeHorasSemanais(String idUser, String dataSemana) 
+    {
+        return this.getModel().removeHorasSemanais(idUser, dataSemana);
     }
     
 }
